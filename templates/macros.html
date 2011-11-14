@@ -1,0 +1,4 @@
+{% macro script(filename) %}
+<script type='text/javascript' src='{{url_for('static',filename=filename)}}'></script>
+{% endmacro %}
+
