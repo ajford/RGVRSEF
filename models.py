@@ -38,7 +38,7 @@ class Project(db.Model):
     title = db.Column(db.String(250))
     individual = db.Column(db.Boolean, default=True)
     student = db.relationship("Student",
-            backref=backref('project',uselist=False),lazy='dynamic')
+            backref=db.backref('project',uselist=False),lazy='dynamic')
     team = db.relationship("Student",backref='project',lazy='dynamic')
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     #division = db.Column(db.Integer, default=1)
@@ -73,7 +73,7 @@ class Sponsor(db.Model):
         return {'id': self.id, 'firstname': self.firstname,
                 'lastname': self.lastname, 'email': self.email,
                 'relation': self.relation, 'phone': self.phone,
-                'students' = [x.id for x in self.students.all()]}
+                'students': [x.id for x in self.students.all()]}
 
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
