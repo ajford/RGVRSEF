@@ -4,18 +4,27 @@ TODO
 Models
 ------
 
-Need to define models.
+Models are defined. Need some testing and review for logic and good sense.
 
-    Probable models:
+Models are:
+* Student
+* Project
+* Sponsor
+* Category
+* School
+* District
 
-    * Student
-    * Project
-        - foreign key to Student(s)
+Relations:
+* School -> District (Many to One)
+* Student -> School (Many to One)
+* Student -> Sponsor (Many to One)
+* Student -> Project (One to One (team leader) and Many to One(team))
+* Project -> Category (Many to One)
 
-    Possible Others:
+Basic run though of registration process within a python shell might reveal
+any logic problems with the current layout. Are the relations over-constrained? 
 
-    * School
-    * District
+
 
 Views
 -----
