@@ -3,11 +3,11 @@ import re
 from flask import Flask, make_response,redirect, url_for, render_template,json
 from werkzeug import ImmutableDict
 
+app = Flask(__name__)
+
 from models import *
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////test.db'
-app.config['URLBASE'] = 'http://localhost:5000'
+app.config.from_object('config')
 jinja_options = dict(app.jinja_options)
 jinja_options.update({'trim_blocks':True})
 app.jinja_options = ImmutableDict(jinja_options)
