@@ -37,9 +37,7 @@ class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(250))
     individual = db.Column(db.Boolean, default=True)
-    student = db.relationship("Student",
-            backref=db.backref('project',uselist=False),lazy='dynamic')
-    team = db.relationship("Student",backref='project',lazy='dynamic')
+    student = db.relationship("Student",backref='project',lazy='dynamic')
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     #division = db.Column(db.Integer, default=1)
     division = db.Column(db.String(5), default='')

@@ -18,7 +18,7 @@ Relations:
 * School -> District (Many to One)
 * Student -> School (Many to One)
 * Student -> Sponsor (Many to One)
-* Student -> Project (One to One (team leader) and Many to One(team))
+* Student -> Project (Many to One)
 * Project -> Category (Many to One)
 
 Basic run though of registration process within a python shell might reveal
