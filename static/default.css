@@ -1,6 +1,64 @@
+body
+{
+	width:800px;
+	margin-left:auto;
+	margin-right:auto;
+}
 .warning
 {
     color: red;
     font-weight: bold;
 }
+.header
+{
+	position:absolute;
+	top:0px;
+	height:100px;
+}
+.content
+{
+	position:absolute;
+	top:100px;
+}
+.news
+{
+	position:relative;
+	top:0px;
+	left:0px;
+	float:left;
+	width:400px;
+}
+.deadlines
+{
+	position:relative;
+	top:0px;
+	width:400px;
+	float:right;
+	text-align:center;
+}
+.locations
+{
+	position:relative;
+	clear:both;
+	text-align:center;
+}
+.start
+{
+	position:relative;
+	left:100px;
+	width:500px;
+	text-align:center;
+}
+.footer
+{
+	position:fixed;
+	background-color:white;
+	width:400px;
+	bottom:0px;	
+	left:0px;
+	text-align:center;
+	font-size:small;
+}
+	
+
 

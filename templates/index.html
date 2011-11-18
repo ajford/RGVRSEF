@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% block content %}
+
+		<div class="news">
+		<b>Breaking News</b> <br />
+		This is a test run! <br />
+		I repeat this is a test <br />
+		</div>
+
+		<div class="deadlines">
+		<b>DEADLINES</b> <br />
+		{% for deadline in deadlines -%}
+		{{deadline.date.strftime("%b %d")}}. - {{deadline.text}}
+		{%- endfor %}	
+		</div>
+
+		<div class="locations">
+		<table class="locations" cellspacing="40">
+		<tr>
+		<th>		
+			High School Science Fair
+		</th>
+		<th>
+			Middle School Science Fair
+		</th>
+		</tr>	
+		<tr>
+		<td>Location: Itec <br />
+		Address :  <br />
+		Phone   :  <br />
+		</td>
+		<td>Location: Garza Gym  <br />
+		Address :  <br />
+		Phone   :  <br />
+		</td>
+		</tr>
+		</table>
+		</div>
+
+		<div class="start">
+		If you are ready to begin registration, please click the button below	
+			<form>
+				<input type="submit" value="Start Registration">
+			</form>
+		</div>
+
+{% endblock content %}

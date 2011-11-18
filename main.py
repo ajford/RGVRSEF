@@ -1,4 +1,5 @@
 import re
+from datetime import date
 
 from flask import Flask, make_response,redirect, url_for, render_template,json
 from werkzeug import ImmutableDict
@@ -39,4 +40,5 @@ def NYI():
            
 @app.route('/')
 def index():
-    return NYI()
+    deadlines = [{'text':'Christmas Eve','date':date(2011,12,24)}]
+    return render_template("index.html",deadlines=deadlines)
