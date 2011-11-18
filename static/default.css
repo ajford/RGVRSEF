@@ -20,6 +20,10 @@ body
 	position:absolute;
 	top:100px;
 }
+.nobullet
+{
+    list-style-type: none;
+}
 .news
 {
 	position:relative;

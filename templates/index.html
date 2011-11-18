@@ -9,9 +9,11 @@
 
 		<div class="deadlines">
 		<b>DEADLINES</b> <br />
-		{% for deadline in deadlines -%}
-		{{deadline.date.strftime("%b %d")}}. - {{deadline.text}}
-		{%- endfor %}	
+        <ul class='nobullet'>
+        {% for deadline in deadlines -%}
+        <li>{{deadline.date.strftime("%b. %d")}} - {{deadline.text}}</li>
+        {%- endfor %}	
+        </ul>
 		</div>
 
 		<div class="locations">

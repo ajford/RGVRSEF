@@ -40,5 +40,5 @@ def NYI():
            
 @app.route('/')
 def index():
-    deadlines = Deadline.query.order_by(Deadline.date.desc()).all()
+    deadlines = Deadline.query.order_by(Deadline.date).all()
     return render_template("index.html",deadlines=deadlines)
