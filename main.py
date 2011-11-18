@@ -40,5 +40,5 @@ def NYI():
            
 @app.route('/')
 def index():
-    deadlines = [{'text':'Christmas Eve','date':date(2011,12,24)}]
+    deadlines = Deadline.query.order_by(Deadline.date.desc()).all()
     return render_template("index.html",deadlines=deadlines)
