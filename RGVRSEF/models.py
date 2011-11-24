@@ -1,7 +1,7 @@
 
 from flaskext.sqlalchemy import SQLAlchemy
 
-from main import app
+from RGVRSEF import app
 
 db = SQLAlchemy(app)
 

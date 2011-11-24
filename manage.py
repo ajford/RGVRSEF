@@ -4,8 +4,8 @@ import subprocess
 from datetime import date,timedelta
 
 from flaskext.script import Manager,Server
-from main import app
-from models import *
+from RGVRSEF import app
+import RGVRSEF.models as models
 
 manager = Manager(app)
 manager.add_command("runserver", Server())

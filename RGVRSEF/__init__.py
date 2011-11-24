@@ -6,9 +6,9 @@ from werkzeug import ImmutableDict
 
 app = Flask(__name__)
 
-from models import *
+from .models import *
 
-app.config.from_object('config')
+app.config.from_object('RGVRSEF.config')
 jinja_options = dict(app.jinja_options)
 jinja_options.update({'trim_blocks':True})
 app.jinja_options = ImmutableDict(jinja_options)
@@ -42,3 +42,4 @@ def NYI():
 def index():
     deadlines = Deadline.query.order_by(Deadline.date).all()
     return render_template("index.html",deadlines=deadlines)
+
