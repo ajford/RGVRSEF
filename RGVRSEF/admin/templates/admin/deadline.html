@@ -1,19 +1,20 @@
 {% extends "admin/layout.html" %}
-
+{% from  "admin/macros.html" import script,css %}
 {% block css %}
-<link rel="stylesheet" type="text/css" media="all" href="{{url_for('.static',filename='android.css')}}" />
+{{ css('white.css','.static') }}
 {{ super() }}
 {% endblock css %}
 
 {% block scripts %}
-<script type="text/javascript" src="{{url_for('.static',filename='jquery.min.js')}}"></script>
-<script type="text/javascript" src="{{url_for('.static',filename='glDatePicker.js')}}"></script>
+{{ script('jquery.min.js','.static') }}
+{{ script('glDatePicker.js','.static') }}
+
 <script type="text/javascript">
     $(document).ready(function()
     {
         $("#date").glDatePicker(
         {
-            cssName: "android",
+            cssName: "white",
             allowOld: false,
             position: "fixed",
             onChange: function(target, newDate)
@@ -40,7 +41,12 @@
         <tr><td>{{form.date.label}}</td>
             <td width='300'>{{form.date()}}</td></tr>
         
-        <tr><td></td><td><input type='submit' value='Submit'></td></tr>
+        <tr><td><input type='submit' value='Submit'></td>
+            {% if id %}
+            <td><a href="{{ url_for('.deletedeadline',id=id)}}">
+                    <input type='button' value='Delete'></a></td>
+            {% endif %}
+        </tr>
     </table>
 </form>
 {% endblock content %}

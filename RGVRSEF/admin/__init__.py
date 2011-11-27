@@ -29,7 +29,7 @@ def index():
 @login_required
 def deadlines():
     #deadlines = Deadline.query.filter(Deadline.date>=date.today())
-    deadlines = Deadline.query.all()
+    deadlines = Deadline.query.order_by('date').all()
     return render_template('admin/deadlines.html',deadlines=deadlines)
 
 @admin.route('/deadline/<int:id>', methods=["GET","POST"])
@@ -40,12 +40,21 @@ def deadline(id):
     deadline_form = Deadline_form(obj=deadline_obj)
     if request.method == "GET":
         return render_template('admin/deadline.html',form=deadline_form,
-                                target=url_for('.deadline',id=id))
+                                target=url_for('.deadline',id=id),id=id)
     else:
         deadline_form.populate_obj(deadline_obj)
         db.session.commit()
         flash('Deadline successfully updated.','info')
         return redirect(url_for('.deadlines'))
+
+@admin.route('/deletedeadline/<int:id>', methods=["GET","POST"])
+@login_required
+def deletedeadline(id):
+    deadline_obj = Deadline.query.get_or_404(id)
+    db.session.delete(deadline_obj)
+    db.session.commit()
+    flash('Deadline successfully deleted.','info')
+    return redirect(url_for('.deadlines'))
 
 @admin.route('/newdeadline', methods=["GET","POST"])
 @login_required
@@ -65,7 +74,18 @@ def newdeadline():
 @admin.route('/projects')
 @login_required
 def projects():
-    return NYI() 
+    projects = Project.query.all()
+    return render_template('admin/projects.html',projects=projects)
+
+@admin.route('/project/<int:id>')
+@login_required
+def project():
+    return NYI()
+
+@admin.route('/download/csv')
+@login_required
+def downloadcsv():
+    return NYI()
 
 @admin.route('/news')
 @login_required

@@ -1,0 +1,15 @@
+{% extends "admin/layout.html" %}
+{% block content %}
+<h4>{{get_flashed_messages()[0]}}</h4>
+<table class='compact'>
+    {% for project in projects -%}
+    <tr><td><a href="{{url_for('.project',id=project.id)}}">
+                {{project.title}}</a></td>
+        <td>{{project.category.name}}</td>
+        <td>{{project.individual}}</td></tr>
+    {% else %}
+    <tr><td>No Projects</td></tr>
+    {%- endfor %}
+    <tr></tr>
+</table>
+{% endblock content %}

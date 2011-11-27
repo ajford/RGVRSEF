@@ -1,4 +1,7 @@
-{% macro script(filename) %}
-<script type='text/javascript' src='{{url_for('static',filename=filename)}}'></script>
-{% endmacro %}
+{% macro script(filename,endpoint='static') -%}
+<script type='text/javascript' src='{{url_for(endpoint,filename=filename)}}'></script>
+{%- endmacro %}
 
+{% macro css(filename,endpoint='static') -%}
+<link rel="stylesheet" type="text/css" media="all" href="{{url_for(endpoint,filename=filename)}}" />
+{%- endmacro %}

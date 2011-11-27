@@ -16,6 +16,13 @@
         </div>
         {% block body %}
         <div class='content'>
+        <table><tr>
+                <th><a href="{{ url_for('.index')}}">Admin Home</a></th>
+                <th><a href="{{url_for('.deadlines')}}">Deadlines</a></th>
+                <th><a href="{{url_for('.projects')}}">Projects</a></th>
+                <th><a href="{{url_for('.news')}}">News</a></th>
+        </tr></table>
+
         {% block content %}
         {% endblock content %}
         </div>

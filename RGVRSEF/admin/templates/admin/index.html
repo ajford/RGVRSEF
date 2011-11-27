@@ -1,14 +1,6 @@
 {% extends "admin/layout.html" %}
 {% block content %}
-<div class='nav'>
-    Navigation
-    <ul class='nobullet'>
-        <li><a href="{{url_for('.deadlines')}}">Deadlines</a></li>
-        <li><a href="{{url_for('.projects')}}">Projects</a></li>
-        <li><a href="{{url_for('.news')}}">News</a></li>
-    </ul>
-</div>
-<div class='demographics'>
+<div class='stats'>
     <table class='compact'>
         <tr><th colspan=3>Registrants by Division</th></tr>
         <tr><th>Senior</th><td>Total: {{ seniors.count() }}</td></tr>
@@ -33,4 +25,7 @@
             <td>{{juniors.filter_by(electricity=1).count()}}</td></tr>
     </table>
 </div>
+<div class="downloads">
+    <ul class='nobullet'>
+       <li><a href="{{url_for('.downloadcsv')}}">Download as CSV</a></li>
 {% endblock content %}
