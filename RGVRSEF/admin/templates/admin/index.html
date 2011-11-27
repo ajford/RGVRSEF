@@ -1,0 +1,36 @@
+{% extends "admin/layout.html" %}
+{% block content %}
+<div class='nav'>
+    Navigation
+    <ul class='nobullet'>
+        <li><a href="{{url_for('.deadlines')}}">Deadlines</a></li>
+        <li><a href="{{url_for('.projects')}}">Projects</a></li>
+        <li><a href="{{url_for('.news')}}">News</a></li>
+    </ul>
+</div>
+<div class='demographics'>
+    <table class='compact'>
+        <tr><th colspan=3>Registrants by Division</th></tr>
+        <tr><th>Senior</th><td>Total: {{ seniors.count() }}</td></tr>
+        <tr><td></td>
+            <td>Floor</td>
+            <td>{{seniors.filter_by(table=False).count()}}</td></tr>
+        <tr><td></td>
+            <td>Table</td>
+            <td>{{seniors.filter_by(table=True).count()}}</td></tr>
+        <tr><td></td>
+            <td>Elect.</td>
+            <td>{{seniors.filter_by(electricity=1).count()}}</td></tr>
+        <tr><th>Junior</th><td>Total: {{ juniors.count() }}</td></tr>
+        <tr><td></td>
+            <td>Floor</td>
+            <td>{{juniors.filter_by(table=False).count()}}</td></tr>
+        <tr><td></td>
+            <td>Table</td>
+            <td>{{juniors.filter_by(table=True).count()}}</td></tr>
+        <tr><td></td>
+            <td>Elect.</td>
+            <td>{{juniors.filter_by(electricity=1).count()}}</td></tr>
+    </table>
+</div>
+{% endblock content %}

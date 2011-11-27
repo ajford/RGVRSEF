@@ -1,0 +1,129 @@
+/*
+	glDatePicker style inspired by the calendar app in FireFly 3.0 rom
+
+	http://code.gautamlad.com/glDatePicker/
+	https://github.com/glad/glDatePicker/
+	http://forum.xda-developers.com/showthread.php?t=914284
+*/
+
+/* Calendar container div */
+.gldp-cal
+{
+	float:left;
+	font-family:"trebuchet ms" !important;
+	background-color:#222 !important;
+	font-size:0.8em !important;
+	font-weight:bold !important;
+	border:solid 1px #222;
+}
+
+/* Table style */
+.gldp-cal table
+{
+	border-spacing:1px;
+	border-collapse:inherit;
+}
+
+/* Default row height */
+.gldp-cal tr
+{
+	line-height:28px;
+}
+
+/* Default style of cell */
+.gldp-cal td
+{
+	margin:0;
+	padding:0;
+	width:33px;
+	text-align:center;
+}
+
+/* Previous and Next arrows */
+.gldp-cal-prevnext
+{
+	font-family:"times new roman";
+	background-color:#222;
+	color:#fff;
+	cursor:pointer;
+}
+
+/* Month Year title */
+.gldp-cal-monyear
+{
+	background-color:#222;
+	color:#fff;
+	font-size:0.9em;
+}
+
+/* Days of the week (Sun, Mon, ...) */
+.gldp-cal-dow
+{
+	background-color:#424852;
+	color:#ddd;
+	font-size:0.8em;
+}
+
+/* Selectable days */
+.gldp-cal-day
+{
+	background-color:#000;
+	color:#fff;
+	border:solid 1px #000;
+}
+.gldp-cal-day-hover
+{
+	background-color:#000;
+	color:#fff;
+	border:solid 1px #00afff;
+	cursor:pointer;
+}
+
+/* Selected days */
+.gldp-cal-selected
+{
+	background-color:#024;
+	color:#fff;
+	border:solid 1px #008faf;
+	cursor:wait;
+}
+
+/* Today */
+.gldp-cal-today
+{
+	background-color:#00afff;
+	color:#fff;
+	border:solid 1px #00afff;
+}
+.gldp-cal-today-hover
+{
+	background-color:#fff;
+	color:#00afff;
+	border:solid 1px #00afff;
+	cursor:pointer;
+}
+
+/* Weekends */
+.gldp-cal-sat, .gldp-cal-sat-hover
+{
+	background-color:#000;
+	color:#00afff;
+	border:solid 1px #000;
+}
+
+.gldp-cal-sun, .gldp-cal-sun-hover
+{
+	background-color:#000;
+	color:#ff4f00;
+	border:solid 1px #000;
+}
+
+/* Non-selectable day.  Includes: previous/next month days and days that fall in the allowOld and endDate conditions */
+.gldp-cal-noday
+{
+	background-color:#222;
+	border:solid 1px #222;
+	color:#666;
+	font-weight:normal;
+	cursor:wait;
+}

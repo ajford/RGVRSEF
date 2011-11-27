@@ -7,6 +7,7 @@ from werkzeug import ImmutableDict
 app = Flask(__name__)
 
 from .models import *
+from .admin import admin as admin_blueprint
 
 app.config.from_object('RGVRSEF.config')
 jinja_options = dict(app.jinja_options)
@@ -43,3 +44,4 @@ def index():
     deadlines = Deadline.query.order_by(Deadline.date).all()
     return render_template("index.html",deadlines=deadlines)
 
+app.register_blueprint(admin_blueprint, url_prefix='/admin')

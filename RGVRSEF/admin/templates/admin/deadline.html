@@ -1,0 +1,47 @@
+{% extends "admin/layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" media="all" href="{{url_for('.static',filename='android.css')}}" />
+{{ super() }}
+{% endblock css %}
+
+{% block scripts %}
+<script type="text/javascript" src="{{url_for('.static',filename='jquery.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('.static',filename='glDatePicker.js')}}"></script>
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        $("#date").glDatePicker(
+        {
+            cssName: "android",
+            allowOld: false,
+            position: "fixed",
+            onChange: function(target, newDate)
+            {
+                target.val
+                (
+                    newDate.getFullYear() + "-" +
+                    (newDate.getMonth() + 1) + "-" +
+                    newDate.getDate()
+                );
+            }
+
+        });
+    });
+</script>
+
+{% endblock scripts %}
+
+{% block content %}
+<form action='{{ target }}' method='POST'>
+    <table>
+        <tr><td>{{form.text.label}}</td>
+            <td>{{form.text()}}</td></tr>
+        <tr><td>{{form.date.label}}</td>
+            <td width='300'>{{form.date()}}</td></tr>
+        
+        <tr><td></td><td><input type='submit' value='Submit'></td></tr>
+    </table>
+</form>
+{% endblock content %}
+

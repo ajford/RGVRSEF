@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+<form action="{{ url_for('.login') }}" method="POST">
+    <h4>{{get_flashed_messages()|join(",")}}</h4>
+    <table>
+        <tr><td>Username</td><td><input type='text' name='username'></td></tr>
+        <tr><td>Password</td><td><input type='text' name='password'></td></tr>
+        <tr><td><input type='submit' value='Log in'></td></tr>
+    </table>
+</form>
+
+{% endblock content %}
