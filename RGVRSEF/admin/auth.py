@@ -1,3 +1,4 @@
+from hashlib import sha256
 
 from flask import Blueprint, render_template, abort, request, url_for,\
                   flash, redirect
@@ -39,7 +40,6 @@ def login():
         user = check_login(username,request.form.get("password",""))
         if user is not None:
             if login_user(user):
-                flash("Logged in successfully")
                 return redirect(request.args.get("next") or url_for(".index"))
         else:
             flash("Sorry, your information did not match our records.")
@@ -62,6 +62,6 @@ def reauth():
 @login_required
 def logout():
     logout_user()
-    flash("Logged out.")
+    #flash("Logged out.")
     return redirect(url_for("index"))
 

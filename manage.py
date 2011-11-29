@@ -50,18 +50,20 @@ def builddb():
 @manager.command
 def admin():
     rootpasswd = sha256(prompt_pass("Please enter admin password")).hexdigest()
-    if rootpasswd == Admin.query.filter_by(username='root').first().password:
+    if rootpasswd == admin_models.Admin.query.filter_by(username='root').\
+                    first().password:
         username = None
         while username is None:
-            passwd = prompt("Please enter new admin username")
+            username = prompt("Please enter new admin username")
         passwd = None
         while passwd is None:
             passwd = prompt_pass("Please enter new admin password")
             passwd_confirm = prompt_pass("Please confirm password")
             if passwd != passwd_confirm:
+                print "Passwords do not match."
                 passwd = None
-        db.session.add(admin_models.Admin(username,passwd,True))
-        db.session.commit()
+        models.db.session.add(admin_models.Admin(username,passwd,True))
+        models.db.session.commit()
 
 
 
