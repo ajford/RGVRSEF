@@ -26,3 +26,11 @@ class Sponsor(Info):
     relation = TextField('Relation to student', 
             validators=[Required(),Length(3)])
     phone = TextField('Phone', validators=[Required(),Length(3)])
+
+class School(Form):
+    name = TextField('School Name', validators=[Required(),Length(3)])
+    address = TextField('Address', validators=[Required(),Length(3)])
+    city = TextField('City', validators=[Required(),Length(3)])
+    zipcode = TextField('Zip Code', validators=[Required(),Length(5,10)])
+    phone = TextField('Phone', validators=[Required(),Length(10)])
+    fax = TexField('Fax', validators=[Required(),Length(10)])
