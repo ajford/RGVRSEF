@@ -23,14 +23,12 @@ class Student(Info):
             validators=[Required()])
 
 class Sponsor(Info):
-    relation = TextField('Relation to student', 
-            validators=[Required(),Length(3)])
+    relation = SelectField('Relation to student', 
+            validators=[Required()],
+            choices=[('teach','Teacher'),('parent','Parent'),('friend','Friend')])
     phone = TextField('Phone', validators=[Required(),Length(3)])
 
-class School(Form):
+class SchoolInfo(Form):
     name = TextField('School Name', validators=[Required(),Length(3)])
-    address = TextField('Address', validators=[Required(),Length(3)])
-    city = TextField('City', validators=[Required(),Length(3)])
-    zipcode = TextField('Zip Code', validators=[Required(),Length(5,10)])
     phone = TextField('Phone', validators=[Required(),Length(10)])
-    fax = TexField('Fax', validators=[Required(),Length(10)])
+    fax = TextField('Fax', validators=[Required(),Length(10)])

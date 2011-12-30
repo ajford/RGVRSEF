@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+
+Hello please fill out the following form: 
+<form method="POST" action="sponsor">
+	{{ form.csrf }}
+	<div> {{ form.firstname.label }}:{{ form.firstname }} </div>
+	<div> {{ form.lastname.label }}:{{ form.lastname }} </div>
+	<div> {{ form.email.label }}:{{ form.email }} </div>
+	<div> {{ form.relation.label }}:{{ form.relation }} </div>
+	<div> {{ form.phone.label }}:{{ form.phone }} </div>
+	<input type="submit" Value="Submit">
+</form>
+
+{% endblock content %}
