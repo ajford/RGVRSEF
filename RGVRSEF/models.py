@@ -131,3 +131,16 @@ class Deadline(db.Model):
     def __repr__(self):
         return "<Deadline %s - %s>"%(self.text,self.date.strftime("%Y-%m-%d"))
 
+class News(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(150))
+    text = db.Column(db.Text())
+    date = db.Column(db.Date)
+
+    def __init__(self,title,text,date):
+        self.title = title.strip()
+        self.text = text.strip()
+        self.date = date
+
+    def __repr__(self):
+        return "<News %s - %s>"%(self.title,self.date.strftime("%Y-%m-%d")) 
