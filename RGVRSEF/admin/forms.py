@@ -2,7 +2,7 @@
 from flaskext.wtf import (Form, TextField, TextAreaField,DateField, Required, 
                         Length )
 
-class Deadline(Form):
+class DeadlineForm(Form):
     text = TextField('Deadline Text', validators=[Required(),Length(3)])
     date = DateField('Deadline Date', validators=[Required()])
 

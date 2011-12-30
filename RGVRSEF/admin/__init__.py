@@ -7,7 +7,7 @@ from flaskext.login import current_user, login_required, fresh_login_required
 
 from RGVRSEF import app
 from RGVRSEF.models import *
-from .forms import Deadline as Deadline_form, NewsForm
+from .forms import DeadlineForm, NewsForm
 
 def NYI():
     return render_template('admin/message.html', message="Not Yet Implemented")
@@ -37,7 +37,7 @@ def deadlines():
 def deadline(id):
     date_obj = date.today()
     deadline_obj = Deadline.query.get_or_404(id)
-    deadline_form = Deadline_form(obj=deadline_obj)
+    deadline_form = DeadlineForm(obj=deadline_obj)
     if request.method == "GET":
         return render_template('admin/deadline.html',form=deadline_form,
                                 target=url_for('.deadline',id=id),id=id)
@@ -59,7 +59,7 @@ def deletedeadline(id):
 @admin.route('/newdeadline', methods=["GET","POST"])
 @login_required
 def newdeadline():
-    deadline_form = Deadline_form()
+    deadline_form = DeadlineForm()
     if request.method == "GET":
         return render_template('admin/deadline.html',form=deadline_form,
                                 target=url_for('.newdeadline'))
