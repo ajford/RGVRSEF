@@ -12,5 +12,5 @@ class NewsForm(Form):
     date = DateField('Date', validators=[Required()])
 
 class DistrictForm(Form):
-    name = TextField('Deadline Name', validators=[Required(),Length(3)])
+    name = TextField('Districts Name', validators=[Required(),Length(3)])
 
