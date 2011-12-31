@@ -1,0 +1,61 @@
+{% extends "admin/layout.html" %}
+{% from  "admin/macros.html" import script,css %}
+{% block css %}
+{{ css('white.css','.static') }}
+{{ super() }}
+{% endblock css %}
+
+{% block scripts %}
+{{ script('jquery.min.js','.static') }}
+{{ script('glDatePicker.js','.static') }}
+
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        $("#date").glDatePicker(
+        {
+            cssName: "white",
+            allowOld: false,
+            position: "fixed",
+            startDate: new Date(),
+            onChange: function(target, newDate)
+            {
+                target.val
+                (
+                    newDate.getFullYear() + "-" +
+                    (newDate.getMonth() + 1) + "-" +
+                    newDate.getDate()
+                );
+            }
+
+        });
+    });
+</script>
+
+{% endblock scripts %}
+
+{% block content %}
+<form action='{{ target }}' method='POST'>
+    <table>
+        <tr><td>{{form.title.label}}</td>
+            <td>{{form.title()}}</td></tr>
+        <tr><td>{{form.text.label}}</td>
+            <td>{{form.text(cols=50,rows=10)}}</td></tr>
+        <tr><td>{{form.date.label}}</td>
+            {% if today %}
+            <td width='300'>{{form.date(value=today.strftime("%Y-%m-%d"))}}
+            </td></tr>
+            {% else %}
+            <td width='300'>{{form.date()}}</td></tr>
+            {% endif %}
+        
+        <tr><td><input type='submit' value='Submit'></td>
+            {% if id %}
+            <td><a href="{{ url_for('.deletenews',id=id)}}">
+                    <input type='button' value='Delete'></a></td>
+            {% endif %}
+        </tr>
+    </table>
+</form>
+{% endblock content %}
+
