@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <a href="{{url_for('index')}}">Return Home</a>
+    <dl class='newslist'>
+    {% for newsitem in news %}
+        <dt>{{ newsitem.title }} -- 
+        {{ newsitem.date.strftime("%b. %d") }}</dt>
+        <dd>{{ newsitem.text }}</dd>
+    {% else %}
+        <dt> Sorry, there seems to be no news items. </dt>    
+    {% endfor %}
+    </dl>
+{% endblock content %}
+

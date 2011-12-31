@@ -2,13 +2,19 @@
 {% block content %}
 
 		<div class="news">
-		<b>Breaking News</b> <br />
-		This is a test run! <br />
-		I repeat this is a test <br />
+            <h3>Recent News:</h3>
+            {% if news %}
+            <h4>{{ news.title }} -- {{ news.date.strftime("%b. %d") }}</h4>
+            <p>{{ news.text }}</p>
+            <a href="{{url_for('news')}}">
+                <span class="right">Past News Items</span></a>
+            {% else %}
+            <p>The seems to be no news at this time.</p>
+            {% endif %}
 		</div>
 
 		<div class="deadlines">
-		<b>DEADLINES</b> <br />
+		<h3>DEADLINES</h3> <br />
         <ul class='nobullet'>
         {% for deadline in deadlines -%}
         <li>{{deadline.date.strftime("%b. %d")}} - {{deadline.text}}</li>

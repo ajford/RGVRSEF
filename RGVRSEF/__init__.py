@@ -43,7 +43,13 @@ def NYI():
 @app.route('/')
 def index():
     deadlines = Deadline.query.order_by(Deadline.date).all()
-    return render_template("index.html",deadlines=deadlines)
+    news = News.query.order_by(News.date.desc()).first()
+    return render_template("index.html", deadlines=deadlines, news=news)
+
+@app.route('/news')
+def news():
+    news = News.query.order_by(News.date).all()
+    return render_template("news.html", news=news)
 
 @app.route('/school',methods=['GET','POST'])
 def school():
