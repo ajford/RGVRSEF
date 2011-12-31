@@ -85,3 +85,8 @@ body
 {
     clear: both;
 }
+.adminNav th
+{
+    padding-left:5px;
+    padding-right:5px;
+}

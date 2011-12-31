@@ -17,6 +17,7 @@
         {% endif %}
     {% endfor %}
     </ul>
+    <div class="clear"></div>
     <ul class="sideways"><li>Category:</li>
     {% for cat in cats %}
         {% if cat_narrow != cat_id %}
@@ -28,7 +29,8 @@
     {% else %}
         <li>No Categories</li>
     {% endfor %}
-</ul>
+    </ul>
+    <div class="clear"></div>
 {% endmacro %}
 
 

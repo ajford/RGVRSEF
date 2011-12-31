@@ -1,0 +1,27 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+<form action='{{ target }}' method='POST'>
+    <table>
+        <tr><td>{{form.name.label}}</td>
+            <td>{{form.name()}}</td></tr>
+        
+        <tr><td><input type='submit' value='Submit'></td>
+            {% if id %}
+            <td><a href="{{ url_for('.deletedistrict',id=id)}}">
+                    <input type='button' value='Delete'></a></td>
+            {% endif %}
+        </tr>
+    </table>
+</form>
+<table>
+    {% for school in schools %}
+    <tr><td><a href="{{url_for('.school',id=school.id)}}">
+            {{ school.name }}</a></td>
+        <td>{{ school.students.count() }} students</td></tr>
+    {% else %}
+    <tr><td>No schools registered to this district yet</td></tr>
+    {% endfor %}
+</table>
+{% endblock content %}
+

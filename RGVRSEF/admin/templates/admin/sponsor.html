@@ -1,0 +1,15 @@
+{% extends "admin/layout.html" %}
+{% from "admin/macros.html" import render_sponsor_narrow %}
+{% block content %}
+<h4>{{get_flashed_messages()[0]}}</h4>
+<div class='clear'></div>
+<table class='compact'>
+    <tr><td>{{sponsor.lastname}}, {{sponsor.firstname}}</td>
+        <td><a href="{{url_for('.school',id=sponsor.school.id)}}">
+            {{sponsor.school.name}}</a></td>
+    </tr>
+    <tr><td>Email:<br/>{{sponsor.email}}</td></tr>
+    <tr><td>Phone:<br/>{{sponsor.phone}}</td></tr>
+    </tr>
+</table>
+{% endblock content %}

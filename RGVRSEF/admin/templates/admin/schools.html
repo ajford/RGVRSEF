@@ -1,0 +1,15 @@
+{% extends "admin/layout.html" %}
+{% block content %}
+<h4>{{get_flashed_messages()[0]}}</h4>
+<div class='clear'></div>
+<table class='compact'>
+    {% for school in schools %}
+    <tr><td>{{school.name}} ({{school.sponsors.count()}} sponsors)</td>
+        <td><a href="{{url_for('.district',id=school.district.id)}}">
+            {{school.district.name}}</a></td>
+    </tr>
+    {% else %}
+    <tr><td>No schools yet</td></tr>
+    {% endfor %}
+</table>
+{% endblock content %}

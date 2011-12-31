@@ -62,6 +62,8 @@ class Sponsor(db.Model):
     email = db.Column(db.String(150))
     relation = db.Column(db.String(150))
     phone = db.Column(db.String(15))
+    password = db.Column(db.String(30))
+    school_id = db.Column(db.Integer,db.ForeignKey('school.id'))
     students = db.relationship('Student', backref='sponsor',lazy='dynamic')
 
     def __repr__(self):
@@ -92,6 +94,7 @@ class School(db.Model):
     fax = db.Column(db.String(15))
     district_id = db.Column(db.Integer, db.ForeignKey('district.id'))
     students = db.relationship('Student', backref='school',lazy='dynamic')
+    sponsors = db.relationship('Sponsor', backref='school',lazy='dynamic')
 
     def __init__(self,name,phone,fax,district_id):
         self.name = name.strip()
@@ -109,6 +112,7 @@ class School(db.Model):
 class District(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
+    schools = db.relationship('School', backref='district',lazy='dynamic')
 
     def __init__(self,name):
         self.name = name.strip()
@@ -144,3 +148,4 @@ class News(db.Model):
 
     def __repr__(self):
         return "<News %s - %s>"%(self.title,self.date.strftime("%Y-%m-%d")) 
+
