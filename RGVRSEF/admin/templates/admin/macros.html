@@ -5,3 +5,31 @@
 {% macro css(filename,endpoint='static') -%}
 <link rel="stylesheet" type="text/css" media="all" href="{{url_for(endpoint,filename=filename)}}" />
 {%- endmacro %}
+
+{%macro render_project_narrow(cats,div_narrow,cat_narrow,endpoint='projects')%}
+    <ul class="sideways"><li>Division:</li> 
+    {% for div in ['senior','junior'] %}
+        {% if div_narrow != div %}
+        <li><a href="{{url_for(endpoint,category=cat_narrow,division=div)}}">
+            {{div|title}}</a></li>
+        {% else %}
+        <li>{{div|title}}</li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+    <ul class="sideways"><li>Category:</li>
+    {% for cat in cats %}
+        {% if cat_narrow != cat_id %}
+        <li><a href="{{url_for(endpoint,category=cat.id,division=div_narrow)}}">
+            {{cat.name|title}}</a></li>
+        {% else %}
+        <li>{{cat.name|title}}</li>
+        {% endif %}
+    {% else %}
+        <li>No Categories</li>
+    {% endfor %}
+</ul>
+{% endmacro %}
+
+
+    

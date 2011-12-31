@@ -70,12 +70,18 @@ def newdeadline():
         flash('Deadline successfully created.','info')
         return redirect(url_for('.deadlines'))
 
-
 @admin.route('/projects')
 @login_required
 def projects():
-    projects = Project.query.all()
-    return render_template('admin/projects.html',projects=projects)
+    categories = Category.query.order_by('name').all()
+    projects = Project.query
+    if request.args.get('category',None): 
+        projects = projects.filter_by(category_id = request.args['category']) 
+    if request.args.get('division',None):
+        projects = projects.filter_by(division = request.args['division']) 
+    projects = projects.all()
+    return render_template('admin/projects.html', projects=projects, 
+                            categories=categories,endpoint='.projects')
 
 @admin.route('/project/<int:id>')
 @login_required
