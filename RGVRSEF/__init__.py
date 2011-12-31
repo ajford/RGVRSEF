@@ -54,6 +54,8 @@ def news():
 @app.route('/school',methods=['GET','POST'])
 def school():
     form = SchoolInfo(request.form)
+    form.district_id.choices = [(d.id,d.name) for d 
+        in District.query.order_by('name')]
     if request.method=="POST" and form.validate():
         info=School(form.name.data,form.phone.data,form.fax.data,1)
         db.session.add(info)
