@@ -68,11 +68,7 @@ def sponsor():
     form = Sponsor(request.form)
     if request.method=="POST" and form.validate():
         user=models.Sponsor()
-        user.firstname = form.firstname.data
-        user.lastname = form.lastname.data
-        user.email = form.email.data
-        user.relation = form.relation.data
-        user.phone = form.phone.data
+        form.populate_obj(user)
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('sponsor'))
