@@ -10,3 +10,7 @@ class NewsForm(Form):
     title = TextField('Title', validators=[Required(),Length(3)])
     text = TextAreaField('Text', validators=[Required(),Length(3)])
     date = DateField('Date', validators=[Required()])
+
+class DistrictForm(Form):
+    name = TextField('Deadline Name', validators=[Required(),Length(3)])
+

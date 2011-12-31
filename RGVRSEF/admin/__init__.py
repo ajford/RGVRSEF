@@ -7,7 +7,7 @@ from flaskext.login import current_user, login_required, fresh_login_required
 
 from RGVRSEF import app
 from RGVRSEF.models import *
-from .forms import DeadlineForm, NewsForm
+from .forms import DeadlineForm, NewsForm, DistrictForm
 
 def NYI():
     return render_template('admin/message.html', message="Not Yet Implemented")
@@ -70,17 +70,96 @@ def newdeadline():
         flash('Deadline successfully created.','info')
         return redirect(url_for('.deadlines'))
 
-
 @admin.route('/projects')
 @login_required
 def projects():
-    projects = Project.query.all()
-    return render_template('admin/projects.html',projects=projects)
+    categories = Category.query.order_by('name').all()
+    projects = Project.query
+    if request.args.get('category',None): 
+        projects = projects.filter_by(category_id = request.args['category']) 
+    if request.args.get('division',None):
+        projects = projects.filter_by(division = request.args['division']) 
+    projects = projects.all()
+    return render_template('admin/projects.html', projects=projects, 
+                            categories=categories,endpoint='.projects')
 
 @admin.route('/project/<int:id>')
 @login_required
-def project():
+def project(id):
     return NYI()
+
+
+@admin.route('/sponsors')
+@login_required
+def sponsors():
+    sponsors = Sponsor.query.order_by('lastname').all()
+    return render_template('admin/sponsors.html',sponsors=sponsors)
+
+
+@admin.route('/sponsor/<int:id>')
+@login_required
+def sponsor(id):
+    sponsor = Sponsor.query.get(id)
+    return render_template('admin/sponsor.html',sponsor=sponsor)
+
+@admin.route('/schools')
+@login_required
+def schools():
+    schools = School.query.all()
+    return render_template('admin/schools.html',schools=schools)
+
+@admin.route('/school/<int:id>')
+@login_required
+def school(id):
+    school = School.query.get(id)
+    return render_template('admin/school.html',school=school)
+
+
+
+@admin.route('/districts')
+@login_required
+def districts():
+    districts = District.query.all()
+    return render_template('admin/districts.html',districts=districts)
+
+@admin.route('/district/<int:id>', methods=["GET","POST"])
+@login_required
+def district(id):
+    district_obj = District.query.get_or_404(id)
+    district_form = DistrictForm(obj=district_obj)
+    if request.method == "GET":
+        return render_template('admin/district.html',form=district_form,
+                                target=url_for('.district',id=id),id=id,
+                                schools=district_obj.schools)
+    else:
+        district_form.populate_obj(district_obj)
+        db.session.commit()
+        flash('District successfully updated.','info')
+        return redirect(url_for('.districts'))
+
+@admin.route('/deletedistrict/<int:id>', methods=["GET","POST"])
+@login_required
+def deletedistrict(id):
+    district_obj = District.query.get_or_404(id)
+    db.session.delete(district_obj)
+    db.session.commit()
+    flash('District successfully deleted.','info')
+    return redirect(url_for('.districts'))
+
+@admin.route('/newdistrict', methods=["GET","POST"])
+@login_required
+def newdistrict():
+    district_form = DistrictForm()
+    if request.method == "GET":
+        return render_template('admin/district.html',form=district_form,
+                                target=url_for('.newdistrict'))
+    else:
+        district_obj = District(district_form.name.data)
+        db.session.add(district_obj)
+        db.session.commit()
+        flash('District successfully created.','info')
+        return redirect(url_for('.districts'))
+
 
 @admin.route('/download/csv')
 @login_required

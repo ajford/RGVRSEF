@@ -16,11 +16,14 @@
         </div>
         {% block body %}
         <div class='content'>
-        <table><tr>
+        <table class='adminNav'><tr>
                 <th><a href="{{ url_for('.index')}}">Admin Home</a></th>
-                <th><a href="{{url_for('.deadlines')}}">Deadlines</a></th>
-                <th><a href="{{url_for('.projects')}}">Projects</a></th>
                 <th><a href="{{url_for('.news')}}">News</a></th>
+                <th><a href="{{url_for('.deadlines')}}">Deadlines</a></th>
+                <th><a href="{{url_for('.sponsors')}}">Sponsors</a></th>
+                <th><a href="{{url_for('.schools')}}">Schools</a></th>
+                <th><a href="{{url_for('.districts')}}">Districts</a></th>
+                <th><a href="{{url_for('.projects')}}">Projects</a></th>
                 <th><a href="{{url_for('.logout')}}">Logout</a></th>
         </tr></table>
 

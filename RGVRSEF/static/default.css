@@ -74,4 +74,19 @@ body
     list-style-type: none;
     padding-left: 0;
 }
-
+.sideways li 
+{
+    list-style-type: none;
+    padding-left: 0;
+    float: left;
+    width:5em;
+}
+.clear
+{
+    clear: both;
+}
+.adminNav th
+{
+    padding-left:5px;
+    padding-right:5px;
+}
