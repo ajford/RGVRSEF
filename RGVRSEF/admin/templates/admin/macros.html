@@ -7,7 +7,9 @@
 {%- endmacro %}
 
 {%macro render_project_narrow(cats,div_narrow,cat_narrow,endpoint='projects')%}
-    <ul class="sideways"><li>Division:</li> 
+    <button id='divText' onclick="javascript:toggle('division','divText')" >Show Division Filters :</button>
+    <div id='division' style="display:none" class="filter">
+    <ul class="sidewaysSmall">
     {% for div in ['senior','junior'] %}
         {% if div_narrow != div %}
         <li><a href="{{url_for(endpoint,category=cat_narrow,division=div)}}">
@@ -17,10 +19,13 @@
         {% endif %}
     {% endfor %}
     </ul>
+    </div>
     <div class="clear"></div>
-    <ul class="sideways"><li>Category:</li>
+    <button id='catText' onclick="javascript:toggle('category','catText')" >Show Category Filters:</button>
+    <div id='category' style="display:none" class="filter">
+    <ul class="sideways">
     {% for cat in cats %}
-        {% if cat_narrow != cat_id %}
+        {% if cat_narrow != cat.id %}
         <li><a href="{{url_for(endpoint,category=cat.id,division=div_narrow)}}">
             {{cat.name|title}}</a></li>
         {% else %}
@@ -30,6 +35,7 @@
         <li>No Categories</li>
     {% endfor %}
     </ul>
+    </div>
     <div class="clear"></div>
 {% endmacro %}
 

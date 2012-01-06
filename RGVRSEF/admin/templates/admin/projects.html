@@ -1,5 +1,11 @@
 {% extends "admin/layout.html" %}
-{% from "admin/macros.html" import render_project_narrow %}
+{% from "admin/macros.html" import render_project_narrow,script %}
+
+{% block scripts %}
+{{ super() }}
+{{ script('default.js','.static') }}
+{% endblock scripts %}
+
 {% block content %}
 <h4>{{get_flashed_messages()[0]}}</h4>
 {{ render_project_narrow(categories,div_narrow,cat_narrow,endpoint) }}
