@@ -74,16 +74,42 @@ body
     list-style-type: none;
     padding-left: 0;
 }
+.filter
+{
+    width:800px;
+}
+.sidewaysSmall li 
+{
+    list-style-type: none;
+    padding-bottom: 15px;
+    float: left;
+    width:4em;
+    height:1em;
+    font-size:90%;
+}
 .sideways li 
 {
     list-style-type: none;
-    padding-left: 0;
+    padding-bottom: 15px;
+    padding-left: 5px;
+    padding-right: 5px;
     float: left;
-    width:5em;
+    width:8em;
+    height:3em;
+    font-size:90%;
 }
 .clear
 {
     clear: both;
+    height:0px;
+}
+.left
+{
+    float: left;
+}
+.right
+{
+    float: right;
 }
 .adminNav th
 {

@@ -73,6 +73,8 @@ def newdeadline():
 @admin.route('/projects')
 @login_required
 def projects():
+    div = request.args.get('division',None)
+    cat = request.args.get('category',None,type=int)
     categories = Category.query.order_by('name').all()
     projects = Project.query
     if request.args.get('category',None): 
@@ -81,7 +83,8 @@ def projects():
         projects = projects.filter_by(division = request.args['division']) 
     projects = projects.all()
     return render_template('admin/projects.html', projects=projects, 
-                            categories=categories,endpoint='.projects')
+                            categories=categories,endpoint='.projects',
+                            div_narrow=div,cat_narrow=cat)
 
 @admin.route('/project/<int:id>')
 @login_required

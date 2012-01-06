@@ -5,8 +5,12 @@
 <div class='clear'></div>
 <table class='compact'>
     <tr><td>{{sponsor.lastname}}, {{sponsor.firstname}}</td>
+        {% if sponsor.school %}
         <td><a href="{{url_for('.school',id=sponsor.school.id)}}">
-            {{sponsor.school.name}}</a></td>
+                {{sponsor.school.name}}</a></td>
+        {% else %}
+        <td>No school affiliation</td>
+        {% endif %}
     </tr>
     <tr><td>Email:<br/>{{sponsor.email}}</td></tr>
     <tr><td>Phone:<br/>{{sponsor.phone}}</td></tr>
