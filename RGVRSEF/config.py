@@ -1,4 +1,10 @@
-SQLALCHEMY_DATABASE_URI = 'sqlite:///test.db'
+from bundle_config import config
+
+SQLALCHEMY_DATABASE_URI = 'postgresql://%s:%s@%s/%s'%(
+                config['postgres']['username'],
+                config['postgres']['password'],
+                config['postgres']['host'],
+                config['postgres']['database'])
 SECRET_KEY = 'developmentKey'
 CATEGORIES = (  ("Team Physical",1),
                 ("Team Biological",1),
