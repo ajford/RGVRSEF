@@ -14,8 +14,10 @@ manager.add_command("runserver", Server())
 
 def password_valid():
     passwd = sha256(prompt_pass("Please enter admin password")).hexdigest()
-    if passwd == admin_models.Admin.query.filter_by(username='root').\
-                    first().password:
+    admin = admin_models.Admin.query.filter_by(username='root').first()
+    if admin is None:
+        return True
+    if passwd == admin.password:
         return True
     else:
         print "Invalid Password"
