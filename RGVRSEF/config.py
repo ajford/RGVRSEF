@@ -1,10 +1,13 @@
-from bundle_config import config
-
-SQLALCHEMY_DATABASE_URI = 'postgresql://%s:%s@%s/%s'%(
+try: 
+    from bundle_config import config
+    SQLALCHEMY_DATABASE_URI = 'postgresql://%s:%s@%s/%s'%(
                 config['postgres']['username'],
                 config['postgres']['password'],
                 config['postgres']['host'],
                 config['postgres']['database'])
+except ImportError:
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///rgvrsef.db'
+
 SECRET_KEY = 'developmentKey'
 CATEGORIES = (  ("Team Physical",True),
                 ("Team Biological",True),
