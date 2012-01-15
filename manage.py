@@ -88,9 +88,32 @@ def admin():
     else:
         print "Admin creation aborted"
 
+# Delete Admin
+@manager.command
+def deladmin():
+    """ Management function to delete admins. """
+    if password_valid(): 
+        username = None
+        while username is None:
+            username = prompt("Please enter admin username").strip()
+        user = admin_models.Admin.query.filter_by(username=username).first()
+        if user:
+            if prompt_bool("Are you sure you want to delete user %s"%user.name):
+                models.db.session.delete(user)
+                models.db.session.commit()
+        else:
+            print "User does not exist"
+
+# Add Categories
 @manager.command
 def categories():
-    """ Management function to import categories. """ 
+    """ Management function to import categories. 
+    At the moment, only takes a list of two-tuples from the app config variable
+    'CATEGORIES'. The structure of the two-tuple is ('Cat. Name',[True/False]),
+    where the second value is True if the category is a team category, false
+    otherwise.
+    """ 
+
     if password_valid():
         for category in app.config['CATEGORIES']:
             cat = models.Category(category[0],category[1])
