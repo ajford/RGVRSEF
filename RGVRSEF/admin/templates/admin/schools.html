@@ -4,12 +4,16 @@
 <div class='clear'></div>
 <table class='compact'>
     {% for school in schools %}
-    <tr><td>{{school.name}} ({{school.sponsors.count()}} sponsors)</td>
+    <tr><td><a href='{{url_for('.school',id=school.id)}}'>{{school.name}}</a>
+        ({{school.sponsors.count()}} sponsors)</td>
         <td><a href="{{url_for('.district',id=school.district.id)}}">
             {{school.district.name}}</a></td>
     </tr>
     {% else %}
     <tr><td>No schools yet</td></tr>
     {% endfor %}
+    <tr></tr>
+    <tr><td><a href="{{url_for('.newschool')}}">
+                <input type='button' value='New School'></a></td></tr>
 </table>
 {% endblock content %}

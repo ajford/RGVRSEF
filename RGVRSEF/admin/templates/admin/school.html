@@ -2,14 +2,25 @@
 {% block content %}
 <h4>{{get_flashed_messages()[0]}}</h4>
 <div class='clear'></div>
+<form id='school' action='{{ target }}' method='POST'>
 <table class='compact'>
-    <tr><td>{{school.name}}</td>
+    <tr><td>{{form.name.label}}</td><td>{{form.name()}}</td>
+    {%if school %}
         <td><a href="{{url_for('.district',id=school.district.id)}}">
-            {{school.district.name}}</a></td>
+                {{school.district.name}}</a></td>
+    {%endif%}
     </tr>
-    <tr><td>Phone:<br/>{{school.phone}}</td></tr>
-    <tr><td>Fax:<br/>{{school.fax}}</td></tr>
+    <tr><td>{{form.phone.label}}</td><td>{{form.phone()}}</td></tr>
+    <tr><td>{{form.fax.label}}</td><td>{{form.fax()}}</td></tr>
+    <tr><td>{{form.district_id.label}}</td><td>{{form.district_id()}}</td></tr>
+    <tr><td><input type='submit' value='Submit'></td>
+    {% if id %}
+        <td><a href="{{ url_for('.deleteschool',id=id)}}">
+        <input type='button' value='Delete'></a></td>
+    {% endif %}
+    </tr>
 </table>
+{% if school %}
 <table class='compact'>
     <tr><td>Sponsors:</td></tr>
     {% for sponsor in sponsors -%}
@@ -20,4 +31,5 @@
     <tr><td>No Sponsors</td></tr>
     {%- endfor %}
 </table>
+{% endif %}
 {% endblock content %}

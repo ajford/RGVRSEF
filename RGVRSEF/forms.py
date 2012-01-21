@@ -28,8 +28,3 @@ class Sponsor(Info):
             choices=[('teach','Teacher'),('parent','Parent'),('friend','Friend')])
     phone = TextField('Phone', validators=[Required(),Length(3)])
 
-class SchoolInfo(Form):
-    name = TextField('School Name', validators=[Required(),Length(3)])
-    phone = TextField('Phone', validators=[Required(),Length(10)])
-    fax = TextField('Fax', validators=[Required(),Length(10)])
-    district_id = SelectField('District', coerce=int)

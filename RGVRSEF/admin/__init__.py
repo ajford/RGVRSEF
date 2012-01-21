@@ -7,7 +7,7 @@ from flaskext.login import current_user, login_required, fresh_login_required
 
 from RGVRSEF import app
 from RGVRSEF.models import *
-from .forms import DeadlineForm, NewsForm, DistrictForm
+from .forms import DeadlineForm, NewsForm, DistrictForm, SchoolForm
 
 def NYI():
     return render_template('admin/message.html', message="Not Yet Implemented")
@@ -105,11 +105,6 @@ def sponsor(id):
     sponsor = Sponsor.query.get(id)
     return render_template('admin/sponsor.html',sponsor=sponsor)
 
-@admin.route('/schools')
-@login_required
-def schools():
-    schools = School.query.all()
-    return render_template('admin/schools.html',schools=schools)
 
 @admin.route('/school/<int:id>')
 @login_required
@@ -214,4 +209,53 @@ def newnews():
         db.session.commit()
         flash('News successfully created.','info')
         return redirect(url_for('.news'))
+
+
+@admin.route('/schools')
+@login_required
+def schools():
+    schools = School.query.all()
+    return render_template('admin/schools.html',schools=schools)
+
+@admin.route('/school/<int:id>', methods=["GET","POST"])
+@login_required
+def school(id):
+    school_obj = School.query.get_or_404(id)
+    school_form = SchoolForm(obj=school_obj)
+    school_form.district_id.choices = [(d.id,d.name) for d 
+        in District.query.order_by('name')]
+    if request.method == "GET":
+        return render_template('admin/school.html',form=school_form, id=id,
+                            target=url_for('.school',id=id),school=school_obj)
+    else:
+        school_form.populate_obj(school_obj)
+        db.session.commit()
+        flash('School successfully updated.','info')
+        return redirect(url_for('.schools'))
+
+@admin.route('/deleteschool/<int:id>', methods=["GET","POST"])
+@login_required
+def deleteschool(id):
+    school_obj = School.query.get_or_404(id)
+    db.session.delete(school_obj)
+    db.session.commit()
+    flash('School successfully deleted.','info')
+    return redirect(url_for('.schools'))
+
+@admin.route('/newschool', methods=["GET","POST"])
+@login_required
+def newschool():
+    school_form = SchoolForm()
+    school_form.district_id.choices = [(d.id,d.name) for d 
+        in District.query.order_by('name')]
+    if request.method == "GET":
+        return render_template('admin/school.html',form=school_form,
+                                target=url_for('.newschool'))
+    else:
+        school_obj = School(school_form.name.data, school_form.phone.data,
+                            school_form.fax.data, school_form.district_id.data)
+        db.session.add(school_obj)
+        db.session.commit()
+        flash('School successfully created.','info')
+        return redirect(url_for('.schools'))
 

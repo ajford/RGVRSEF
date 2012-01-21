@@ -18,12 +18,20 @@
         <li>{{div|title}}</li>
         {% endif %}
     {% endfor %}
+    {% if div_narrow %}
+        <li><a href="{{url_for(endpoint,category=cat_narrow,division='')}}">
+            Clear</a></li>
+    {% endif %}
     </ul>
     </div>
     <div class="clear"></div>
     <button id='catText' onclick="javascript:toggle('category','catText')" >Show Category Filters:</button>
     <div id='category' style="display:none" class="filter">
     <ul class="sideways">
+    {% if cat_narrow %}
+        <li><a href="{{url_for(endpoint,category='',division=div_narrow)}}">
+            Clear</a></li>
+    {%endif%}
     {% for cat in cats %}
         {% if cat_narrow != cat.id %}
         <li><a href="{{url_for(endpoint,category=cat.id,division=div_narrow)}}">

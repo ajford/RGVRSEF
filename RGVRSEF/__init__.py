@@ -51,18 +51,6 @@ def news():
     news = News.query.order_by(News.date).all()
     return render_template("news.html", news=news)
 
-@app.route('/school',methods=['GET','POST'])
-def school():
-    form = SchoolInfo(request.form)
-    form.district_id.choices = [(d.id,d.name) for d 
-        in District.query.order_by('name')]
-    if request.method=="POST" and form.validate():
-        info=School(form.name.data,form.phone.data,form.fax.data,1)
-        db.session.add(info)
-        db.session.commit()
-        return redirect(url_for('school'))
-    return render_template("school.html", form=form)
-
 @app.route('/sponsor',methods=['GET','POST'])
 def sponsor():
     form = Sponsor(request.form)
