@@ -68,6 +68,16 @@ def builddb():
     models.db.session.add(admin_models.Admin('root',passwd,True))
     models.db.session.commit()
 
+# sponspad 
+@manager.command
+def sponspad():
+   padding = models.Sponsor()
+   padding.id = 1000
+   padding.firstname = 'PAD'
+   padding.lastname = 'PAD'
+   models.db.session.add(padding)
+   modesl.db.session.commit()
+
 # Add Admin
 @manager.command
 def admin():
