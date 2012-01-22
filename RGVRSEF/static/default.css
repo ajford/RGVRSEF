@@ -1,5 +1,6 @@
 body
 {
+    background:#ababab;
 	width:800px;
 	margin-left:auto;
 	margin-right:auto;
@@ -14,11 +15,19 @@ body
 	position:absolute;
 	top:0px;
 	height:100px;
+    width: 800px;
+	text-align:center;
 }
 .content
 {
 	position:absolute;
 	top:100px;
+    width:800px;
+    padding:1em;
+    background: #eee;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
 }
 .news
 {
@@ -27,6 +36,7 @@ body
 	left:0px;
 	float:left;
 	width:400px;
+	text-align:center;
 }
 .deadlines
 {
@@ -55,10 +65,10 @@ body
 .footer
 {
 	position:fixed;
-	background-color:white;
-	width:400px;
+	width:800px;
 	bottom:0px;	
-	left:0px;
+    margin-left:auto;
+    margin-right:auto;
 	text-align:center;
 	font-size:small;
 }
@@ -97,6 +107,24 @@ body
     width:8em;
     height:3em;
     font-size:90%;
+}
+.sidewaysLarge li 
+{
+    list-style-type: none;
+    padding-bottom: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
+    float: left;
+    height:3em;
+}
+.nav
+{
+    border: 1px #eee solid;
+    background: #eeeeee;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    height:3em;
 }
 .clear
 {
