@@ -83,4 +83,8 @@ def studentreg():
 def sponsorreg():
     return redirect(url_for('sponsor'))            
 
+@app.route('/contact')
+def contact():
+    return NYI()            
+
 app.register_blueprint(admin_blueprint, url_prefix='/admin')
