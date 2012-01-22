@@ -1,5 +1,6 @@
 import re
 from datetime import date
+import base64
 
 from flask import Flask, make_response,redirect, url_for, render_template,json,request,flash
 from werkzeug import ImmutableDict
@@ -31,9 +32,18 @@ def nonone(x):
     else:
         return x
 
+def decode(x):
+    """ Convenience function to decode Sponsor ID. """
+    return base64.urlsafe_b64decode(x+'='*(-len(x)%4))
+
+def encode(x):
+    """ Convenience function to encode Sponsor ID. """
+    return base64.urlsafe_b64encode(x).strip('=')
+
 app.jinja_env.filters['phone']=prettyPhone
 app.jinja_env.filters['currency']=currency
 app.jinja_env.filters['nonone']=nonone
+app.jinja_env.filters['encode']=encode
 app.jinja_env.add_extension('jinja2.ext.do')
 
 
