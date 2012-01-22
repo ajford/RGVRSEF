@@ -23,10 +23,11 @@ class Student(Info):
             validators=[Required()])
 
 class Sponsor(Info):
-    relation = SelectField('Relation to student', 
-            validators=[Required()],
-            choices=[('teach','Teacher'),('parent','Parent'),
-                ('friend','Friend')])
+#    relation = SelectField('Relation to student', 
+#            validators=[Required()],
+#            choices=[('teach','Teacher'),('parent','Parent'),
+#                ('friend','Friend')])
+    school_id = SelectField('School', coerce=int)
     phone = TextField('Phone', validators=[Required(),Length(3)])
     password = PasswordField('Password', validators=[Required(),Length(6)])
     confirm = PasswordField('Confirm Password', 

@@ -54,6 +54,8 @@ def news():
 @app.route('/sponsor',methods=['GET','POST'])
 def sponsor():
     form = Sponsor(request.form)
+    form.school_id.choices=[(x.id,x.name) for x in 
+            School.query.order_by('name')]
     if request.method=="POST" and form.validate():
         user=models.Sponsor()
         form.populate_obj(user)
