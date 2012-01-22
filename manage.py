@@ -68,15 +68,30 @@ def builddb():
     models.db.session.add(admin_models.Admin('root',passwd,True))
     models.db.session.commit()
 
-# sponspad 
+# padding 
 @manager.command
-def sponspad():
-   padding = models.Sponsor()
-   padding.id = 1000
-   padding.firstname = 'PAD'
-   padding.lastname = 'PAD'
-   models.db.session.add(padding)
-   modesl.db.session.commit()
+def padding():
+    if password_valid():
+        sponspad = models.Sponsor()
+        sponspad.id = 1000
+        sponspad.firstname = 'PAD'
+        sponspad.lastname = 'PAD'
+        models.db.session.add(sponspad)
+        models.db.session.commit()
+        print "Sponsors padded"
+        studentpad = models.Student()
+        studentpad.id = 1000
+        studentpad.firstname = 'PAD'
+        studentpad.lastname = 'PAD'
+        models.db.session.add(studentpad)
+        models.db.session.commit()
+        print "Students padded"
+        projectpad = models.Project()
+        projectpad.id = 1000
+        projectpad.title = 'PAD'
+        models.db.session.add(projectpad)
+        models.db.session.commit()
+        print "Project padded"
 
 # Add Admin
 @manager.command
