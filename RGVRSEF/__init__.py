@@ -78,7 +78,7 @@ def sponsor():
 def sponsor_review():
     form = SponsorLogin()
     if form.validate_on_submit():
-        sponsid = base64.decode(form.id.data+'='*(-len(form.id.data)%4))
+        sponsid = decode(form.id.data)
         sponsor = Sponsor.query.get_or_404(sponsid)
         if sha256(form.password.data) == sponsor.password:
             return render_template("sponsor_review.html",sponsor=sponsor)
