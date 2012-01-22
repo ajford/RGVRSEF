@@ -16,6 +16,22 @@
         </div>
         {% block body %}
         <div class='content'>
+        {% block nav %}
+        <div class="nav">
+            <ul class='sidewaysLarge'>
+                <li><a href='{{url_for('index')}}'>Home</a>
+                    </li>
+                <li><a href='{{url_for('studentreg')}}'>Start Registration</a>
+                    </li>
+                <li><a href='{{url_for('sponsorreg')}}'>Sponsor Registration</a>
+                    </li>
+                <li><a href='{{url_for('sponsor_review')}}'>Sponsor Login</a>
+                    </li>
+                <li><a href='{{url_for('admin.index')}}'>Administration</a></li>
+            </ul>
+        </div>
+        {% endblock nav %}
+        <div class='clear'></div>
         {% block content %}
         {% endblock content %}
         </div>
