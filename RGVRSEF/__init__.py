@@ -38,7 +38,7 @@ def decode(x):
 
 def encode(x):
     """ Convenience function to encode Sponsor ID. """
-    return base64.urlsafe_b64encode(x).strip('=')
+    return base64.urlsafe_b64encode(str(x)).strip('=')
 
 app.jinja_env.filters['phone']=prettyPhone
 app.jinja_env.filters['currency']=currency
