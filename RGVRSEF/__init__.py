@@ -34,7 +34,7 @@ def nonone(x):
 
 def decode(x):
     """ Convenience function to decode Sponsor ID. """
-    return base64.urlsafe_b64decode(x+'='*(-len(x)%4))
+    return base64.urlsafe_b64decode(str(x)+'='*(-len(x)%4))
 
 def encode(x):
     """ Convenience function to encode Sponsor ID. """
