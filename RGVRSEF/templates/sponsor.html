@@ -1,15 +1,22 @@
 {% extends "layout.html" %}
+{%block title%}Sponsor Registration{%endblock%}
+
 {% block content %}
-
-Hello please fill out the following form: 
+<div class=clear></div>
+<div id='sponsor_reg'>
+    <p>Sponsors, please enter the following information to register.</p>
 <form method="POST" action="sponsor">
-	{{ form.csrf }}
-	<div> {{ form.firstname.label }}:{{ form.firstname }} </div>
-	<div> {{ form.lastname.label }}:{{ form.lastname }} </div>
-	<div> {{ form.email.label }}:{{ form.email }} </div>
-	<div> {{ form.relation.label }}:{{ form.relation }} </div>
-	<div> {{ form.phone.label }}:{{ form.phone }} </div>
-	<input type="submit" Value="Submit">
+    {{ form.csrf }}
+<table>
+    <tr><td> {{ form.firstname.label }}:</td><td>{{ form.firstname }}</td></tr> 
+    <tr><td> {{ form.lastname.label }}:</td><td>{{ form.lastname }}</td></tr> 
+    <tr><td> {{ form.email.label }}:</td><td>{{ form.email }}</td></tr> 
+    <tr><td> {{ form.phone.label }}:</td><td>{{ form.phone }}</td></tr> 
+    <tr><td> {{ form.relation.label }}:</td><td>{{ form.relation }}</td></tr> 
+    <tr><td> {{ form.password.label }}:</td><td> {{ form.password() }}</td></tr>
+    <tr><td> {{ form.confirm.label }}:</td><td> {{ form.confirm() }}</td></tr>
+    <tr><td></td><td><input type="submit" Value="Submit"></td></tr>
+</table>
 </form>
-
+</div>
 {% endblock content %}

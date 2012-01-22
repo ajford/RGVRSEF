@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div id='sponsor_header'>
+        <h3>{{sponsor.lastname}},{{sponsor.firstname}}</h3>
+        <h4>{{sponsor.school.name}} - {{sponsor.school.district.name}}</h4>
+    </div>
+    <div id='sponsor_body'>
+        <ul class='nobullet'>
+            {% for student in sponsor.students.all() if student.team_leader %}
+            <li>{{student.lastname}},{{student.firstname}}<br />
+                {{student.project.title}}</li>
+            {% else %}
+            <li>No students registered yet</li>
+            {% endfor %}
+    </div>
+{% endblock content %}
+

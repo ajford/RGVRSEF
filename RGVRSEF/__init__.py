@@ -62,4 +62,23 @@ def sponsor():
         return redirect(url_for('sponsor'))
     return render_template("sponsor.html",form=form)
 
+@app.route('/sponsor/review',methods=['GET','POST'])
+def sponsor_review():
+    form = SponsorLogin()
+    if form.validate_on_submit():
+        sponsid = base64.decode(form.id.data+'='*(-len(form.id.data)%4))
+        sponsor = Sponsor.query.get_or_404(sponsid)
+        if sha256(form.password.data) == sponsor.password:
+            return render_template("sponsor_review.html",sponsor=sponsor)
+    else:
+        return render_template("sponsor_login.html",form=form)
+
+@app.route('/reg/student')
+def studentreg():
+    return NYI()            
+
+@app.route('/reg/sponsor')
+def sponsorreg():
+    return redirect(url_for('sponsor'))            
+
 app.register_blueprint(admin_blueprint, url_prefix='/admin')

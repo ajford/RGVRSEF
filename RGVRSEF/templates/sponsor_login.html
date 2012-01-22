@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<form method="POST" action="sponsor">
+    {{ form.csrf }}
+    <table>
+    <tr><td>{{ form.id.label }}</td><td>{{ form.id() }}</td></tr>
+    <tr><td>{{ form.password.label }}</td><td>{{ form.password() }}</td></tr>
+    <tr><td></td><td><input type="submit" Value="Submit"></td></tr>
+    </table>
+</form>
+
+{% endblock content %}

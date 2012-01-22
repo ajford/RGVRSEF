@@ -1,7 +1,7 @@
 
-from flaskext.wtf import Form, TextField, TextAreaField, BooleanField,\
-                         SelectField, RadioField, Required, Length, Optional,\
-                         Email, NumberRange
+from flaskext.wtf import (Form, TextField, TextAreaField, BooleanField,
+                         SelectField, RadioField, PasswordField, Required,
+                         Length, Optional, Email, NumberRange)
 
 class Info(Form):
     firstname = TextField('First Name', validators=[Required(),Length(3)])
@@ -25,6 +25,13 @@ class Student(Info):
 class Sponsor(Info):
     relation = SelectField('Relation to student', 
             validators=[Required()],
-            choices=[('teach','Teacher'),('parent','Parent'),('friend','Friend')])
+            choices=[('teach','Teacher'),('parent','Parent'),
+                ('friend','Friend')])
     phone = TextField('Phone', validators=[Required(),Length(3)])
+    password = PasswordField('Password', validators=[Required(),Length(6)])
+    confirm = PasswordField('Confirm Password', 
+                            validators=[Required(),Length(6)])
 
+class SponsorLogin(Form):
+    id = TextField('Sponsor ID', validators=[Required(),Length(6)])
+    password = PasswordField('Password', validators=[Required(),Length(6)])
