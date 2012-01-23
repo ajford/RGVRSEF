@@ -38,3 +38,16 @@ class SponsorDistrictForm(Form):
 
 class StudentSponsorForm(Form):
     sponsor_id=TextField('Sponsor ID',validators=[Required(),Length(6)])
+
+class ProjectForm(Form):
+    title=TextField('Project Title', validators=[Required(),Length(5)])
+    team=RadioField('Is it a Team Project', coerce=unicode,
+            choices=[('true','yes'),('false','no')],validators=[Required()])
+    category=SelectField('Category',coerce=int)
+    division=RadioField('Division',
+            choices=[('Jr','junior'),('Sr','senior')],
+            validators=[Required()])
+    table=RadioField('Will you need a table',coerce=unicode,
+            choices=[('true','Yes'),('false','No')],validators=[Required()])
+    elect=RadioField('Will you need electricity',coerce=unicode,
+            choices=[('true','Yes'),('false','No')],validators=[Required()])

@@ -98,11 +98,16 @@ def studentreg1():
 @app.route('/reg/student/personalinfo')
 def studentreg2():
     form=StudentForm()
+    if form.validate_on_submit():
+        return redirect(url_for('studentreg3'))
     return render_template("studentreg2.html",form=form)
 
 @app.route('/reg/student/projectinfo')
 def studentreg3():
-    return NYI()
+    form=ProjectForm()
+    if form.validate_on_submit():
+        return redirect(url_for('studentreg4'))
+    return render_template("studentreg3.html",form=form)
 
 @app.route('/reg/student/forms')
 def studentreg4():
