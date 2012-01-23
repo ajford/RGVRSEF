@@ -23,10 +23,6 @@ class StudentForm(InfoForm):
             validators=[Required()])
 
 class SponsorForm(InfoForm):
-#    relation = SelectField('Relation to student', 
-#            validators=[Required()],
-#            choices=[('teach','Teacher'),('parent','Parent'),
-#                ('friend','Friend')])
     school_id = SelectField('School', coerce=int)
     phone = TextField('Phone', validators=[Required(),Length(3)])
     password = PasswordField('Password', validators=[Required(),Length(6)])
@@ -36,3 +32,6 @@ class SponsorForm(InfoForm):
 class SponsorLoginForm(Form):
     id = TextField('Sponsor ID', validators=[Required(),Length(6)])
     password = PasswordField('Password', validators=[Required(),Length(6)])
+
+class SponsorDistrictForm(Form):
+    district_id = SelectField('District',coerce=int)

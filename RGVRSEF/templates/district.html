@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block title %} Student Registration {% endblock %}
+
+{% block content %}
+
+<form method="GET" action="{{url_for('sponsorreg')}}" >
+<p> Please select which distric you are from. </p>
+
+{{ form.district_id.label }}: {{ form.district_id }}
+
+<input type="submit" value="Submit" >
+</form>
+
+{% endblock %}

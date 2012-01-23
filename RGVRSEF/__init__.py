@@ -61,11 +61,16 @@ def news():
     news = News.query.order_by(News.date).all()
     return render_template("news.html", news=news)
 
-@app.route('/sponsor',methods=['GET','POST'])
-def sponsor():
+@app.route('/reg/sponsor')
+def sponsorreg():
+    district_id = request.args.get('district_id',None)
     form = SponsorForm(request.form)
-    form.school_id.choices=[(x.id,x.name) for x in 
-            School.query.order_by('name')]
+    query = School.query.order_by('name')
+    print "TEST1: %s"%district_id
+    if district_id:
+        print "TEST2: %s"%district_id
+        query = query.filter_by(district_id=district_id)
+    form.school_id.choices=[(x.id,x.name) for x in query.all()]
     if request.method=="POST" and form.validate():
         user=models.Sponsor()
         form.populate_obj(user)
@@ -89,9 +94,12 @@ def sponsor_review():
 def studentreg():
     return NYI()            
 
-@app.route('/reg/sponsor')
-def sponsorreg():
-    return redirect(url_for('sponsor'))            
+@app.route('/reg/sponsor/district')
+def sponsordistrict():
+    form=SponsorDistrictForm()
+    form.district_id.choices=[(x.id,x.name) for x in 
+            District.query.order_by('name')]
+    return render_template("district.html",form=form)
 
 @app.route('/contact')
 def contact():
