@@ -1,11 +1,21 @@
 {% extends "layout.html" %}
+{% from "macros.html" import fieldtable,submitify %}
 {% block title %} Student Registration {% endblock %}
 
 {% block content %} 
+
+<p> This to submit project info </p>
 <div id="projectinfo">
 	<form method="POST" action="{{url_for('studentreg3')}}">
-	<p> This to submit project info </p>
-	<input type="submit" value="Continue">
+		<table>
+			{{ fieldtable(form,'title') }}
+			{{ fieldtable(form,'team',class='nobullet') }}
+			{{ fieldtable(form,'category') }}
+			{{ fieldtable(form,'division',class='nobullet') }}
+			{{ fieldtable(form,'table',class='nobullet') }}
+			{{ fieldtable(form,'elect',class='nobullet') }}
+			{{ submitify() }}
+		</table>
 	</form> 
 </div>
 {% endblock %}

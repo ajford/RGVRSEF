@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% from "macros.html" import fieldtable %}
+{% from "macros.html" import fieldtable,submitify %}
 {% block title %} Student Registration {% endblock %}
 
 {% block content %} 
@@ -9,8 +9,8 @@
 <form method="POST" action="{{ url_for('studentreg1') }}" > 
 	{{ form.hidden_tag() }}	
 	<table>
-	{{ fieldtable(form,'sponsor_id') }}
-	<input type="submit" value="Continue" >
+		{{ fieldtable(form,'sponsor_id') }}
+		{{ submitify() }}
 	</table>
 </form>
 

@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% from "macros.html" import fieldtable %}
+{% from "macros.html" import fieldtable,submitify %}
 {% block title %} Student Registration {% endblock %}
 
 {% block content %} 
@@ -16,7 +16,7 @@
 		{{ fieldtable(form,'grade') }}
 		{{ fieldtable(form,'age') }}
 		{{ fieldtable(form,'gender') }}
-	<input type="submit" value="Continue" >
+		{{ submitify() }}
 	</table>
 	</form>
 </div>
