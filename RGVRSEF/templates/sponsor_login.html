@@ -6,7 +6,7 @@
 <p class="warning">{{ message }}</p>
 {% endif %}
 <form method="POST" action="{{url_for('sponsor_review')}}">
-    {{ form.csrf }}
+    {{ form.hidden_tag() }}
     <table>
         {{ fieldtable(form,'id') }}
         {{ fieldtable(form,'password') }}
