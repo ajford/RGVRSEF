@@ -1,7 +1,8 @@
+from hashlib import sha256
 
 from flaskext.wtf import (Form, TextField, TextAreaField, BooleanField,
                          SelectField, RadioField, PasswordField, Required,
-                         Length, Optional, Email, NumberRange)
+                         Length, Optional, Email, NumberRange, EqualTo)
 
 class InfoForm(Form):
     firstname = TextField('First Name', validators=[Required(),Length(3)])
@@ -29,13 +30,20 @@ class StudentForm(InfoForm):
 class SponsorForm(InfoForm):
     school_id = SelectField('School', coerce=int)
     phone = TextField('Phone', validators=[Required(),Length(3)])
-    password = PasswordField('Password', validators=[Required(),Length(6)])
+    password = PasswordField('Password', validators=[Required(),Length(6),
+                            EqualTo('confirm')])
     confirm = PasswordField('Confirm Password', 
                             validators=[Required(),Length(6)])
+    def encrypt(form):
+        form.password.data = sha256(form.password.data).hexdigest()
+        form.confirm.data = sha256(form.confirm.data).hexdigest()
 
 class SponsorLoginForm(Form):
     id = TextField('Sponsor ID', validators=[Required(),Length(6)])
     password = PasswordField('Password', validators=[Required(),Length(6)])
+
+    def encrypt(form):
+        form.password.data = sha256(form.password.data).hexdigest()
 
 class SponsorDistrictForm(Form):
     district_id = SelectField('District',coerce=int)

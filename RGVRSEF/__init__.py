@@ -69,7 +69,8 @@ def sponsorreg():
     if district_id:
         query = query.filter_by(district_id=district_id)
     form.school_id.choices=[(x.id,x.name) for x in query.all()]
-    if request.method=="POST" and form.validate():
+    if form.validate_on_submit():
+        form.encrypt()
         user=models.Sponsor()
         form.populate_obj(user)
         db.session.add(user)
@@ -81,10 +82,16 @@ def sponsorreg():
 def sponsor_review():
     form = SponsorLoginForm()
     if form.validate_on_submit():
+        form.encrypt()
         sponsid = decode(form.id.data)
         sponsor = Sponsor.query.get_or_404(sponsid)
-        if sha256(form.password.data) == sponsor.password:
+        print sponsor.password
+        if form.password.data == sponsor.password:
             return render_template("sponsor_review.html",sponsor=sponsor)
+        else:
+            message = "Your login information is invalid."
+            return render_template("sponsor_login.html",form=form, 
+                                message=message)
     else:
         return render_template("sponsor_login.html",form=form)
 
