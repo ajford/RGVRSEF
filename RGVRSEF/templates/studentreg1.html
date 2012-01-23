@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block title %} Student Registration {% endblock %}
+
+{% block content %} 
+<p> Please enter the ID of your Sponsor. </p>
+
+<form method="GET" action="{{ url_for('studentreg1') }}" > 
+	{{ form.hidden_tag() }}	
+	{{ form.sponsor_id.label }}:{{ form.sponsor_id }}
+	<br>	
+	<input type="submit" value="Continue" >
+</form>
+
+{% endblock %}
+

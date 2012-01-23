@@ -39,3 +39,6 @@ class SponsorLoginForm(Form):
 
 class SponsorDistrictForm(Form):
     district_id = SelectField('District',coerce=int)
+
+class StudentSponsorForm(Form):
+    sponsor_id=TextField('Sponsor ID',validators=[Required(),Length(6)])
