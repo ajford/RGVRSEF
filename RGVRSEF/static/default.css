@@ -146,6 +146,26 @@ body
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
 }
+.boxify
+{
+    padding:1em 0em;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    text-align: center;
+    margin: auto;
+}
+#sponsid
+{
+    background: #FFC14F;
+    width: 6em;
+}
+#aboutsponsid
+{
+    padding: 1em;
+    background: #EEEEEE;
+    text-align: left;
+}
 .clear
 {
     clear: both;
@@ -158,6 +178,12 @@ body
 .right
 {
     float: right;
+}
+.center
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 .adminNav th
 {
