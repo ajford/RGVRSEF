@@ -92,8 +92,16 @@ def sponsor_review():
 def studentreg1():
     form=StudentSponsorForm()
     if form.validate_on_submit():
-        return redirect(url_for('studentreg2'))            
-    return render_template("studentreg1.html",form=form)            
+        sponsor_id = decode(form.sponsor_id.data)
+        sponsor = Sponsor.query.get(sponsor_id)
+        if sponsor:
+            return redirect(url_for('studentreg2'))            
+        else:
+            message = "This Sponsor ID is invalid. \
+                    Please verify and reneter."
+            return render_template("studentreg1.html",form=form,
+                        message=message)
+    return render_template("studentreg1.html",form=form)
 
 @app.route('/reg/student/personalinfo')
 def studentreg2():

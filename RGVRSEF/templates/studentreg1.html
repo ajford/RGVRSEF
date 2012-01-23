@@ -1,14 +1,17 @@
 {% extends "layout.html" %}
+{% from "macros.html" import fieldtable %}
 {% block title %} Student Registration {% endblock %}
 
 {% block content %} 
 <p> Please enter the ID of your Sponsor. </p>
 
-<form method="GET" action="{{ url_for('studentreg1') }}" > 
+<p class="warning"> {{ message }} </p> 
+<form method="POST" action="{{ url_for('studentreg1') }}" > 
 	{{ form.hidden_tag() }}	
-	{{ form.sponsor_id.label }}:{{ form.sponsor_id }}
-	<br>	
+	<table>
+	{{ fieldtable(form,'sponsor_id') }}
 	<input type="submit" value="Continue" >
+	</table>
 </form>
 
 {% endblock %}
