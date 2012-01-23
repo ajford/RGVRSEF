@@ -8,6 +8,10 @@ class InfoForm(Form):
     lastname = TextField('Last Name', validators=[Required(),Length(3)])
     email = TextField('Email', validators=[Required(),Email()])
 
+    def __init__(self, *args, **kwargs):
+        kwargs['csrf_enabled'] = False
+        super(InfoForm, self).__init__(*args, **kwargs)
+
 class StudentForm(InfoForm):
     address = TextField('Mailing Address', validators=[Required(),Length(3)])
     city = TextField('City', validators=[Required(),Length(3)])

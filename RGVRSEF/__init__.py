@@ -61,7 +61,7 @@ def news():
     news = News.query.order_by(News.date).all()
     return render_template("news.html", news=news)
 
-@app.route('/reg/sponsor')
+@app.route('/reg/sponsor',methods=['GET','POST'])
 def sponsorreg():
     district_id = request.args.get('district_id',None)
     form = SponsorForm(request.form)
