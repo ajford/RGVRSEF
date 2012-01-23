@@ -99,28 +99,47 @@ def sponsor_review():
 def studentreg1():
     form=StudentSponsorForm()
     if form.validate_on_submit():
-        return redirect(url_for('studentreg2'))            
-    return render_template("studentreg1.html",form=form)            
+        sponsor_id = decode(form.sponsor_id.data)
+        sponsor = Sponsor.query.get(sponsor_id)
+        if sponsor:
+            return redirect(url_for('studentreg2'))            
+        else:
+            message = "This Sponsor ID is invalid. \
+                    Please verify and reneter."
+            return render_template("studentreg1.html",form=form,
+                        message=message)
+    return render_template("studentreg1.html",form=form)
 
-@app.route('/reg/student/personalinfo')
+@app.route('/reg/student/personalinfo',methods=['GET','POST'])
 def studentreg2():
     form=StudentForm()
     if form.validate_on_submit():
         return redirect(url_for('studentreg3'))
     return render_template("studentreg2.html",form=form)
 
-@app.route('/reg/student/projectinfo')
+@app.route('/reg/student/projectinfo',methods=['GET','POST'])
 def studentreg3():
     form=ProjectForm()
+    query=Category.query.order_by('id')
+    form.category.choices=[(x.id,x.name) for x in query.all()]
     if form.validate_on_submit():
+        if form.team.data:
+            return redirect(url_for('teammembers'))
         return redirect(url_for('studentreg4'))
     return render_template("studentreg3.html",form=form)
+
+@app.route('/reg/student/teaminfo',methods=['GET','POST'])
+def teammembers():
+    form=StudentForm()
+#    if form.validate_on_submit:
+#        return redirect(url_for('index'))
+    return render_template("team_members.html",form=form)
 
 @app.route('/reg/student/forms')
 def studentreg4():
     return NYI()
 
-@app.route('/reg/sponsor/district')
+@app.route('/reg/sponsor/district',methods=['GET','POST'])
 def sponsordistrict():
     form=SponsorDistrictForm()
     form.district_id.choices=[(x.id,x.name) for x in 

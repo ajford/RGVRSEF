@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% from "macros.html" import fieldtable %}
+{% block title %} Student Registration {% endblock %}
+
+{% block content %}
+
+<div id="team_members">
+	<form method="POST" action="{{url_for('teammembers')}}">
+		<table>
+			{{ fieldtable(form,'firstname') }}
+			{{ fieldtable(form,'lastname') }}
+			{{ fieldtable(form,'email') }}
+			{{ fieldtable(form,'grade') }}
+			{{ fieldtable(form,'age') }}
+			{{ fieldtable(form,'gender') }}
+		</table>
+			<input type="submit" value="Continue">
+			<input type="submit" value="Done" >
+	</form>
+</div>
+
+{% endblock %}
