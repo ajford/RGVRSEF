@@ -66,9 +66,7 @@ def sponsorreg():
     district_id = request.args.get('district_id',None)
     form = SponsorForm(request.form)
     query = School.query.order_by('name')
-    print "TEST1: %s"%district_id
     if district_id:
-        print "TEST2: %s"%district_id
         query = query.filter_by(district_id=district_id)
     form.school_id.choices=[(x.id,x.name) for x in query.all()]
     if request.method=="POST" and form.validate():
