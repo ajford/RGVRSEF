@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block title %} Student Registration {% endblock %}
+
+{% block content %} 
+
+<div id="studentpersonal">	
+	<form method="POST" action="{{url_for('studentreg2')}}">
+	{{ form.firstname.label }} : {{ form.firstname }} </br>
+	{{ form.lastname.label }} : {{ form.lastname }}	  </br>
+	{{ form.email.label }} : {{ form.email }}		  </br>
+	{{ form.address.label }} :{{ form.address }}	  </br>
+	{{ form.city.label }} : {{ form.city }}			  </br>
+	{{ form.zipcode.label }} : {{ form.zipcode }}	  </br>
+	{{ form.grade.label }} : {{ form.grade }} 		  </br>
+	{{ form.age.label }} : {{ form.age }} 			  </br>
+	{{ form.gender.label }} : {{ form.gender }} 	  </br>
+<input type="submit" value="Continue" >
+</form>
+</div>
+
+{% endblock %}

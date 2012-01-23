@@ -88,9 +88,25 @@ def sponsor_review():
     else:
         return render_template("sponsor_login.html",form=form)
 
-@app.route('/reg/student')
-def studentreg():
-    return NYI()            
+@app.route('/reg/student/sponsorcode',methods=['GET','POST'])
+def studentreg1():
+    form=StudentSponsorForm()
+    if form.validate_on_submit():
+        return redirect(url_for('studentreg2'))            
+    return render_template("studentreg1.html",form=form)            
+
+@app.route('/reg/student/personalinfo')
+def studentreg2():
+    form=StudentForm()
+    return render_template("studentreg2.html",form=form)
+
+@app.route('/reg/student/projectinfo')
+def studentreg3():
+    return NYI()
+
+@app.route('/reg/student/forms')
+def studentreg4():
+    return NYI()
 
 @app.route('/reg/sponsor/district')
 def sponsordistrict():
