@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block title %} Student Registration {% endblock %}
+
+{% block content %} 
+<div id="projectinfo">
+	<form method="POST" action="{{url_for('studentreg3')}}">
+	<p> This to submit project info </p>
+	<input type="submit" value="Continue">
+	</form> 
+</div>
+{% endblock %}
