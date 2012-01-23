@@ -3,15 +3,27 @@
 
 {% block content %}
 <p>Thank you for registering. The following id is the unique identification
-code to provide your students with when registering. 
-</p>
+code to provide your students with when registering.</p>    
 
-{{ sponsor.id | encode }} 
+<div id="sponsid" class='boxify'>{{ sponsor.id | encode }}</div>
 
-<p>You should be recieving an email with the id for your records. 
-Once again thank you and have a wonderful day.  
-</p>
-<a href="{{url_for('index')}}"><button type="button">Ok</button></a>
+<blockquote>
+    <div id="aboutsponsid" class='boxify'>
+        <h3>About Your Unique ID</h3> 
+        <p>This system is implemented to ease student registration and prevent
+        you from needing to hand out any personal information to students, such
+        as your phone number or email.</p>
+        <p>Your ID <em>is case sensitive.</em></p>
+        <p>Your ID will be emailed to you in a confirmation email for your
+        convenience.</p>
+    </div>
+</blockquote>
 
+<p>You should be recieving your confirmation email shortly. If you do not
+recieve an email within 24 hours, please contact us. Once again thank you and
+have a wonderful day.</p> 
+
+<h3><a href="{{url_for('index')}}">Click here to return to the
+    homepagage.</a></h3>
 
 {% endblock %}
