@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{%block title%} Sponsor Registration{%endblock%}
+
+{% block content %}
+<p>Thank you for registering. The following id is the unique identification
+code to provide your students with when registering. 
+</p>
+
+{{ sponsor.id | encode }} 
+
+<p>You should be recieving an email with the id for your records. 
+Once again thank you and have a wonderful day.  
+</p>
+<a href="{{url_for('index')}}"><button type="button">Ok</button></a>
+
+
+{% endblock %}

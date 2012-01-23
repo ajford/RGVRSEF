@@ -71,7 +71,7 @@ def sponsor():
         form.populate_obj(user)
         db.session.add(user)
         db.session.commit()
-        return redirect(url_for('sponsor'))
+        return render_template("sponsor_complete.html",sponsor=user)
     return render_template("sponsor.html",form=form)
 
 @app.route('/sponsor/review',methods=['GET','POST'])
