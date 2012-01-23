@@ -2,3 +2,9 @@
 <script type='text/javascript' src='{{url_for('static',filename=filename)}}'></script>
 {% endmacro %}
 
+{% macro fieldtable(form,fieldname) %}
+    <tr><td> {{ form.__getattribute__(fieldname).label }}:<br>
+            <span class='warning'>
+                {{form.errors.get('fieldname',None)|nonone|first}}</span></td>
+        <td>{{ form.__getattribute__(fieldname)(**kwargs) }}</td></tr>
+{% endmacro %} 
