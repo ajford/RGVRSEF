@@ -63,7 +63,7 @@ def news():
 
 @app.route('/sponsor',methods=['GET','POST'])
 def sponsor():
-    form = Sponsor(request.form)
+    form = SponsorForm(request.form)
     form.school_id.choices=[(x.id,x.name) for x in 
             School.query.order_by('name')]
     if request.method=="POST" and form.validate():
@@ -76,7 +76,7 @@ def sponsor():
 
 @app.route('/sponsor/review',methods=['GET','POST'])
 def sponsor_review():
-    form = SponsorLogin()
+    form = SponsorLoginForm()
     if form.validate_on_submit():
         sponsid = decode(form.id.data)
         sponsor = Sponsor.query.get_or_404(sponsid)
