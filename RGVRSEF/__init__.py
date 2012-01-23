@@ -148,6 +148,6 @@ def sponsordistrict():
 
 @app.route('/contact')
 def contact():
-    return NYI()            
+    return render_template("contact.html")
 
 app.register_blueprint(admin_blueprint, url_prefix='/admin')
