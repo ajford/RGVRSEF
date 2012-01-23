@@ -1,12 +1,16 @@
 {% extends "layout.html" %}
+{% from "macros.html" import fieldtable,submitify %}
 {% block content %}
 
+{% if message %}
+<p class="warning">{{ message }}</p>
+{% endif %}
 <form method="POST" action="{{url_for('sponsor_review')}}">
     {{ form.csrf }}
     <table>
-    <tr><td>{{ form.id.label }}</td><td>{{ form.id() }}</td></tr>
-    <tr><td>{{ form.password.label }}</td><td>{{ form.password() }}</td></tr>
-    <tr><td></td><td><input type="submit" Value="Submit"></td></tr>
+        {{ fieldtable(form,'id') }}
+        {{ fieldtable(form,'password') }}
+        {{ submitify() }}
     </table>
 </form>
 

@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+{% from "macros.html" import fieldtable,submitify %}
 {%block title%}Sponsor Registration{%endblock%}
 
 {% block content %}
@@ -6,16 +7,16 @@
 <div id='sponsor_reg'>
     <p>Sponsors, please enter the following information to register.</p>
 <form method="POST" action="sponsor">
-    {{ form.csrf }}
+    {{ form.hidden_tag() }}
 <table>
-    <tr><td> {{ form.firstname.label }}:</td><td>{{ form.firstname }}</td></tr> 
-    <tr><td> {{ form.lastname.label }}:</td><td>{{ form.lastname }}</td></tr> 
-    <tr><td> {{ form.email.label }}:</td><td>{{ form.email }}</td></tr> 
-    <tr><td> {{ form.phone.label }}:</td><td>{{ form.phone }}</td></tr> 
-    <tr><td> {{ form.school_id.label }}:</td><td>{{ form.school_id}}</td></tr> 
-    <tr><td> {{ form.password.label }}:</td><td> {{ form.password() }}</td></tr>
-    <tr><td> {{ form.confirm.label }}:</td><td> {{ form.confirm() }}</td></tr>
-    <tr><td></td><td><input type="submit" Value="Submit"></td></tr>
+    {{ fieldtable(form,'firstname') }} 
+    {{ fieldtable(form,'lastname') }} 
+    {{ fieldtable(form,'email') }} 
+    {{ fieldtable(form,'phone') }} 
+    {{ fieldtable(form,'school_id') }} 
+    {{ fieldtable(form,'password') }} 
+    {{ fieldtable(form,'confirm') }} 
+    {{ submitify() }}
 </table>
 </form>
 </div>
