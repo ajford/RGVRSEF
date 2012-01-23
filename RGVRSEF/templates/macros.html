@@ -5,6 +5,9 @@
 {% macro fieldtable(form,fieldname) %}
     <tr><td> {{ form.__getattribute__(fieldname).label }}:<br>
             <span class='warning'>
-                {{form.errors.get('fieldname',None)|nonone|first}}</span></td>
+                {{form.errors.get(fieldname,None)|nonone|first}}</span></td>
         <td>{{ form.__getattribute__(fieldname)(**kwargs) }}</td></tr>
 {% endmacro %} 
+{% macro submitify(value="submit") %}
+<tr><td></td><td><input type='submit' value='{{value}}'></td></tr>
+{% endmacro %}
