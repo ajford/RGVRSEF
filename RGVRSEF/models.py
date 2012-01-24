@@ -79,6 +79,7 @@ class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(150))
     team = db.Column(db.Boolean, default=False)
+    projects = db.relationship("Project",backref='category',lazy='dynamic')
 
     def __init__(self,name,team=False):
         self.name = name.strip().title()
