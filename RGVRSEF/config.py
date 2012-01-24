@@ -9,6 +9,10 @@ except ImportError:
     SQLALCHEMY_DATABASE_URI = 'sqlite:///rgvrsef.db'
 
 SECRET_KEY = 'developmentKey'
+DEVELOPMENT = True
+TESTING = True
+DEBUG = True
+
 CATEGORIES = (  ("Animal Science",False),
                 ("Behavioral and Social Science",False),
                 ("Biochemistry",False),
