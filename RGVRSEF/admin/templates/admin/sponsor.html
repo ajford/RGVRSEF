@@ -12,8 +12,10 @@
         <td>No school affiliation</td>
         {% endif %}
     </tr>
-    <tr><td>Email:<br/>{{sponsor.email}}</td></tr>
-    <tr><td>Phone:<br/>{{sponsor.phone}}</td></tr>
+    </table><table>
+    <tr><td>Email:</td><td>{{sponsor.email}}</td></tr>
+    <tr><td>Phone:</td><td>{{sponsor.phone}}</td></tr>
+    <tr><td>Unique ID:</td><td>{{sponsor.id|encode}}</td></tr>
     </tr>
 </table>
 {% endblock content %}
