@@ -9,13 +9,13 @@
     <p>You can contact us regarding registration via the following methods:</p>
     <blockquote>
         <p><b>Email:</b>
-            <a href="mailto:blah@example.com">blah@example.com</a></p>
-        <p><b>Phone:</b> 555-555-5555</p>
+        <a href="mailto:{{ contact.email }}">{{ contact.email }}</a></p>
+        <p><b>Phone:</b> {{ contact.phone|phone }}</p>
     </blockquote>
     <p>For issues with the website, please contact us via the following methods:</p>
     <blockquote>
         <p><b>Email:</b>
-            <a href="mailto:blah@example.com">blah@example.com</a></p>
+            <a href="mailto:{{ webmaster.email }}">{{ webmaster.email }}</a></p>
     </blockquote>
 {% endblock content %}
 
