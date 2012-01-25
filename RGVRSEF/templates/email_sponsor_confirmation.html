@@ -1,0 +1,52 @@
+<table width='100%' bgcolor="#608BDA" cellpadding="30px">
+    <tr>
+        <td>
+            <table width='600px' bgcolor="#FFFFFF" cellpadding="15px" style="margin: auto;">
+                <tr>
+                    <td> Thank you for registering with the Rio Grande Valley's
+                        Regional Science and Engineering Fair.</td>
+                </tr><tr>
+                <td> This email contains your Unique ID required for your
+                    students to register, so please save this email for your
+                    records.</td>
+                </tr><tr><td><hr></td></tr><tr>
+                <td> Registrant's Info:<td>
+                </tr><tr>
+                <td>
+                    Name: {{ sponsor.lastname }},{{ sponsor.firstname }}<br>
+                    Phone: {{ sponsor.phone | phone }}</td>
+                </tr><tr>
+                <td> If this is not you, please contact us immediately by email
+                    at <a href="mailto:{{contact.email}}">{{contact.email}}</a>
+                    or by phone at {{contact.phone}}.  </td>
+                </tr><tr><td><hr></td></tr><tr>
+                <th><span style="background:#FFC14F;padding:20px;">
+                    Your Unique ID: {{ sponsor.id|encode }}</span></th>
+                </tr><tr>
+                <td> This year, in order to simplify student registration, we
+                    have introduced this Unique ID. Each sponsor has a Unique
+                    ID through which we are able to tie student and sponsor
+                    together during registration.</td>
+                </tr><tr>
+                <td> To do this, we need you to provide all registering
+                    students with this Unique ID. Please note that this Unique
+                    ID is case sensitive (meaning that capitalization matters).
+                </td>
+                </tr><tr>
+                <td> If you have any questions or concerns, do not hesitate to
+                    contact us via email at 
+                    <a href="mailto:{{contact.email}}">{{contact.email}}</a>
+                    or by phone at {{ contact.phone }}.</td>
+                </tr><tr><td><hr></td></tr><tr>
+                <td> Again, thank you for participating in the 2012 RGV
+                    Regional Science and Engineering Fair.</td>
+                </tr><tr>
+                <td> {{ contact.name }},<br>
+                    <a href="mailto:{{contact.email}}">{{contact.email}}</a>,
+                    <br> {{ contact.phone }}<br> RGV Regional Science Fair
+                    Coordinator </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

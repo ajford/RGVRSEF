@@ -1,0 +1,47 @@
+Thank you for registering with the Rio Grande Valley's
+Regional Science and Engineering Fair. 
+
+This email contains your Unique ID required for your
+students to register, so please save this email for your
+records.
+
+-----------------------------------------------------------
+
+Registrant's Info:
+
+Name: {{ sponsor.lastname }},{{ sponsor.firstname }}
+
+Phone: {{ sponsor.phone | phone }}
+
+
+If this is not you, please contact us immediately by email
+at {{ contact.email }} or by phone at {{ contact.phone }}.
+
+-----------------------------------------------------------
+
+Your Unique ID: {{ sponsor.id|encode }}
+
+This year, in order to simplify student registration, we
+have introduced this Unique ID. Each sponsor has a Unique ID
+through which we are able to tie student and sponsor
+together during registration.
+
+To do this, we need you to provide all registering students
+with this Unique ID. Please note that this Unique ID is case
+sensitive (meaning that capitalization matters).
+
+If you have any questions or concerns, do not hesitate to
+contact us via email at {{ contact.email }} or by phone at
+{{ contact.phone }}.
+
+-----------------------------------------------------------
+
+Again, thank you for participating in the 2012 RGV Regional
+Science and Engineering Fair.
+
+-
+{{ contact.name }},
+{{ contact.email }}
+{{ contact.phone }}
+
+RGV Regional Science Fair Coordinator

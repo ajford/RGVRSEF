@@ -10,9 +10,22 @@ except ImportError:
 
 SECRET_KEY = 'developmentKey'
 DEVELOPMENT = True
-TESTING = True
-DEBUG = True
+TESTING = False
+DEBUG = False
 
+TITLE = "RGV Regional Science and Engineering Fair"
+YEAR = "2012"
+CONTACT = {'email':'contact@example.com','phone':'1235436789',
+            'name':'Contact Person'}
+
+# Mail settings
+MAIL_SERVER = "mail.example.com"
+MAIL_PORT = 25
+MAIL_USERNAME = "TEST"
+MAIL_PASSWORD = "Wouldn't You Like To Know"
+DEFAULT_MAIL_SENDER = "test@example.com"
+
+# Category settings
 CATEGORIES = (  ("Animal Science",False),
                 ("Behavioral and Social Science",False),
                 ("Biochemistry",False),

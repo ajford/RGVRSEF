@@ -2,16 +2,20 @@ import re
 from datetime import date
 import base64
 
-from flask import Flask, make_response,redirect, url_for, render_template,json,request,flash
+from flask import (Flask, make_response,redirect, url_for,
+                    render_template,json,request,flash)
 from werkzeug import ImmutableDict
+from flask.ext.mail import Mail, Message
 
 app = Flask(__name__)
+app.config.from_object('RGVRSEF.config')
+
+mail = Mail(app)
 
 from .models import *
 from .admin import admin as admin_blueprint
 from .forms import *
 
-app.config.from_object('RGVRSEF.config')
 jinja_options = dict(app.jinja_options)
 jinja_options.update({'trim_blocks':True})
 app.jinja_options = ImmutableDict(jinja_options)
@@ -75,6 +79,14 @@ def sponsorreg():
         form.populate_obj(user)
         db.session.add(user)
         db.session.commit()
+        if not app.config['DEVELOPMENT']:
+            conf_email = Message("RGV RSEF - Sponsor Registration")
+            conf_email.html = render_template('email_sponsor_confirmation.html',
+                                        contact=app.config['CONTACT'],
+                                        sponsor=user)
+            conf_email.add_recipient(user.email)
+            mail.send(conf_email)
+
         return render_template("sponsor_complete.html",sponsor=user)
     return render_template("sponsor.html",form=form)
 
