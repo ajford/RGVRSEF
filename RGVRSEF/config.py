@@ -17,6 +17,8 @@ TITLE = "RGV Regional Science and Engineering Fair"
 YEAR = "2012"
 CONTACT = {'email':'contact@example.com','phone':'1235436789',
             'name':'Contact Person'}
+WEBMASTER = {'email':'Webmaster@example.com','phone':'1235436789',
+            'name':'Webmaster'}
 
 # Mail settings
 MAIL_SERVER = "mail.example.com"

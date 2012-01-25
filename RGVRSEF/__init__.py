@@ -160,6 +160,7 @@ def sponsordistrict():
 
 @app.route('/contact')
 def contact():
-    return render_template("contact.html")
+    return render_template("contact.html", contact=app.config['CONTACT'],
+                            webmaster=app.config['WEBMASTER'])
 
 app.register_blueprint(admin_blueprint, url_prefix='/admin')
