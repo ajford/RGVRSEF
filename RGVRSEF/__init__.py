@@ -109,6 +109,9 @@ def sponsor_review():
 
 @app.route('/reg/student/sponsorcode',methods=['GET','POST'])
 def studentreg1():
+    if not app.config['STUDENT_ACTIVE']:
+        return render_template('message.html',
+                            message="Student Registration is currently closed")
     form=StudentSponsorForm()
     if form.validate_on_submit():
         sponsor_id = decode(form.sponsor_id.data)
