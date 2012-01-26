@@ -7,7 +7,10 @@
     {% for sponsor in sponsors -%}
     <tr><td><a href="{{url_for('.sponsor',id=sponsor.id)}}">
                 {{sponsor.lastname}},{{sponsor.firstname}}</a></td>
-        <td>{{sponsor.school.name}}</td>
+        <td><a href="{{url_for('.school',id=sponsor.school.id)}}">
+            {{sponsor.school.name}}</a></td>
+        <td><a href="{{url_for('.district',id=sponsor.school.district.id)}}">
+            {{ sponsor.school.district.name}}</a></td>
     </tr>
     {% else %}
     <tr><td>No Sponsors</td></tr>
