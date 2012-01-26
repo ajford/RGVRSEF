@@ -5,9 +5,9 @@ from flask import Blueprint, render_template, abort, request, url_for,\
                   flash, redirect
 from flaskext.login import current_user, login_required, fresh_login_required
 
-from RGVRSEF import app
+from RGVRSEF import app, mail, Message
 from RGVRSEF.models import *
-from .forms import DeadlineForm, NewsForm, DistrictForm, SchoolForm
+from .forms import DeadlineForm, NewsForm, DistrictForm, SchoolForm, MailForm
 
 def NYI():
     return render_template('admin/message.html', message="Not Yet Implemented")
@@ -97,7 +97,6 @@ def project(id):
 def sponsors():
     sponsors = Sponsor.query.order_by('lastname').all()
     return render_template('admin/sponsors.html',sponsors=sponsors)
-
 
 @admin.route('/sponsor/<int:id>')
 @login_required
@@ -258,4 +257,28 @@ def newschool():
         db.session.commit()
         flash('School successfully created.','info')
         return redirect(url_for('.schools'))
+
+
+@admin.route('/mailer', methods=['POST','GET'])
+@login_required
+def mailer():
+    pass
+    form = MailForm()
+    if form.validate_on_submit():
+        if form.to.data == 1:
+            queries = (Sponsor.query,)
+        if form.to.data == 2:
+            queries = (Student.query,)
+        if form.to.data == 3:
+            queries = (Sponsor.query,Student.query)
+
+        with mail.connect() as conn:
+            for query in queries:
+                for user in query.all():
+                    msg = Message(recipients=[user.email],
+                                  body=form.message.data,
+                                  subject=form.subject.data)
+                    conn.send(msg)
+        return render_template('admin/message.html',message="Mail Sent.")
+    return render_template('admin/mail.html',form=form)
 

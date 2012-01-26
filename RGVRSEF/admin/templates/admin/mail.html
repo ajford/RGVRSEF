@@ -1,0 +1,18 @@
+{% extends "admin/layout.html" %}
+{% from "macros.html" import fieldtable, submitify %}
+
+{% block title %}Mailing{% endblock title%}
+
+{% block content %}
+<h3>Mailing System</h3>
+<form method="POST" action="{{url_for('.mailer')}}">
+    {{ form.hidden_tag() }}
+    <table>
+        {{ fieldtable(form,'to') }}
+        {{ fieldtable(form,'subject') }}
+        {{ fieldtable(form,'message',cols='30',rows='10') }}
+        {{ submitify() }}
+    </table>
+</form>
+{% endblock content %}
+
