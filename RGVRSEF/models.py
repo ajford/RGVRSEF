@@ -56,7 +56,8 @@ class Project(db.Model):
                 'table': self.table, 'electricity': self.electricity}
 
 class Sponsor(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, db.Sequence('sponsor_id_seq',start=1000),
+                    primary_key=True)
     firstname = db.Column(db.String(30))
     lastname = db.Column(db.String(50))
     email = db.Column(db.String(150))
