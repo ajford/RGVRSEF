@@ -62,7 +62,7 @@ class Sponsor(db.Model):
     email = db.Column(db.String(150))
     relation = db.Column(db.String(150))
     phone = db.Column(db.String(15))
-    password = db.Column(db.String(30))
+    password = db.Column(db.String(64))
     school_id = db.Column(db.Integer,db.ForeignKey('school.id'))
     students = db.relationship('Student', backref='sponsor',lazy='dynamic')
 
