@@ -1,3 +1,7 @@
+from os import environ
+
+from RGVRSEF import json
+
 try: 
     from bundle_config import config
     SQLALCHEMY_DATABASE_URI = 'postgresql://%s:%s@%s/%s'%(
@@ -15,19 +19,17 @@ DEBUG = False
 
 TITLE = "RGV Regional Science and Engineering Fair"
 YEAR = "2012"
-CONTACT = {'email':'contact@example.com','phone':'1235436789',
-            'name':'Contact Person'}
-WEBMASTER = {'email':'Webmaster@example.com','phone':'1235436789',
-        'name':'Webmaster'}
+CONTACT = json.loads(environ.get("CONTACT"))
+WEBMASTER = json.loads(environ.get("WEBMASTER"))
 
 STUDENT_ACTIVE = False
 
 # Mail settings
-MAIL_SERVER = "mail.example.com"
-MAIL_PORT = 25
-MAIL_USERNAME = "TEST"
-MAIL_PASSWORD = "Wouldn't You Like To Know"
-DEFAULT_MAIL_SENDER = "test@example.com"
+MAIL_SERVER = environ.get("MAIL_SERVER")
+MAIL_PORT = environ.get("MAIL_PORT")
+MAIL_USERNAME = environ.get("MAIL_USERNAME")
+MAIL_PASSWORD = environ.get("MAIL_PASSWORD")
+DEFAULT_MAIL_SENDER = environ.get("DEFAULT_MAIL_SENDER")
 
 # Category settings
 CATEGORIES = (  ("Animal Science",False),
