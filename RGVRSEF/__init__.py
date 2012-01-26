@@ -16,6 +16,7 @@ mail = Mail(app)
 from .models import *
 from .admin import admin as admin_blueprint
 from .forms import *
+from .testing import DummySponsor
 
 jinja_options = dict(app.jinja_options)
 jinja_options.update({'trim_blocks':True})
@@ -182,5 +183,14 @@ def sponsordistrict():
 def contact():
     return render_template("contact.html", contact=app.config['CONTACT'],
                             webmaster=app.config['WEBMASTER'])
+if app.config['TESTING']:
+    @app.route('/email_preview')
+    def emailtest():
+        sponsor = DummySponsor()
+            
+        contact = app.config['CONTACT']
+        return render_template('email_sponsor_confirmation.html',
+                                sponsor=sponsor,contact=contact)
+
 
 app.register_blueprint(admin_blueprint, url_prefix='/admin')
