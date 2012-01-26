@@ -14,7 +14,10 @@
                 </tr><tr>
                 <td>
                     Name: {{ sponsor.lastname }},{{ sponsor.firstname }}<br>
-                    Phone: {{ sponsor.phone | phone }}</td>
+                    Phone: {{ sponsor.phone | phone }}<br>
+                    School: {{ sponsor.school.name }}<br>
+                    District: {{ sponsor.school.district.name }}</td>
+                    
                 </tr><tr>
                 <td> If this is not you, please contact us immediately by email
                     at <a href="mailto:{{contact.email}}">{{contact.email}}</a>
