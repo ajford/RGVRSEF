@@ -1,6 +1,7 @@
 import re
 from datetime import date
 import base64
+from pprint import pprint
 
 from flask import (Flask, make_response,redirect, url_for,
                     render_template,json,request,flash)
@@ -23,6 +24,22 @@ app.jinja_options = ImmutableDict(jinja_options)
 repl = lambda x: '%s-%s-%s'%(x.group(1),x.group(2),x.group(3))
 phoneRE = re.compile('([0-9]{3})([0-9]{3})([0-9]{4})\Z')
 prettyPhone = lambda x: phoneRE.sub(repl,x)
+
+if not app.debug:
+    import logging
+    from logging import FileHandler, Formatter
+    try:
+        from bundle_config import config
+        file_handler = FileHandler("%s/RGVRSEF.log"%config['core']['data_directory'])
+        file_handler.setLevel(logging.WARNING)
+        file_handler.setFormatter(Formatter(
+            '%(asctime)s %(levelname)s: %(message)s '
+            '[in %(pathname)s:%(lineno)d]'
+        ))
+        app.logger.addHandler(file_handler)
+    except ImportError:
+        pass
+
 
 def currency(x):
     try:
