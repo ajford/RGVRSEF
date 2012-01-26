@@ -3,8 +3,15 @@
         <td>
             <table width='600px' bgcolor="#FFFFFF" cellpadding="15px" style="margin: auto;">
                 <tr>
-                    <td> Thank you for registering with the Rio Grande Valley's
-                        Regional Science and Engineering Fair.</td>
+                    <td><a href="{{url_for('index',_external=True)}}">
+                    <img src="{{- url_for('static', filename='email_header.png',
+                    _external=True) -}}"
+                    alt="<h2>RGV Regional Science and Engineering Fair 2012
+                    </h2>"></a></td>
+                </tr>
+                <tr>
+                    <td> <br>Thank you for registering with the Rio Grande
+                        Valley's Regional Science and Engineering Fair.</td>
                 </tr><tr>
                 <td> This email contains your Unique ID required for your
                     students to register, so please save this email for your
@@ -21,7 +28,7 @@
                 </tr><tr>
                 <td> If this is not you, please contact us immediately by email
                     at <a href="mailto:{{contact.email}}">{{contact.email}}</a>
-                    or by phone at {{contact.phone}}.  </td>
+                    or by phone at {{contact.phone|phone}}.  </td>
                 </tr><tr><td><hr></td></tr><tr>
                 <th><span style="background:#FFC14F;padding:20px;">
                     Your Unique ID: {{ sponsor.id|encode }}</span></th>
@@ -39,14 +46,14 @@
                 <td> If you have any questions or concerns, do not hesitate to
                     contact us via email at 
                     <a href="mailto:{{contact.email}}">{{contact.email}}</a>
-                    or by phone at {{ contact.phone }}.</td>
+                    or by phone at {{ contact.phone|phone }}.</td>
                 </tr><tr><td><hr></td></tr><tr>
                 <td> Again, thank you for participating in the 2012 RGV
                     Regional Science and Engineering Fair.</td>
                 </tr><tr>
                 <td> {{ contact.name }},<br>
                     <a href="mailto:{{contact.email}}">{{contact.email}}</a>,
-                    <br> {{ contact.phone }}<br> RGV Regional Science Fair
+                    <br> {{ contact.phone|phone }}<br> RGV Regional Science Fair
                     Coordinator </td>
                 </tr>
             </table>
