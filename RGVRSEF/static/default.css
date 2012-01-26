@@ -14,8 +14,8 @@ body
 .header
 {
 	position:absolute;
-	top:0px;
-	height:100px;
+	top:10px;
+	height:120px;
     width: 800px;
 	text-align:center;
     color: #fff;
@@ -23,7 +23,7 @@ body
 .content
 {
 	position:absolute;
-	top:100px;
+	top:120px;
     width:800px;
     padding:1em;
     background: #FFFFFF;
