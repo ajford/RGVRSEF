@@ -95,8 +95,15 @@ def project(id):
 @admin.route('/sponsors')
 @login_required
 def sponsors():
-    sponsors = Sponsor.query.order_by('lastname').all()
-    return render_template('admin/sponsors.html',sponsors=sponsors)
+    district_narrow = request.args.get('district','')
+    sponsors = Sponsor.query.order_by('lastname')
+    if district_narrow != '':
+        sponsors = sponsors.join(School).filter_by(district_id=district_narrow)
+    districts = District.query.all()
+    
+    return render_template('admin/sponsors.html',sponsors=sponsors,
+                        district_narrow=district_narrow,
+                        districts=districts)
 
 @admin.route('/sponsor/<int:id>')
 @login_required

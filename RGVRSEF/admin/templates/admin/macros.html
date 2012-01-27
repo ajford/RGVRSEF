@@ -47,8 +47,7 @@
     <div class="clear"></div>
 {% endmacro %}
 
-
-{%macro render_school_narrow(districts,district_narrow,endpoint='.schools')%}
+{%macro render_district_narrow(districts,district_narrow,endpoint='.schools')%}
     <button id='districtText' 
     onclick="javascript:toggle('district','districtText')">
     Show District Filters :</button>
@@ -67,7 +66,6 @@
             Clear</a></li>
     {% endif %}
     </ul>
-    <div class="clearpad"></div>
     </div>
     <div class="clear"></div>
 {% endmacro %}
