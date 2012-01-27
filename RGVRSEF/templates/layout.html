@@ -28,20 +28,20 @@
         {% block body %}
         <div class='content'>
         {% block nav %}
-        <div class="nav">
-            <ul id='navlinks' class='sidewaysLarge'>
-                <li><a href='{{url_for('index')}}'>Home</a>
-                    </li>
-                <li><a href='{{url_for('studentreg1')}}'>Start Registration</a>
-                    </li>
-                <li><a href='{{url_for('sponsordistrict')}}'>Sponsor Registration</a>
-                    </li>
-                <li><a href='{{url_for('sponsor_review')}}'>Sponsor Login</a>
-                    </li>
-                <li><a href='{{url_for('admin.index')}}'>Administration</a></li>
-                <li><a href='{{url_for('contact')}}'>Contact Us</a></li>
-            </ul>
-        </div>
+        <table class='nav' width="800px">
+            <tr id='navlinks'>
+                <td><a href='{{url_for('index')}}'>Home</a>
+                    </td>
+                <td><a href='{{url_for('studentreg1')}}'>Start Registration</a>
+                    </td>
+                <td><a href='{{url_for('sponsordistrict')}}'>
+                        Sponsor Registration</a></td>
+                <td><a href='{{url_for('sponsor_review')}}'>Sponsor Login</a>
+                    </td>
+                <td><a href='{{url_for('admin.index')}}'>Administration</a></td>
+                <td><a href='{{url_for('contact')}}'>Contact Us</a></td>
+            </tr>
+        </table>
         {% endblock nav %}
         <div class='clear'></div>
         {% block content %}

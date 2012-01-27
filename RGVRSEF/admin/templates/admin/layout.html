@@ -16,7 +16,7 @@
         </div>
         {% block body %}
         <div class='content'>
-        <table class='adminNav'><tr>
+        <table class='adminNav'><tr id='navlinks'>
                 <th><a href="{{ url_for('.index')}}">Admin Home</a></th>
                 <th><a href="{{url_for('.news')}}">News</a></th>
                 <th><a href="{{url_for('.deadlines')}}">Deadlines</a></th>
