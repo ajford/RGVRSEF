@@ -104,7 +104,7 @@ body
 .sideways li 
 {
     list-style-type: none;
-    padding-bottom: 5px;
+    padding-bottom: 15px;
     padding-left: 5px;
     padding-right: 5px;
     float: left;
