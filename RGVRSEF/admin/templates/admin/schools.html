@@ -1,7 +1,15 @@
 {% extends "admin/layout.html" %}
+{% from 'admin/macros.html' import render_school_narrow, script %}
+
+{% block scripts %}
+{{ super() }}
+{{ script('default.js','.static') }}
+{% endblock scripts %}
+
 {% block content %}
 <h4>{{get_flashed_messages()[0]}}</h4>
 <div class='clear'></div>
+{{render_school_narrow(districts,district_narrow)}}
 <table class='compact'>
     {% for school in schools %}
     <tr><td><a href='{{url_for('.school',id=school.id)}}'>{{school.name}}</a>

@@ -213,8 +213,15 @@ def newnews():
 @admin.route('/schools')
 @login_required
 def schools():
-    schools = School.query.all()
-    return render_template('admin/schools.html',schools=schools)
+    district_narrow = request.args.get('district','')
+    schools = School.query
+    if district_narrow != '':
+        schools = schools.filter_by(district_id=district_narrow)
+    districts = District.query.all()
+    
+    return render_template('admin/schools.html',schools=schools,
+                        district_narrow=district_narrow,
+                        districts=districts)
 
 @admin.route('/school/<int:id>', methods=["GET","POST"])
 @login_required
@@ -262,7 +269,6 @@ def newschool():
 @admin.route('/mailer', methods=['POST','GET'])
 @login_required
 def mailer():
-    pass
     form = MailForm()
     if form.validate_on_submit():
         if form.to.data == 1:

@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" media="all" href="{{url_for(endpoint,filename=filename)}}" />
 {%- endmacro %}
 
-{%macro render_project_narrow(cats,div_narrow,cat_narrow,endpoint='projects')%}
+{%macro render_project_narrow(cats,div_narrow,cat_narrow,endpoint='.projects')%}
     <button id='divText' onclick="javascript:toggle('division','divText')" >Show Division Filters :</button>
     <div id='division' style="display:none" class="filter">
     <ul class="sidewaysSmall">
@@ -48,4 +48,27 @@
 {% endmacro %}
 
 
+{%macro render_school_narrow(districts,district_narrow,endpoint='.schools')%}
+    <button id='districtText' 
+    onclick="javascript:toggle('district','districtText')">
+    Show District Filters :</button>
+    <div id='district' style="display:none" class="filter">
+    <ul class="sideways">
+    {% for district in districts %}
+        {% if district_narrow != district %}
+        <li><a href="{{url_for(endpoint,district=district.id)}}">
+            {{district.name}}</a></li>
+        {% else %}
+        <li>{{district.name}}</li>
+        {% endif %}
+    {% endfor %}
+    {% if district_narrow %}
+        <li><a href="{{url_for(endpoint,district='')}}">
+            Clear</a></li>
+    {% endif %}
+    </ul>
+    <div class="clearpad"></div>
+    </div>
+    <div class="clear"></div>
+{% endmacro %}
     
