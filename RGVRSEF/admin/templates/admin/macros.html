@@ -53,6 +53,10 @@
     Show District Filters :</button>
     <div id='district' style="display:none" class="filter">
     <ul class="sideways">
+    {% if district_narrow %}
+        <li><a href="{{url_for(endpoint,district='')}}">
+            Clear</a></li>
+    {% endif %}
     {% for district in districts %}
         {% if district_narrow != district %}
         <li><a href="{{url_for(endpoint,district=district.id)}}">
@@ -61,10 +65,6 @@
         <li>{{district.name}}</li>
         {% endif %}
     {% endfor %}
-    {% if district_narrow %}
-        <li><a href="{{url_for(endpoint,district='')}}">
-            Clear</a></li>
-    {% endif %}
     </ul>
     </div>
     <div class="clear"></div>
