@@ -1,5 +1,19 @@
+/* Sticky footer additions. 
+Taken from http://ryanfait.com/resources/footer-stick-to-bottom-of-page/ */
+* {margin:0;}
+html{height:100%;}
+.wrapper
+{
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -4em;
+}
+.push{height: 4em;}
+/* End Sticky footer main */
 body
 {
+    height:100%;
     background:#608BDA;
 	width:800px;
 	margin-left:auto;
@@ -67,9 +81,7 @@ body
 }
 .footer
 {
-	position:fixed;
-	width:800px;
-	bottom:0px;	
+    height: 4em;
     margin-left:auto;
     margin-right:auto;
 	text-align:center;

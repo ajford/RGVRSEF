@@ -19,6 +19,7 @@
         {%- endblock scripts %}
     </head>
     <body>
+        <div class='wrapper'>
         <div class='header'>
         {% block header -%}
         <a href="{{url_for('index',_external=True)}}">
@@ -43,9 +44,12 @@
             </tr>
         </table>
         {% endblock nav %}
-        <div class='clear'></div>
+        <div class='clearpad'></div>
         {% block content %}
         {% endblock content %}
+        <div class='push'></div>
+        </div>
+        <!-- End for wrapper -->
         </div>
         {% endblock body %}
         <div class='footer'>
