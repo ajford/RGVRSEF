@@ -154,9 +154,9 @@ def studentreg2():
 def studentreg3():
     form=ProjectForm()
     query=Category.query.order_by('id')
-    form.category.choices=[(x.id,x.name) for x in query.all()]
+    form.category_id.choices=[(x.id,x.name) for x in query.all()]
     if form.validate_on_submit():
-        if form.team.data:
+        if form.team.data=='True':
             return redirect(url_for('teammembers'))
         return redirect(url_for('studentreg4'))
     return render_template("studentreg3.html",form=form)
@@ -164,8 +164,13 @@ def studentreg3():
 @app.route('/reg/student/teaminfo',methods=['GET','POST'])
 def teammembers():
     form=StudentForm()
-#    if form.validate_on_submit:
-#        return redirect(url_for('index'))
+    print form.errors
+    if form.done.data:
+        return redirect(url_for('studentreg4'))
+    if form.submit.data:
+        print 'luckily it works.....SORT OF'
+        form.submit.data='False'
+        return redirect(url_for('teammembers'))
     return render_template("team_members.html",form=form)
 
 @app.route('/reg/student/forms')

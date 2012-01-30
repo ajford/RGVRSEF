@@ -7,13 +7,18 @@
 <p> This to submit project info </p>
 <div id="projectinfo">
 	<form method="POST" action="{{url_for('studentreg3')}}">
+		{{ form.hidden_tag() }}
 		<table>
 			{{ fieldtable(form,'title') }}
 			{{ fieldtable(form,'team',class='nobullet') }}
-			{{ fieldtable(form,'category') }}
+			{{ fieldtable(form,'category_id') }}
 			{{ fieldtable(form,'division',class='nobullet') }}
 			{{ fieldtable(form,'table',class='nobullet') }}
-			{{ fieldtable(form,'elect',class='nobullet') }}
+			{{ fieldtable(form,'electricity',class='nobullet') }}
+			<tr><td><p class="emphasis"> 
+				NOTE: Electricity will only be provided for projects,
+				not for laptops. 
+			</p></td></tr>		
 			{{ submitify() }}
 		</table>
 	</form> 

@@ -2,7 +2,8 @@ from hashlib import sha256
 
 from flaskext.wtf import (Form, TextField, TextAreaField, BooleanField,
                          SelectField, RadioField, PasswordField, Required,
-                         Length, Optional, Email, NumberRange, EqualTo)
+                         Length, Optional, Email, NumberRange, EqualTo,
+                         SubmitField)
 
 class InfoForm(Form):
     firstname = TextField('First Name', validators=[Required(),Length(3)])
@@ -26,6 +27,8 @@ class StudentForm(InfoForm):
     gender = SelectField('Gender',coerce=unicode,
             choices=[('male','Male'),('female','Female')],
             validators=[Required()])
+    submit=SubmitField('Submit')
+    done= SubmitField('Done') 
 
 class SponsorForm(InfoForm):
     school_id = SelectField('School', coerce=int)
@@ -54,12 +57,12 @@ class StudentSponsorForm(Form):
 class ProjectForm(Form):
     title=TextField('Project Title', validators=[Required(),Length(5)])
     team=RadioField('Is it a Team Project', coerce=unicode,
-            choices=[('true','yes'),('false','no')],validators=[Required()])
-    category=SelectField('Category',coerce=int)
+            choices=[('True','Yes'),('False','No')],validators=[Required()])
+    category_id=SelectField('Category',coerce=int)
     division=RadioField('Division',
-            choices=[('Jr','junior'),('Sr','senior')],
+            choices=[('Jr','Junior'),('Sr','Senior')],
             validators=[Required()])
     table=RadioField('Will you need a table',coerce=unicode,
-            choices=[('true','Yes'),('false','No')],validators=[Required()])
-    elect=RadioField('Will you need electricity',coerce=unicode,
-            choices=[('true','Yes'),('false','No')],validators=[Required()])
+            choices=[('True','Yes'),('False','No')],validators=[Required()])
+    electricity=RadioField('Will you need electricity',coerce=unicode,
+            choices=[('True','Yes'),('False','No')],validators=[Required()])

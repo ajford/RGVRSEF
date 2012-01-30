@@ -11,7 +11,7 @@ except ImportError:
 SECRET_KEY = 'developmentKey'
 DEVELOPMENT = True
 TESTING = False
-DEBUG = False
+DEBUG = True
 
 TITLE = "RGV Regional Science and Engineering Fair"
 YEAR = "2012"
@@ -20,7 +20,7 @@ CONTACT = {'email':'contact@example.com','phone':'1235436789',
 WEBMASTER = {'email':'Webmaster@example.com','phone':'1235436789',
         'name':'Webmaster'}
 
-STUDENT_ACTIVE = False
+STUDENT_ACTIVE = True
 
 # Mail settings
 MAIL_SERVER = "mail.example.com"
