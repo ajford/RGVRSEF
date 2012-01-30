@@ -33,10 +33,11 @@ if not app.debug:
         from bundle_config import config
         file_handler = FileHandler("%s/RGVRSEF.log"%config['core']['data_directory'])
         file_handler.setLevel(logging.WARNING)
-        file_handler.setFormatter(Formatter(
-            '%(asctime)s %(levelname)s: %(message)s '
-            '[in %(pathname)s:%(lineno)d]'
-        ))
+        file_handler.setFormatter(Formatter("""
+            %(asctime)s %(levelname)s: %(message)s
+            [in %(pathname)s:%(lineno)d]
+
+            """))
         app.logger.addHandler(file_handler)
     except ImportError:
         pass
@@ -115,7 +116,6 @@ def sponsor_review():
         form.encrypt()
         sponsid = decode(form.id.data)
         sponsor = Sponsor.query.get_or_404(sponsid)
-        print sponsor.password
         if form.password.data == sponsor.password:
             return render_template("sponsor_review.html",sponsor=sponsor)
         else:
