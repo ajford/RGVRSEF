@@ -9,11 +9,12 @@
         {%- endblock scripts %}
     </head>
     <body>
+        <div class='wrapper'>
         <div class='header'>
         {% block header -%}
         <h1>RGV RSEF 2012 - Admin Interface</h1>
         {%- endblock header %}
-        </div>
+        </div><!-- header -->
         {% block body %}
         <div class='content'>
         <table class='adminNav'><tr id='navlinks'>
@@ -30,12 +31,14 @@
 
         {% block content %}
         {% endblock content %}
-        </div>
+        <div class='push'></div>
+        </div><!-- content -->
+        </div><!-- wrapper -->
         {% endblock body %}
         <div class='footer'>
         {% block footer -%}
         <p>RGVRSEF Registration - Written by A.J. Ford and A. Garcia</p>
         {%- endblock footer %}
-        </div>
+        </div><!-- footer -->
     </body>
 </html>
