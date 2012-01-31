@@ -11,6 +11,8 @@ html{height:100%;}
 }
 .push{height: 4em;}
 /* End Sticky footer main */
+
+/* Main Sections */
 body
 {
     height:100%;
@@ -21,11 +23,7 @@ body
     font-size: 14px;
     font-family: sans-serif;
 }
-.warning
-{
-    color: red;
-    font-weight: bold;
-}
+p {margin-top: 1em;margin-bottom: 1em;}
 .header
 {
 	position:absolute;
@@ -89,6 +87,17 @@ body
     color: #fff;
 }
 	
+
+/* Specific Styles */
+.warning
+{
+    color: red;
+    font-weight: bold;
+}
+.emphasis
+{
+    font-style: italic;
+}
 .newslist dt
 {
     font-weight:bold;
@@ -132,34 +141,6 @@ body
     display: inline;
     font-size:0.9em;
 }
-.nav
-{
-    border: 1px #FF8000 solid;
-    background: #FF8000;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    height:4em;
-    font-weight: bold;
-}
-#navlinks a:link,
-#navlinks a:visited 
-{
-   text-decoration: none;
-   background-color: #FF8000;
-   padding: 0.5em;
-   color: #FFFFFF;
-}
-#navlinks a:hover
-{
-    text-decoration: none; 
-    background-color: #769ADD; 
-    color: #FFFFFF;
-    padding: 0.5em;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-}
 .boxify
 {
     padding:1em 0em;
@@ -180,6 +161,8 @@ body
     background: #FF8000;
     text-align: left;
 }
+
+/* Convenience Styles */
 .clear
 {
     clear: both;
@@ -207,6 +190,49 @@ body
 {
     clear: both;
     height: 2em;
+}
+
+.compact th, .compact td
+{
+    padding: 0.5em;
+} 
+.midsized th, .midsized td
+{
+    padding: 1em;
+}
+.bigtable th, .bigtable td
+{
+    padding: 2em;
+} 
+
+/* Navigation */
+.nav
+{
+    border: 1px #FF8000 solid;
+    background: #FF8000;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    height:4em;
+    font-weight: bold;
+}
+#navlinks a:link,
+#navlinks a:visited 
+{
+   text-decoration: none;
+   background-color: #FF8000;
+   padding: 0.5em;
+   color: #FFFFFF;
+}
+#navlinks a:hover
+{
+    text-decoration: none; 
+    background-color: #769ADD; 
+    color: #FFFFFF;
+    padding: 0.5em;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
 }
 .adminNav 
 {
