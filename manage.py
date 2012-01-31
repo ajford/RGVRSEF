@@ -68,6 +68,13 @@ def builddb():
     models.db.session.add(admin_models.Admin('root',passwd,True))
     models.db.session.commit()
 
+# Add newly added models
+@manager.command
+def addnewtables():
+    """ Management function to create the required DB. """ 
+    if password_valid():
+        models.db.create_all()
+
 # padding 
 @manager.command
 def padding():
