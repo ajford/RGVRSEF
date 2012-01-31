@@ -41,7 +41,7 @@ class Project(db.Model):
     student = db.relationship("Student",backref='project',lazy='dynamic')
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     division = db.Column(db.String(10), default='')
-    floor = db.Column(db.Boolean, default=True)
+    floor = db.Column(db.Boolean, default=False)
     electricity = db.Column(db.Boolean, default=False)
     forms = db.relationship("Forms",backref='project',lazy='dynamic')
     complete = db.Column(db.Boolean, default=False)
