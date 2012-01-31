@@ -5,6 +5,15 @@
 {% block content %}
 
 <div id="team_members">
+
+    <p>Please add in your teammate's information. When you have completed this
+    form, click the "Add Team Member" button. After you have submitted all team
+    members, click the link at the bottom of the page labeled "I'm finished
+    adding team members". Note that this link does not submit the form, so you
+    will loose any data left in the form.</p> 
+
+    <div class="padding"></div>
+    <div class="form">
 	<form method="POST" action="{{url_for('teammembers')}}">
 		{{ form.hidden_tag() }}
 		<table>
@@ -14,13 +23,22 @@
 			{{ fieldtable(form,'grade') }}
 			{{ fieldtable(form,'age') }}
 			{{ fieldtable(form,'gender') }}
-			<tr><td>
-					{{ form.submit() }}
-			</td></tr>
+            {{ submitify('Add Team Member') }}
             <tr><td><a href="{{ url_for('studentreg4') }}">I'm finished adding 
                 team members.</a></td></tr>
 		</table>
-	</form>
+    </form>
+    </div>
+    <div class="right">
+    <table>
+        <tr><th>Entered Team Members</th></tr>
+        {% for student in leader.project.student if not student.team_leader %}
+        <tr><td>{{student.lastname}}, {{student.firstname}}</td></tr>
+        {% else %}
+        <tr><td>No team members entered yet</td></tr>
+        {% endfor %}
+    </table>
+    </div>
 </div>
 
 {% endblock %}

@@ -224,23 +224,24 @@ def studentreg3():
 @app.route('/reg/student/teaminfo',methods=['GET','POST'])
 def teammembers():
     form=StudentBaseForm()
+    leader_id = retrieve('student_id')
+    if leader_id == SIG_EXPIRED:
+        message = "Your session has expired. \
+                Please restart your registration"
+        return render_template('message.html', message=message)
+    leader = Student.query.get(leader_id)
+    store(student_id=leader_id)
     if form.validate_on_submit():
-        leader_id = retrieve('student_id')
-        if leader_id == SIG_EXPIRED:
-            message = "Your session has expired. \
-                    Please restart your registration"
-            return render_template('message.html', message=message)
-        leader = Student.query.get(leader_id)
-
         student = Student()
         student.sponsor_id = leader.sponsor_id
         student.school_id = leader.school_id
+        student.project_id = leader.project_id
         form.populate_obj(student)
         db.session.add(student)
         db.session.commit()
-        store(student_id=leader_id)
+        
         return redirect(url_for('teammembers'))
-    return render_template("team_members.html",form=form)
+    return render_template("team_members.html",form=form,leader=leader)
 
 @app.route('/reg/student/forms',methods=['GET','POST'])
 def studentreg4():
