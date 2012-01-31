@@ -24,20 +24,20 @@ def password_valid():
         return False
 
 
-# Build Test DB
+# Fill test values
 @manager.command
-def testdb():
+def testvals():
     """ Management function to create test DB. Requires root admin access. """
     if prompt_bool("Are you sure you want to loose all data?"):
         if password_valid():
             try:
-                import test_rgvrsef
+                from RGVRSEF import testing
             except ImportError:
-                print "Unable to load module 'test_rgvrsef' \
+                print "Unable to load module 'testing' from RGVRSEF\
                       required to build test db"
                 return 1
-            test_rgvrsef.build_and_populate()
-            print "Test database created and populated"
+            testing.populate_test_db() 
+            print "Test values populated"
         else:
             print 'Database operation aborted.'
 
