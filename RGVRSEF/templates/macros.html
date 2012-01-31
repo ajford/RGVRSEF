@@ -10,7 +10,7 @@
         <td>{{ form.__getattribute__(fieldname)(**kwargs) }}</td></tr>
 {% else %}
     <tr><td>{{ form.__getattribute__(fieldname)(**kwargs) }}</td>
-        <td> {{ form.__getattribute__(fieldname).label }}:<br>
+        <td> {{ form.__getattribute__(fieldname).label }}
             <span class='warning'>
                 {{form.errors.get(fieldname,None)|nonone|first}}</span></td>
     </tr>

@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+{%block title%} Student Registration - Complete{%endblock%}
+
+{% block content %}
+<p>Thank you for registering with the Rio Grande Valley Regional Science and
+Engineering Fair. Your registration is now complete. You will recieve a
+confirmation email shortly. If you do not recieve an email within 24 hours,
+please contact us.</p>
+<p>A review of your submitted information is below. If any of this information
+is incorrect, please contact us (see the <a href="{{url_for('contact')}}">
+Contact Us</a> page for details).</p>
+
+<blockquote>
+    <div class=boxify>
+        <table id='students'>
+        <tr><th colspan=2>Sponsor and School</th></tr>
+        <tr><td align='left'>Sponsor:</td>
+            <td align='left'>{{leader.sponsor.lastname}},
+                {{leader.sponsor.firstname}}</td></tr>
+        <tr><td align='left'>School:</td>
+            <td align='left'>{{leader.school.name}}</td></tr>
+        <tr><td align='left'>District:</td>
+            <td align='left'>{{leader.school.district.name}}</td></tr>
+        {% for student in leader.project.student.all() %}
+        <tr><th colspan=2>{{student.lastname}},{{student.firstname}}</th></tr>
+        {% if student.team_leader %}
+        <tr><td align='left'>Adress:</td>
+            <td align='left'>{{student.address}},</br>
+                {{student.city}}, {{student.zipcode}}</td></tr>
+        {% endif %}
+        <tr><td align='left'>Grade:</td>
+            <td align='left'>{{student.grade}}th</td></tr>
+        <tr><td align='left'>Age:</td><td align='left'>{{student.age}}</td></tr>
+        <tr><td align='left'>Gender:</td>
+            <td align='left'>{{student.gender|title}}</td></tr>
+        {% endfor %}
+        <tr><th colspan=2>Project</th></tr>
+        <tr><td colspan=2>{{leader.project.title|title}}</td></tr>
+        <tr><td align='left'>Category:</td>
+            <td align='left'>{{leader.project.category.name}}</td></tr>
+        <tr><td align='left'>Division:</td>
+            <td align='left'>{{leader.project.division|title}}</td></tr>
+        <tr><td align='left'>Space:</td><td align='left'>
+            {%- if leader.project.table %}
+            Table Space
+            {% else %}
+            Floor Space
+            {% endif -%}
+            </td></tr>
+        <tr><td align='left'>Electricity:</td><td align='left'>
+            {%- if leader.project.electricity %}
+            Electricity Needed
+            {% else %}
+            Electricity Not Needed
+            {% endif -%}
+            </td></tr>
+        <tr><th colspan=2>Forms</th></tr>
+        <tr><td colspan=2>You plan on turning in the following forms:</td></tr>
+        {% set forms = leader.project.forms.first() %}
+        {% for form in forms.formnames %}
+        {% if forms[form] %}
+        <tr><td colspan=2 align='left'>{{forms.formnames[form]|title}}
+        </td></tr>
+        {% endif %}
+        {% endfor %}
+        </table>
+    </div>
+</blockquote>
+ 
+<p>Once again thank you and have a wonderful day.</p> 
+
+<h3><a href="{{url_for('index')}}">Click here to return to the
+    homepagage.</a></h3>
+
+{% endblock %}

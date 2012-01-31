@@ -39,10 +39,10 @@ class Project(db.Model):
     individual = db.Column(db.Boolean, default=True)
     student = db.relationship("Student",backref='project',lazy='dynamic')
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
-    #division = db.Column(db.Integer, default=1)
     division = db.Column(db.String(5), default='')
     table = db.Column(db.Boolean, default=True)
-    electricity = db.Column(db.Integer, default=0)
+    electricity = db.Column(db.Boolean, default=False)
+    forms = db.relationship("Forms",backref='project',lazy='dynamic')
 
     def __repr__(self):
         return "<Project %s - Div:%s - CID:%d>"%(self.id,self.division,
@@ -153,6 +153,7 @@ class News(db.Model):
 
 class Forms(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
     cas = db.Column(db.Boolean, default=False)
     sc = db.Column(db.Boolean, default=False)
     rp = db.Column(db.Boolean, default=False)
@@ -169,3 +170,20 @@ class Forms(db.Model):
     phbaf = db.Column(db.Boolean, default=False)
     hvatf = db.Column(db.Boolean, default=False)
     cpf = db.Column(db.Boolean, default=False)
+
+    formnames={'cas':'Checklist for Adult Sponsor',
+               'sc':'Student Checklist',
+               'rp':'Research Plan',
+               'af':'Approval Form',
+               'mr':'Media Release',
+               'oaf':'Official Abstract Form',
+               'rri':'Regulated Research Institutional/Industrial Setting Form',
+               'qsf':'Qualified Scientist Form',
+               'raf':'Risk Assessment Form',
+               'hsf':'Human Subjects Form',
+               'icf':'Informed Consent Form ',
+               'vafa':'Vertebrate Animal Form (A)',
+               'vafb':'Vertebrate Animal Form (B)',
+               'phbaf':'Potentially Hazardous Biological Agents Form',
+               'hvatf':'Human and Vertebrate Animal Tissue Form',
+               'cpf':'Continuations Projects Form'}

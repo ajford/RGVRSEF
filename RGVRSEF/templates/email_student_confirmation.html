@@ -1,0 +1,57 @@
+{% extends "email_base.html" %}
+
+{% block content %}
+<tr><td><p>One of your students has registered for the RGV Regional Science and
+        Engineering Fair. This email is for your records. Also, please review
+        this information with your student(s) and contact us if there are any
+        errors in this information.</p></td></tr>
+<tr><td>
+        <table id='students'>
+        <tr><th colspan=2>Sponsor and School</th></tr>
+        <tr><td align='left'>Sponsor:</td>
+            <td align='left'>{{leader.sponsor.lastname}},
+                {{leader.sponsor.firstname}}</td></tr>
+        <tr><td align='left'>School:</td>
+            <td align='left'>{{leader.school.name}}</td></tr>
+        <tr><td align='left'>District:</td>
+            <td align='left'>{{leader.school.district.name}}</td></tr>
+        {% for student in leader.project.student.all() %}
+        <tr><th colspan=2>{{student.lastname}},{{student.firstname}}</th></tr>
+        <tr><td align='left'>Grade:</td>
+            <td align='left'>{{student.grade}}th</td></tr>
+        <tr><td align='left'>Age:</td><td align='left'>{{student.age}}</td></tr>
+        <tr><td align='left'>Gender:</td>
+            <td align='left'>{{student.gender|title}}</td></tr>
+        {% endfor %}
+        <tr><th colspan=2>Project</th></tr>
+        <tr><td colspan=2>{{leader.project.title|title}}</td></tr>
+        <tr><td align='left'>Category:</td>
+            <td align='left'>{{leader.project.category.name}}</td></tr>
+        <tr><td align='left'>Division:</td>
+            <td align='left'>{{leader.project.division|title}}</td></tr>
+        <tr><td align='left'>Space:</td><td align='left'>
+            {%- if leader.project.table %}
+            Table Space
+            {% else %}
+            Floor Space
+            {% endif -%}
+            </td></tr>
+        <tr><td align='left'>Electricity:</td><td align='left'>
+            {%- if leader.project.electricity %}
+            Electricity Needed
+            {% else %}
+            Electricity Not Needed
+            {% endif -%}
+            </td></tr>
+        <tr><th colspan=2>Forms</th></tr>
+        <tr><td colspan=2>You plan on turning in the following forms:</td></tr>
+        {% set forms = leader.project.forms.first() %}
+        {% for form in forms.formnames %}
+        {% if forms[form] %}
+        <tr><td colspan=2 align='left'>{{forms.formnames[form]|title}}
+        </td></tr>
+        {% endif %}
+        {% endfor %}
+        </table>
+</td></tr> 
+{% endblock %}

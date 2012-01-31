@@ -9,8 +9,10 @@ except ImportError:
     SQLALCHEMY_DATABASE_URI = 'sqlite:///rgvrsef.db'
 
 SECRET_KEY = 'developmentKey'
+SIGNING_KEY = 'signingKey'
+SIGNING_MAX_AGE = 18000 
 DEVELOPMENT = True
-TESTING = False
+TESTING = True
 DEBUG = True
 
 TITLE = "RGV Regional Science and Engineering Fair"

@@ -1,14 +1,6 @@
-<table width='100%' bgcolor="#608BDA" cellpadding="30px">
-    <tr>
-        <td>
-            <table width='600px' bgcolor="#FFFFFF" cellpadding="15px" style="margin: auto;">
-                <tr>
-                    <td><a href="{{url_for('index',_external=True)}}">
-                    <img src="{{- url_for('static', filename='email_header.png',
-                    _external=True) -}}"
-                    alt="<h2>RGV Regional Science and Engineering Fair 2012
-                    </h2>"></a></td>
-                </tr>
+{% extends "email_base.html" %}
+
+            {% block content %} 
                 <tr>
                     <td> <br>Thank you for registering with the Rio Grande
                         Valley's Regional Science and Engineering Fair.</td>
@@ -42,21 +34,5 @@
                     students with this Unique ID. Please note that this Unique
                     ID is case sensitive (meaning that capitalization matters).
                 </td>
-                </tr><tr>
-                <td> If you have any questions or concerns, do not hesitate to
-                    contact us via email at 
-                    <a href="mailto:{{contact.email}}">{{contact.email}}</a>
-                    or by phone at {{ contact.phone|phone }}.</td>
-                </tr><tr><td><hr></td></tr><tr>
-                <td> Again, thank you for participating in the 2012 RGV
-                    Regional Science and Engineering Fair.</td>
-                </tr><tr>
-                <td> {{ contact.name }},<br>
-                    <a href="mailto:{{contact.email}}">{{contact.email}}</a>,
-                    <br> {{ contact.phone|phone }}<br> RGV Regional Science Fair
-                    Registration Coordinator </td>
                 </tr>
-            </table>
-        </td>
-    </tr>
-</table>
+            {% endblock content %} 
