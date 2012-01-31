@@ -14,10 +14,7 @@ class InfoForm(Form):
         kwargs['csrf_enabled'] = False
         super(InfoForm, self).__init__(*args, **kwargs)
 
-class StudentForm(InfoForm):
-    address = TextField('Mailing Address', validators=[Required(),Length(3)])
-    city = TextField('City', validators=[Required(),Length(3)])
-    zipcode = TextField('Zip Code', validators=[Required(),Length(5,10)])
+class StudentBaseForm(InfoForm):
     grade = SelectField('Grade', coerce=int,
             choices=[(x,'%sth'%x) for x in range(6,13)],
             validators=[Required(),NumberRange(6,12, 'Please select a grade')])
@@ -29,6 +26,11 @@ class StudentForm(InfoForm):
             validators=[Required()])
     submit=SubmitField('Submit')
     done= SubmitField('Done') 
+
+class StudentForm(StudentBaseForm):
+    address = TextField('Mailing Address', validators=[Required(),Length(3)])
+    city = TextField('City', validators=[Required(),Length(3)])
+    zipcode = TextField('Zip Code', validators=[Required(),Length(5,10)])
 
 class SponsorForm(InfoForm):
     school_id = SelectField('School', coerce=int)
@@ -66,3 +68,26 @@ class ProjectForm(Form):
             choices=[('True','Yes'),('False','No')],validators=[Required()])
     electricity=RadioField('Will you need electricity',coerce=unicode,
             choices=[('True','Yes'),('False','No')],validators=[Required()])
+
+class FormsForm(Form):
+    cas = BooleanField('Checklist for Adult Sponsor',id="cas",validators=[Required()])
+    sc = BooleanField('Student Checklist',id="sc",validators=[Required()])
+    rp = BooleanField('Research Plan',id="rp",validators=[Required()])
+    af = BooleanField('Approval Form',id="af",validators=[Required()])
+    mr = BooleanField('Media Release',id="mr",validators=[Required()])
+    oaf = BooleanField('Official Abstract Form',id="oaf",validators=[Required()])
+    rri = BooleanField('Regulated Research Instutional/Industrial Setting Form',\
+                        id="rri",validators=[])
+    qsf = BooleanField('Qualified Scientist Form',id="qsf",validators=[])
+    raf = BooleanField('Risk Assessment Form',id="raf",validators=[])
+    hsf = BooleanField('Human Subjects Form',id="hsf",validators=[])
+    icf = BooleanField('Informed Consent Form',id="icf",validators=[])
+    vafa = BooleanField('Vertebrate Animal Form (5A)',id="vafa",validators=[])
+    vafb = BooleanField('Vertebrate Animal Form (5B)',id="vafb",validators=[])
+    phbaf = BooleanField('Potentially Hazardous Biological Agents Form',id="phbaf"\
+                         ,validators=[])
+    hvatf = BooleanField('Human and Vertebrate Animal Tissue Form',id="hvatf",\
+                        validators=[])
+    cpf = BooleanField('Continuations Projects Form',id="cpf",validators=[])
+
+

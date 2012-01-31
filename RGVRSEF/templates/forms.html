@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% from "macros.html" import fieldtable, submitify %}
+{% block title %} Forms {% endblock %}
+
+{% block content %}
+<p>
+All sections of the International Rules for Pre-college Science Research: Guidelines
+for Science and Engineering Fairs, including all necessary forms, are available for 
+downloading as Adobe&reg; Acrobat&reg; documents(.PDF) from the ISEF website in the 
+ISEF Document Library. &lt;
+<a target="_blank" href='http://www.societyforscience.org/isef/document'> http://www.societyforscience.org/isef/document</a> &gt;. 
+Also on the ISEF website has a rules wizard that will help you decide which forms are
+necessary.&lt; <a target="_blank" href='http://apps.societyforscience.org/isef/students/wizard/index.asp'>http://apps.societyforscience.org/isef/students/wizard/index.asp</a> &gt;.
+</p>
+<div class="padding"></div>
+<div id="forms">
+	<form method="POST" action="{{url_for('studentreg4')}}">
+		{{ form.hidden_tag() }}
+		<table class="formtable">
+			{{ fieldtable(form,'cas',flip=True) }}
+			{{ fieldtable(form,'sc',flip=True) }}
+			{{ fieldtable(form,'rp',flip=True) }}
+			{{ fieldtable(form,'af',flip=True) }}
+			{{ fieldtable(form,'mr',flip=True) }}
+			{{ fieldtable(form,'oaf',flip=True) }}
+			{{ fieldtable(form,'rri',flip=True) }}
+			{{ fieldtable(form,'qsf',flip=True) }}
+			{{ fieldtable(form,'raf',flip=True) }}
+			{{ fieldtable(form,'hsf',flip=True) }}
+			{{ fieldtable(form,'icf',flip=True) }}
+			{{ fieldtable(form,'vafa',flip=True) }}
+			{{ fieldtable(form,'vafb',flip=True) }}
+			{{ fieldtable(form,'phbaf',flip=True) }}
+			{{ fieldtable(form,'hvatf',flip=True) }}
+			{{ fieldtable(form,'cpf',flip=True) }}
+			{{ submitify() }}
+		</table>
+	</form> 
+</div>
+{% endblock %}
+

@@ -151,3 +151,21 @@ class News(db.Model):
     def __repr__(self):
         return "<News %s - %s>"%(self.title,self.date.strftime("%Y-%m-%d")) 
 
+class Forms(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    cas = db.Column(db.Boolean, default=False)
+    sc = db.Column(db.Boolean, default=False)
+    rp = db.Column(db.Boolean, default=False)
+    af = db.Column(db.Boolean, default=False)
+    mr = db.Column(db.Boolean, default=False)
+    oaf = db.Column(db.Boolean, default=False)
+    rri = db.Column(db.Boolean, default=False)
+    qsf = db.Column(db.Boolean, default=False)
+    raf = db.Column(db.Boolean, default=False)
+    hsf = db.Column(db.Boolean, default=False)
+    icf = db.Column(db.Boolean, default=False)
+    vafa = db.Column(db.Boolean, default=False)
+    vafb = db.Column(db.Boolean, default=False)
+    phbaf = db.Column(db.Boolean, default=False)
+    hvatf = db.Column(db.Boolean, default=False)
+    cpf = db.Column(db.Boolean, default=False)

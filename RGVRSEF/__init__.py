@@ -163,18 +163,25 @@ def studentreg3():
 
 @app.route('/reg/student/teaminfo',methods=['GET','POST'])
 def teammembers():
-    form=StudentForm()
+    form=StudentBaseForm()
     print form.errors
-    if form.done.data:
-        return redirect(url_for('studentreg4'))
-    if form.submit.data:
-        print 'luckily it works.....SORT OF'
-        form.submit.data='False'
-        return redirect(url_for('teammembers'))
+    if form.validate_on_submit():
+        if form.done.data:
+            return redirect(url_for('studentreg4'))
+        if form.submit.data:
+            form.submit.data='False'
+            return redirect(url_for('teammembers'))
     return render_template("team_members.html",form=form)
 
-@app.route('/reg/student/forms')
+@app.route('/reg/student/forms',methods=['GET','POST'])
 def studentreg4():
+    form=FormsForm()
+    if form.validate_on_submit():
+        return redirect(url_for('complete'))
+    return render_template("forms.html",form=form)
+
+@app.route('/reg/student/review',methods=['GET','POST'])
+def complete():
     return NYI()
 
 @app.route('/reg/sponsor/district',methods=['GET','POST'])
