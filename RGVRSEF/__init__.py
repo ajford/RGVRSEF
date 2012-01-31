@@ -20,6 +20,7 @@ from .models import *
 from .admin import admin as admin_blueprint
 from .forms import *
 from .testing import DummySponsor
+import RGVRSEF.utils as utils
 
 jinja_options = dict(app.jinja_options)
 jinja_options.update({'trim_blocks':True})
@@ -129,14 +130,7 @@ def sponsorreg():
         form.populate_obj(user)
         db.session.add(user)
         db.session.commit()
-        if not app.config['DEVELOPMENT']:
-            conf_email = Message("RGV RSEF - Sponsor Registration")
-            conf_email.html = render_template('email_sponsor_confirmation.html',
-                                        contact=app.config['CONTACT'],
-                                        sponsor=user)
-            conf_email.add_recipient(user.email)
-            mail.send(conf_email)
-
+        utils.sponsor_mail(user)
         return render_template("sponsor_complete.html",sponsor=user)
     return render_template("sponsor.html",form=form)
 
@@ -210,9 +204,15 @@ def studentreg3():
         student = Student.query.get(student_id)
 
         project = Project()
+        app.logger.warning('Elec-form: %s'%form.electricity.data)
         form.populate_obj(project)
+        project.electricity = bool(form.electricity.data)
+        project.floor = bool(form.floor.data)
+        project.team = bool(form.team.data)
+
         db.session.add(project)
         db.session.commit()
+        app.logger.warning('Elec-proj: %s'%project.electricity)
         student.project_id = project.id
         db.session.commit()
         store(student_id=student.id)
