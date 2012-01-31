@@ -16,3 +16,25 @@ class DummySponsor(object):
     email = "JDoe@example.com"
     school = DummySchool()
 
+class DummyCategory(object):
+    id = 1
+    name = "Physics"
+
+class DummyProject(object):
+    id = 1001
+    title = "Potato Battery"
+    category=DummyCategory()
+    division = "jr"
+    table = False
+    electricity = False
+
+class DummyStudent(object):
+    id = 1001
+    firstname = "John"
+    lastname = "Doe"
+    email = "JDoe@example.com"
+    grade = 6
+    gender = "Male"
+    project = DummyProject()
+    sponsor = DummySponsor()
+    school = DummySchool()
