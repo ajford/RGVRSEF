@@ -184,7 +184,7 @@ def editnews(id):
     news_form = NewsForm(obj=news_obj)
     if request.method == "GET":
         return render_template('admin/editnews.html',form=news_form,
-                                target=url_for('.news',id=id),id=id)
+                                target=url_for('.editnews',id=id),id=id)
     else:
         news_form.populate_obj(news_obj)
         db.session.commit()
