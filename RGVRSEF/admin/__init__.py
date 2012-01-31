@@ -7,7 +7,8 @@ from flaskext.login import current_user, login_required, fresh_login_required
 
 from RGVRSEF import app, mail, Message
 from RGVRSEF.models import *
-from .forms import DeadlineForm, NewsForm, DistrictForm, SchoolForm, MailForm
+from RGVRSEF import forms as mainforms
+from RGVRSEF.admin.forms import DeadlineForm, NewsForm, DistrictForm, SchoolForm, MailForm
 
 def NYI():
     return render_template('admin/message.html', message="Not Yet Implemented")
@@ -20,8 +21,8 @@ from .auth import *
 @admin.route('/')
 @login_required
 def index():
-    seniors = Project.query.filter_by(division='sr')
-    juniors = Project.query.filter_by(division='jr')
+    seniors = Project.query.filter_by(division='senior')
+    juniors = Project.query.filter_by(division='junior')
     
     return render_template('admin/index.html', seniors=seniors,juniors=juniors)
 
@@ -90,6 +91,12 @@ def projects():
 @login_required
 def project(id):
     return NYI()
+    project = Project.query.get_or_404(id)
+    form = mainforms.ProjectForm(obj=project)
+    if form.validate_on_submit():
+        form.populate_obj(project)
+        return redirect(url_for('.projects'))
+    return render_template('admin/project.html',form=form)
 
 
 @admin.route('/sponsors')

@@ -58,16 +58,16 @@ class StudentSponsorForm(Form):
 
 class ProjectForm(Form):
     title=TextField('Project Title', validators=[Required(),Length(5)])
-    team=RadioField('Is it a Team Project', coerce=bool,
-            choices=[(True,'Yes'),(False,'No')],validators=[Required()])
+    team=RadioField('Is it a Team Project',
+            choices=[('True','Yes'),('False','No')],validators=[Required()])
     category_id=SelectField('Category',coerce=int)
     division=RadioField('Division',
             choices=[('junior','Junior'),('senior','Senior')],
             validators=[Required()])
-    floor=RadioField('Will you need floor space',coerce=bool,
-            choices=[(True,'Yes'),(False,'No')],validators=[Required()])
-    electricity=RadioField('Will you need electricity',coerce=bool,
-            choices=[(True,'Yes'),(False,'No')],validators=[Required()])
+    floor=RadioField('Will you need floor space',
+            choices=[('True','Yes'),('False','No')],validators=[Required()])
+    electricity=RadioField('Will you need electricity',
+            choices=[('True','Yes'),('False','No')],validators=[Required()])
 
 class FormsForm(Form):
     cas = BooleanField('Checklist for Adult Sponsor',id="cas",

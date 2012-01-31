@@ -54,6 +54,7 @@ def populate_test_db():
     sponsor.lastname = "Doe"
     sponsor.phone = "1234567890"
     sponsor.email = "JDoe@example.com"
+    sponsor.school_id = school.id
     models.db.session.add(sponsor)
     models.db.session.commit()
     print "Sponsor 'Doe,John' added"
