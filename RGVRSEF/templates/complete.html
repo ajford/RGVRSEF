@@ -41,10 +41,10 @@ Contact Us</a> page for details).</p>
         <tr><td align='left'>Division:</td>
             <td align='left'>{{leader.project.division|title}}</td></tr>
         <tr><td align='left'>Space:</td><td align='left'>
-            {%- if leader.project.table %}
-            Table Space
-            {% else %}
+            {%- if leader.project.floor %}
             Floor Space
+            {% else %}
+            Table Space
             {% endif -%}
             </td></tr>
         <tr><td align='left'>Electricity:</td><td align='left'>

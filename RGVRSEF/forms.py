@@ -64,7 +64,7 @@ class ProjectForm(Form):
     division=RadioField('Division',
             choices=[('junior','Junior'),('senior','Senior')],
             validators=[Required()])
-    table=RadioField('Will you need a table',coerce=bool,
+    floor=RadioField('Will you need floor space',coerce=bool,
             choices=[(True,'Yes'),(False,'No')],validators=[Required()])
     electricity=RadioField('Will you need electricity',coerce=bool,
             choices=[(True,'Yes'),(False,'No')],validators=[Required()])
