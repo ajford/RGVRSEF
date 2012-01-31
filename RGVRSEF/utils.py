@@ -5,7 +5,6 @@ from datetime import date
 
 from RGVRSEF import app, mail, Message
 import RGVRSEF.models as models
-import RGVRSEF.admin.forms as adminforms
 
 def toexcel():
    pass 
