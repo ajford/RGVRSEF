@@ -1,21 +1,26 @@
 {% extends "admin/layout.html" %}
-{% from "admin/macros.html" import render_sponsor_narrow %}
+{% from "macros.html" import fieldtable,submitify %}
+{%block title%}ADMIN - Sponsor{%endblock%}
+
 {% block content %}
-<h4>{{get_flashed_messages()[0]}}</h4>
-<div class='clear'></div>
-<table class='compact'>
-    <tr><td>{{sponsor.lastname}}, {{sponsor.firstname}}</td>
-        {% if sponsor.school %}
-        <td><a href="{{url_for('.school',id=sponsor.school.id)}}">
-                {{sponsor.school.name}}</a></td>
-        {% else %}
-        <td>No school affiliation</td>
-        {% endif %}
-    </tr>
-    </table><table>
-    <tr><td>Email:</td><td>{{sponsor.email}}</td></tr>
-    <tr><td>Phone:</td><td>{{sponsor.phone}}</td></tr>
-    <tr><td>Unique ID:</td><td>{{sponsor.id|encode}}</td></tr>
-    </tr>
+<div class=clear></div>
+<div id='sponsor_reg' class="left">
+<form method="POST" action="{{ url_for('.sponsor',id=id)}}">
+    {{ form.hidden_tag() }}
+<table>
+    {{ fieldtable(form,'firstname') }} 
+    {{ fieldtable(form,'lastname') }} 
+    {{ fieldtable(form,'email') }} 
+    {{ fieldtable(form,'phone') }} 
+    {{ fieldtable(form,'school_id') }} 
+    {{ submitify() }}
 </table>
+</form>
+</div><!-- sponsor_reg -->
+<div id='spons_buttons'class="right">
+    <table class='compact'>
+        <tr><td> <a href='{{url_for('.sponsorconf',id=id)}}'> 
+                <button>Resend Confirmation Email</button></a></td></tr>
+    </table>
+</div><!-- spons_button -->
 {% endblock content %}

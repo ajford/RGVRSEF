@@ -8,6 +8,7 @@ from flaskext.login import current_user, login_required, fresh_login_required
 from RGVRSEF import app, mail, Message
 from RGVRSEF.models import *
 from RGVRSEF import forms as mainforms
+from RGVRSEF import utils as utils
 from RGVRSEF.admin.forms import DeadlineForm, NewsForm, DistrictForm, SchoolForm, MailForm
 
 def NYI():
@@ -87,16 +88,18 @@ def projects():
                             categories=categories,endpoint='.projects',
                             div_narrow=div,cat_narrow=cat)
 
-@admin.route('/project/<int:id>')
+@admin.route('/project/<int:id>', methods=['GET','POST'])
 @login_required
 def project(id):
-    return NYI()
     project = Project.query.get_or_404(id)
     form = mainforms.ProjectForm(obj=project)
+    query=Category.query.order_by('id')
+    form.category_id.choices=[(x.id,x.name) for x in query.all()]
     if form.validate_on_submit():
         form.populate_obj(project)
+        db.session.commit()
         return redirect(url_for('.projects'))
-    return render_template('admin/project.html',form=form)
+    return render_template('admin/project.html',form=form, id=id)
 
 
 @admin.route('/sponsors')
@@ -112,11 +115,32 @@ def sponsors():
                         district_narrow=district_narrow,
                         districts=districts)
 
-@admin.route('/sponsor/<int:id>')
+@admin.route('/sponsor/<int:id>', methods=['GET','POST'])
 @login_required
 def sponsor(id):
     sponsor = Sponsor.query.get(id)
-    return render_template('admin/sponsor.html',sponsor=sponsor)
+    form = mainforms.SponsorForm(obj=sponsor)
+    form.password.validators = []
+    form.confirm.validators = []
+    query = School.query.group_by('district_id').order_by('name')
+    form.school_id.choices=[(x.id,"%s - %s"%(x.name,x.district.name)) 
+                            for x in query.all()]
+    if form.validate_on_submit():
+        form.populate_obj(sponsor)
+        db.session.commit()
+        flash("Sponsor Updated")
+        return redirect(url_for('.sponsors'))
+
+    return render_template('admin/sponsor.html',form=form,id=id)
+
+@admin.route('/mailer/confirmation/sponsor/<int:id>')
+@login_required
+def sponsorconf(id):
+    sponsor = Sponsor.query.get_or_404(id)
+    utils.sponsor_mail(sponsor)
+    message = "Confirmation resent to %s, %s <%s>"%(sponsor.firstname,
+                            sponsor.lastname,sponsor.email)
+    return render_template('message.html',message=message)
 
 
 @admin.route('/school/<int:id>')
