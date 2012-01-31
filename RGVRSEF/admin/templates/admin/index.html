@@ -6,20 +6,20 @@
         <tr><th>Senior</th><td>Total: {{ seniors.count() }}</td></tr>
         <tr><td></td>
             <td>Floor</td>
-            <td>{{seniors.filter_by(table=False).count()}}</td></tr>
+            <td>{{seniors.filter_by(floor=True).count()}}</td></tr>
         <tr><td></td>
             <td>Table</td>
-            <td>{{seniors.filter_by(table=True).count()}}</td></tr>
+            <td>{{seniors.filter_by(floor=False).count()}}</td></tr>
         <tr><td></td>
             <td>Elect.</td>
             <td>{{seniors.filter_by(electricity=1).count()}}</td></tr>
         <tr><th>Junior</th><td>Total: {{ juniors.count() }}</td></tr>
         <tr><td></td>
             <td>Floor</td>
-            <td>{{juniors.filter_by(table=False).count()}}</td></tr>
+            <td>{{juniors.filter_by(floor=True).count()}}</td></tr>
         <tr><td></td>
             <td>Table</td>
-            <td>{{juniors.filter_by(table=True).count()}}</td></tr>
+            <td>{{juniors.filter_by(floor=False).count()}}</td></tr>
         <tr><td></td>
             <td>Elect.</td>
             <td>{{juniors.filter_by(electricity=1).count()}}</td></tr>
