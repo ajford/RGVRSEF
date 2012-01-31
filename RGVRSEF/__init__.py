@@ -204,15 +204,12 @@ def studentreg3():
         student = Student.query.get(student_id)
 
         project = Project()
-        app.logger.warning('Elec-form: %s'%form.electricity.data)
         form.populate_obj(project)
-        project.electricity = bool(form.electricity.data)
         project.floor = bool(form.floor.data)
         project.team = bool(form.team.data)
 
         db.session.add(project)
         db.session.commit()
-        app.logger.warning('Elec-proj: %s'%project.electricity)
         student.project_id = project.id
         db.session.commit()
         store(student_id=student.id)
