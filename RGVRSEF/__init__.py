@@ -85,10 +85,11 @@ def retrieve(key):
             return None
 
     except SignatureExpired as expired:
-        app.logger.debug('EXPIRED SIG - Error retrieving %s\n%s'%(key,badsig))
+        app.logger.warning('EXPIRED SIG - Error retrieving %s\n%s'%(key,
+                                                                    expired))
         return SIG_EXPIRED
     except BadSignature as badsig:
-        app.logger.debug('BAD SIG - Error retrieving %s\n%s'%(key,badsig))
+        app.logger.warning('BAD SIG - Error retrieving %s\n%s'%(key,badsig))
         return None
 
 
@@ -215,7 +216,7 @@ def studentreg3():
         student.project_id = project.id
         db.session.commit()
         store(student_id=student.id)
-        if form.team.data=='True':
+        if form.team.data:
             return redirect(url_for('teammembers'))
         return redirect(url_for('studentreg4'))
     return render_template("studentreg3.html",form=form)
@@ -278,7 +279,7 @@ def complete():
         conf_email.html = render_template('email_confirmation.html',
                                     contact=app.config['CONTACT'],
                                     leader=leader)
-        conf_email.recipients = [x.email for x in leader.project.students]
+        conf_email.recipients = [x.email for x in leader.project.student]
         mail.send(conf_email)
 
         spons_email = Message("RGV RSEF - Your student has registered")

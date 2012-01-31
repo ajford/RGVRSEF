@@ -16,6 +16,7 @@ class Student(db.Model):
     grade = db.Column(db.Integer)
     age = db.Column(db.Integer)
     gender = db.Column(db.String(6))
+    complete = db.Column(db.Boolean, default=False)
     project_id = db.Column(db.Integer,db.ForeignKey('project.id'))
     team_leader = db.Column(db.Boolean, default=False)
     sponsor_id = db.Column(db.Integer,db.ForeignKey('sponsor.id'))
@@ -39,10 +40,11 @@ class Project(db.Model):
     individual = db.Column(db.Boolean, default=True)
     student = db.relationship("Student",backref='project',lazy='dynamic')
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
-    division = db.Column(db.String(5), default='')
+    division = db.Column(db.String(10), default='')
     table = db.Column(db.Boolean, default=True)
     electricity = db.Column(db.Boolean, default=False)
     forms = db.relationship("Forms",backref='project',lazy='dynamic')
+    complete = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
         return "<Project %s - Div:%s - CID:%d>"%(self.id,self.division,
