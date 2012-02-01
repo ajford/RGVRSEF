@@ -122,7 +122,7 @@ def sponsor(id):
     form = mainforms.SponsorForm(obj=sponsor)
     form.password.validators = []
     form.confirm.validators = []
-    query = School.query.group_by('district_id').order_by('name')
+    query = School.query.order_by(School.name)
     form.school_id.choices=[(x.id,"%s - %s"%(x.name,x.district.name)) 
                             for x in query.all()]
     if form.validate_on_submit():
@@ -132,15 +132,6 @@ def sponsor(id):
         return redirect(url_for('.sponsors'))
 
     return render_template('admin/sponsor.html',form=form,id=id)
-
-@admin.route('/mailer/confirmation/sponsor/<int:id>')
-@login_required
-def sponsorconf(id):
-    sponsor = Sponsor.query.get_or_404(id)
-    utils.sponsor_mail(sponsor)
-    message = "Confirmation resent to %s, %s <%s>"%(sponsor.firstname,
-                            sponsor.lastname,sponsor.email)
-    return render_template('message.html',message=message)
 
 
 @admin.route('/school/<int:id>')
@@ -315,7 +306,12 @@ def mailer():
             queries = (Student.query,)
         if form.to.data == 3:
             queries = (Sponsor.query,Student.query)
-
+        if form.to.data == 4:
+            msg = Message(recipients=[app.config['CONTACT'].get('email')],
+                          body=form.message.data,
+                          subject=form.subject.data)
+            mail.send(msg)
+            return render_template('admin/message.html',message="Mail Sent.")
         with mail.connect() as conn:
             for query in queries:
                 for user in query.all():
@@ -325,4 +321,13 @@ def mailer():
                     conn.send(msg)
         return render_template('admin/message.html',message="Mail Sent.")
     return render_template('admin/mail.html',form=form)
+
+@admin.route('/mailer/confirmation/sponsor/<int:id>')
+@login_required
+def sponsorconf(id):
+    sponsor = Sponsor.query.get_or_404(id)
+    utils.sponsor_mail(sponsor)
+    message = "Confirmation resent to %s, %s <%s>"%(sponsor.lastname,
+                            sponsor.firstname,sponsor.email)
+    return render_template('admin/message.html',message=message)
 
