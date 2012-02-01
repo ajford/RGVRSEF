@@ -3,6 +3,9 @@ from datetime import date
 
 #import xlwt
 
+from flask import (Flask, make_response,redirect, url_for,
+                    render_template,json,request,flash,session)
+
 from RGVRSEF import app, mail, Message
 import RGVRSEF.models as models
 
@@ -18,6 +21,6 @@ def sponsor_mail(sponsor):
         conf_email.html = render_template('email_sponsor_confirmation.html',
                                     contact=app.config['CONTACT'],
                                     sponsor=sponsor)
-        conf_email.add_recipient(user.email)
+        conf_email.add_recipient(sponsor.email)
         mail.send(conf_email)
 
