@@ -22,7 +22,8 @@ class SchoolForm(Form):
 
 class MailForm(Form):
     to = SelectField('To', choices = [(1,'Sponsors'),(2,'Students'),
-                     (3,'Students and Sponsors')],coerce=int,
+                     (3,'Students and Sponsors'),
+                     (4,'Test - Sent to CONTACT')],coerce=int,
                      validators=[Required(), AnyOf((1,2,3),
                      message="You have selected an invalid choice")])
     subject = TextField('Subject', validators=[Required(),Length(3)])
