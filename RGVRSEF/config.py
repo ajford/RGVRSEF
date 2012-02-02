@@ -32,6 +32,7 @@ MAIL_SERVER = "mail.example.com"
 MAIL_PORT = 25
 MAIL_USERNAME = "TEST"
 MAIL_PASSWORD = "Wouldn't You Like To Know"
+MAIL_FAIL_SILENTLY = False
 DEFAULT_MAIL_SENDER = "test@example.com"
 
 # Category settings
