@@ -46,7 +46,6 @@ if not app.debug:
     except ImportError:
         pass
 
-
 def currency(x):
     try:
         return '$%.2f'%x
@@ -315,20 +314,8 @@ def complete():
                 Please restart your registration"
         return render_template('message.html', message=message)
 
-    if not app.config['DEVELOPMENT']:
-        conf_email = Message("RGV RSEF - Registration")
-        conf_email.html = render_template('email_confirmation.html',
-                                    contact=app.config['CONTACT'],
-                                    leader=leader)
-        conf_email.recipients = [x.email for x in leader.project.student]
-        mail.send(conf_email)
+    project_reg_mail(leader.project)
 
-        spons_email = Message("RGV RSEF - Your student has registered")
-        spons_email.html = render_template('email_student_confirmation.html',
-                                    contact=app.config['CONTACT'],
-                                    leader=leader)
-        spons_email.add_recipient(leader.sponsor.email)
-        mail.send(spons_email)
     if app.config['TESTING']:
         store(student_id=leader_id)
     else:
