@@ -126,13 +126,30 @@ def sponsorreg():
     form.school_id.choices=[(x.id,x.name) for x in query.all()]
     if form.validate_on_submit():
         form.encrypt()
-        user=models.Sponsor()
-        form.populate_obj(user)
-        db.session.add(user)
+        sponsor=models.Sponsor()
+        form.populate_obj(sponsor)
+        db.session.add(sponsor)
         db.session.commit()
-        utils.sponsor_mail(user)
-        return render_template("sponsor_complete.html",sponsor=user)
+        utils.sponsor_mail(sponsor)
+        store(sponsor_id=sponsor.id)
+        return redirect(url_for('sponsorcomplete'))
     return render_template("sponsor.html",form=form)
+
+@app.route('/reg/sponsor/complete')
+def sponsorcomplete():
+
+    sponsor_id = retrieve('sponsor_id')
+    if sponsor_id is SIG_EXPIRED:
+        message = "Your session has expired. \
+            If you do not recieve your confirmation email, please contact us" 
+        return render_template('message.html', message=message)
+    if sponsor_id is None:
+        message = ["Your confirmation page has already been viewed.",
+           "If you do not recieve your confirmation email, please contact us"]
+        return render_template('message.html', message=message)
+    sponsor = Sponsor.query.get_or_404(sponsor_id)
+    return render_template("sponsor_complete.html",sponsor=sponsor)
+
 
 @app.route('/sponsor/review',methods=['GET','POST'])
 def sponsor_review():

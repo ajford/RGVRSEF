@@ -1,6 +1,12 @@
 {% extends "layout.html" %}
 
 {% block content %}
+    {% if message is not string %}
+        {% for msg in message %}
+        <h3>{{ msg }}</h3>
+        {% endfor %}
+    {% else %}
     <h3>{{ message }}</h3>
+    {% endif %}
 {% endblock content %}
 
