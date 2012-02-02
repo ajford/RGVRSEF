@@ -47,13 +47,6 @@ Contact Us</a> page for details).</p>
             Table Space
             {% endif -%}
             </td></tr>
-        <tr><td align='left'>Electricity:</td><td align='left'>
-            {%- if leader.project.electricity %}
-            Electricity Needed
-            {% else %}
-            Electricity Not Needed
-            {% endif -%}
-            </td></tr>
         <tr><th colspan=2>Forms</th></tr>
         <tr><td colspan=2>You plan on turning in the following forms:</td></tr>
         {% set forms = leader.project.forms.first() %}

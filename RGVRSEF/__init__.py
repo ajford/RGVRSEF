@@ -205,15 +205,13 @@ def studentreg3():
 
         project = Project()
         form.populate_obj(project)
-        project.floor = bool(form.floor.data)
-        project.team = bool(form.team.data)
 
         db.session.add(project)
         db.session.commit()
         student.project_id = project.id
         db.session.commit()
         store(student_id=student.id)
-        if form.team.data:
+        if form.individual.data != 'True':
             return redirect(url_for('teammembers'))
         return redirect(url_for('studentreg4'))
     return render_template("studentreg3.html",form=form)

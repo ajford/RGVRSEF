@@ -58,8 +58,10 @@ class StudentSponsorForm(Form):
 
 class ProjectForm(Form):
     title=TextField('Project Title', validators=[Required(),Length(5)])
-    team=RadioField('Is it a Team Project',
-            choices=[('True','Yes'),('False','No')],validators=[Required()])
+    # Logic values are reversed from answers.
+    # Just keep an eye out.
+    individual=RadioField('Is it a Team Project',
+            choices=[('False','Yes'),('True','No')],validators=[Required()])
     category_id=SelectField('Category',coerce=int)
     division=RadioField('Division',
             choices=[('junior','Junior'),('senior','Senior')],
