@@ -23,7 +23,7 @@
 {% if school %}
 <table class='compact'>
     <tr><td>Sponsors:</td></tr>
-    {% for sponsor in sponsors -%}
+    {% for sponsor in school.sponsors -%}
     <tr><td><a href="{{url_for('.sponsor',id=sponsor.id)}}">
                 {{sponsor.lastname}},{{sponsor.firstname}}</a></td>
     </tr>
