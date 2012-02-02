@@ -3,11 +3,12 @@
 {%block title%}ADMIN - Sponsor{%endblock%}
 
 {% block content %}
-<div class=clear></div>
+<div class="clearpad"></div>
 <div id='sponsor_reg' class="left">
 <form method="POST" action="{{ url_for('.sponsor',id=id)}}">
     {{ form.hidden_tag() }}
 <table>
+    <tr><td>Unique ID:</td><td>{{id|encode}}</td></tr>
     {{ fieldtable(form,'firstname') }} 
     {{ fieldtable(form,'lastname') }} 
     {{ fieldtable(form,'email') }} 
