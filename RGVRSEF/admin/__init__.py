@@ -99,8 +99,35 @@ def project(id):
         form.populate_obj(project)
         db.session.commit()
         return redirect(url_for('.projects'))
-    return render_template('admin/project.html',form=form, id=id)
+    return render_template('admin/project.html',form=form, id=id,
+                            project=project)
 
+@admin.route('/deleteproject/<int:id>', methods=["GET","POST"])
+@login_required
+def deleteproject(id):
+    project = Project.query.get_or_404(id)
+    forms = project.forms.all()
+    for form in forms:
+        db.session.delete(form)
+    students = project.student.all()
+    for student in students:
+        db.session.delete(student)
+    db.session.delete(project)
+    db.session.commit()
+    flash('Project successfully deleted.','info')
+    return redirect(url_for('.projects'))
+
+@admin.route('/forms/<int:id>', methods=['GET','POST'])
+@login_required
+def formedit(id):
+    forms = Forms.query.get_or_404(id)
+    form = mainforms.FormsForm(obj=forms)
+    if form.validate_on_submit():
+        form.populate_obj(forms)
+        db.session.commit()
+        return redirect(url_for('.project',id=forms.project_id))
+    return render_template('admin/forms.html',form=form, id=id,
+                            forms=forms)
 
 @admin.route('/sponsors')
 @login_required
@@ -141,14 +168,6 @@ def deletesponsor(id):
     db.session.commit()
     flash('Sponsor successfully deleted.','info')
     return redirect(url_for('.sponsors'))
-
-@admin.route('/school/<int:id>')
-@login_required
-def school(id):
-    school = School.query.get(id)
-    return render_template('admin/school.html',school=school)
-
-
 
 @admin.route('/districts')
 @login_required
@@ -339,3 +358,11 @@ def sponsorconf(id):
                             sponsor.firstname,sponsor.email)
     return render_template('admin/message.html',message=message)
 
+@admin.route('/mailer/confirmation/project/<int:id>')
+@login_required
+def projectconf(id):
+    project = Project.query.get_or_404(id)
+    utils.project_reg_mail(project)
+    message = "Confirmation resent about project #%s, %s"%(project.id,
+                                    project.title)
+    return render_template('admin/message.html',message=message)

@@ -1,14 +1,20 @@
 {% extends "admin/layout.html" %}
 {% from "macros.html" import fieldtable,submitify %}
+{% from "admin/macros.html" import script %}
 {% block title %} Student Registration {% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{{ script('default.js','.static') }}
+{% endblock scripts %}
 
 {% block content %} 
 
 <p> This to submit project info </p>
-<div id="projectinfo">
-	<form method="POST" action="{{url_for('.project',id=id)}}">
+<form method="POST" action="{{url_for('.project',id=id)}}">
+<div id="projectinfo" class='left'>
 		{{ form.hidden_tag() }}
-		<table>
+		<table width='400px'>
 			{{ fieldtable(form,'title') }}
 			{{ fieldtable(form,'individual',class='nobullet') }}
 			{{ fieldtable(form,'category_id') }}
@@ -16,6 +22,37 @@
 			{{ fieldtable(form,'floor',class='nobullet') }}
 			{{ submitify() }}
 		</table>
-	</form> 
-</div>
+</div><!-- projectinfo -->
+<div id="forminfo" class='right'>
+    <table>
+        <tr><th colspan=2>Forms</th></tr>
+        {% set forms = project.forms.first() %}
+        {% if forms %}
+            {% for form in forms.formnames %}
+            {% if forms[form] %}
+            <tr><td colspan=2 align='left'>{{forms.formnames[form]|title}}
+            </td></tr>
+            {% endif %}
+            {% endfor %}
+        <tr><td></td></tr>
+        <tr><td><a href='{{url_for('.formedit',id=project.forms.first().id)}}'>
+                    Click here to edit forms</a></td></tr>
+        {% else %}
+        <tr><td>No Forms!</td></tr>
+        {% endif %}
+    </table>
+</div><!-- forminfo -->
+</form> 
+<div id="projectbuttons" class='clear'>
+    <table class='compact'>
+        <tr><td> <a href='{{url_for('.projectconf',id=id)}}'> 
+                    <button>Resend Confirmation Email</button></a></td>
+        <td>
+            <form action="{{url_for('.deleteproject',id=id)}}" method="GET"
+                onSubmit="return deleteConfirm('{{project.title}}','')">
+                <input type="submit" value="Delete Sponsor">
+            </form></td></tr>
+
+    </table>
+</div><!-- forminfo -->
 {% endblock %}
