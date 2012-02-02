@@ -24,8 +24,9 @@
             <td>Elect.</td>
             <td>{{juniors.filter_by(electricity=True).count()}}</td></tr>
     </table>
-</div>
+</div> <!-- Stats -->
 <div class="downloads">
     <ul class='nobullet'>
-       <li><a href="{{url_for('.downloadcsv')}}">Download as CSV</a></li>
+        <li><a href="{{url_for('.downloadcsv')}}">Download as CSV</a></li>
+</div> <!-- downloads -->
 {% endblock content %}
