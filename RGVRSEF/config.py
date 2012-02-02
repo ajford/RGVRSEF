@@ -1,3 +1,5 @@
+from os import environ
+
 try: 
     from bundle_config import config
     SQLALCHEMY_DATABASE_URI = 'postgresql://%s:%s@%s/%s'%(
@@ -6,8 +8,8 @@ try:
                 config['postgres']['host'],
                 config['postgres']['database'])
 except ImportError:
-    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_URI',
-                                        'sqlite:///rgvrsef.db')
+    SQLALCHEMY_DATABASE_URI = environ.get('SQLALCHEMY_URI',
+                                    'sqlite:///rgvrsef.db')
 
 SECRET_KEY = 'developmentKey'
 SIGNING_KEY = 'signingKey'
