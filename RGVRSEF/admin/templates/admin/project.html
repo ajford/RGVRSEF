@@ -10,7 +10,8 @@
 
 {% block content %} 
 
-<p> This to submit project info </p>
+<p><a href="{{url_for('.sponsor',id=leader.sponsor_id)}}">
+    Sponsor: {{leader.sponsor.lastname}},{{leader.sponsor.firstname}}</a></p>
 <form method="POST" action="{{url_for('.project',id=id)}}">
 <div id="projectinfo" class='left'>
 		{{ form.hidden_tag() }}

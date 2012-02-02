@@ -92,6 +92,7 @@ def projects():
 @login_required
 def project(id):
     project = Project.query.get_or_404(id)
+    leader =project.student.filter(Student.team_leader==True).first()
     form = mainforms.ProjectForm(obj=project)
     query=Category.query.order_by('id')
     form.category_id.choices=[(x.id,x.name) for x in query.all()]
@@ -100,7 +101,7 @@ def project(id):
         db.session.commit()
         return redirect(url_for('.projects'))
     return render_template('admin/project.html',form=form, id=id,
-                            project=project)
+                            project=project, leader=leader)
 
 @admin.route('/deleteproject/<int:id>', methods=["GET","POST"])
 @login_required
