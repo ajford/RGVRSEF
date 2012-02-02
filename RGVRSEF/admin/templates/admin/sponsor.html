@@ -1,6 +1,13 @@
 {% extends "admin/layout.html" %}
 {% from "macros.html" import fieldtable,submitify %}
+{% from "admin/macros.html" import script %}
 {%block title%}ADMIN - Sponsor{%endblock%}
+
+{% block scripts %}
+{{ super() }}
+{{ script('default.js','.static') }}
+{% endblock scripts %}
+
 
 {% block content %}
 <div class="clearpad"></div>
@@ -21,7 +28,18 @@
 <div id='spons_buttons'class="right">
     <table class='compact'>
         <tr><td> <a href='{{url_for('.sponsorconf',id=id)}}'> 
-                <button>Resend Confirmation Email</button></a></td></tr>
+                    <button>Resend Confirmation Email</button></a></td></tr>
+        <tr><td></td></tr>
+        <tr><td></td></tr>
+        <tr><td></td></tr>
+        <tr><td></td></tr>
+        <tr><td>
+            <form action="{{url_for('.deletesponsor',id=id)}}" method="GET"
+                onSubmit="return deleteConfirm('{{sponsor.lastname}}',
+                '{{sponsor.firstname}}')">
+                <input type="submit" value="Delete Sponsor">
+            </form></td></tr>
+
     </table>
 </div><!-- spons_button -->
 {% endblock content %}

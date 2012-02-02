@@ -131,8 +131,16 @@ def sponsor(id):
         flash("Sponsor Updated")
         return redirect(url_for('.sponsors'))
 
-    return render_template('admin/sponsor.html',form=form,id=id)
+    return render_template('admin/sponsor.html',form=form,id=id,sponsor=sponsor)
 
+@admin.route('/deletesponsor/<int:id>', methods=["GET","POST"])
+@login_required
+def deletesponsor(id):
+    sponsor_obj = Sponsor.query.get_or_404(id)
+    db.session.delete(sponsor_obj)
+    db.session.commit()
+    flash('Sponsor successfully deleted.','info')
+    return redirect(url_for('.sponsors'))
 
 @admin.route('/school/<int:id>')
 @login_required
