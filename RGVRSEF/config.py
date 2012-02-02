@@ -15,7 +15,7 @@ SECRET_KEY = 'developmentKey'
 SIGNING_KEY = 'signingKey'
 SIGNING_MAX_AGE = 18000 
 DEVELOPMENT = True
-TESTING = True
+TESTING = False
 DEBUG = True
 
 TITLE = "RGV Regional Science and Engineering Fair"

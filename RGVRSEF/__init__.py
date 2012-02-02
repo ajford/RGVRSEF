@@ -177,6 +177,7 @@ def studentreg1():
         sponsor_id = decode(form.sponsor_id.data)
         sponsor = Sponsor.query.get(sponsor_id)
         if sponsor:
+            finished = retrieve('finished')
             store(sponsor_id=sponsor.id)
             return redirect(url_for('studentreg2'))            
         else:
@@ -191,6 +192,10 @@ def studentreg2():
     form=StudentForm()
     if form.validate_on_submit():
         sponsor_id = retrieve('sponsor_id')
+    if sponsor_id is None:
+        message = "Your session has expired. \
+                Please restart your registration"
+        return render_template('message.html', message=message)
         if sponsor_id == SIG_EXPIRED:
             message = "Your session has expired. \
                     Please restart your registration"
@@ -214,6 +219,10 @@ def studentreg3():
     form.category_id.choices=[(x.id,x.name) for x in query.all()]
     if form.validate_on_submit():
         student_id = retrieve('student_id')
+        if student_id is None:
+            message = "Your session has expired. \
+                    Please restart your registration"
+            return render_template('message.html', message=message)
         if student_id == SIG_EXPIRED:
             message = "Your session has expired. \
                     Please restart your registration"
@@ -237,6 +246,10 @@ def studentreg3():
 def teammembers():
     form=StudentBaseForm()
     leader_id = retrieve('student_id')
+    if leader_id is None:
+        message = "Your session has expired. \
+                Please restart your registration"
+        return render_template('message.html', message=message)
     if leader_id == SIG_EXPIRED:
         message = "Your session has expired. \
                 Please restart your registration"
@@ -260,6 +273,10 @@ def studentreg4():
     form=FormsForm()
     if form.validate_on_submit():
         leader_id = retrieve('student_id')
+        if leader_id is None:
+            message = "Your session has expired. \
+                    Please restart your registration"
+            return render_template('message.html', message=message)
         if leader_id == SIG_EXPIRED:
             message = "Your session has expired. \
                     Please restart your registration"
@@ -276,7 +293,18 @@ def studentreg4():
 
 @app.route('/reg/student/review',methods=['GET','POST'])
 def complete():
+    finished = retrieve('finished')
+    if finished is True:
+        message = ["Your confirmation page has been viewed already.",
+            "If you do not recieve your confirmation email, please contact us"]
+        store(finished=True)
+        return render_template('message.html', message=message)
+
     leader_id = retrieve('student_id')
+    if leader_id is None:
+        message = "Your session has expired. \
+                Please restart your registration"
+        return render_template('message.html', message=message)
     if leader_id == SIG_EXPIRED:
         message = "Your session has expired. \
                 Please restart your registration"
@@ -303,6 +331,8 @@ def complete():
         mail.send(spons_email)
     if app.config['TESTING']:
         store(student_id=leader_id)
+    else:
+        store(finished=True)
     return render_template('complete.html', leader=leader)
 
 @app.route('/reg/sponsor/district',methods=['GET','POST'])
