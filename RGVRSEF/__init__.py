@@ -191,10 +191,10 @@ def studentreg2():
     form=StudentForm()
     if form.validate_on_submit():
         sponsor_id = retrieve('sponsor_id')
-    if sponsor_id is None:
-        message = "Your session has expired. \
-                Please restart your registration"
-        return render_template('message.html', message=message)
+        if sponsor_id is None:
+            message = "Your session has expired. \
+                    Please restart your registration"
+            return render_template('message.html', message=message)
         if sponsor_id == SIG_EXPIRED:
             message = "Your session has expired. \
                     Please restart your registration"
@@ -314,7 +314,7 @@ def complete():
                 Please restart your registration"
         return render_template('message.html', message=message)
 
-    project_reg_mail(leader.project)
+    utils.project_reg_mail(leader.project)
 
     if app.config['TESTING']:
         store(student_id=leader_id)
