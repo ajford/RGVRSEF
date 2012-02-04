@@ -77,16 +77,24 @@ def newdeadline():
 def projects():
     div = request.args.get('division',None)
     cat = request.args.get('category',None,type=int)
+    district = request.args.get('district',None,type=int)
     categories = Category.query.order_by('name').all()
+    districts = District.query.order_by('name').all()
     projects = Project.query.order_by('title')
+    print "_____%s"%district
     if request.args.get('category',None): 
         projects = projects.filter_by(category_id = request.args['category']) 
     if request.args.get('division',None):
         projects = projects.filter_by(division = request.args['division']) 
+    if request.args.get('district',None):
+        projects = projects.join(Student).join(School)
+        projects = projects.filter(School.district_id == district)
     projects = projects.all()
     return render_template('admin/projects.html', projects=projects, 
-                            categories=categories,endpoint='.projects',
-                            div_narrow=div,cat_narrow=cat)
+                            categories=categories,districts=districts,
+                            endpoint='.projects',
+                            div_narrow=div,cat_narrow=cat,
+                            dist_narrow=district)
 
 @admin.route('/project/<int:id>', methods=['GET','POST'])
 @login_required

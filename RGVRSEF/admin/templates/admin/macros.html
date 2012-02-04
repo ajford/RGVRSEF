@@ -6,35 +6,64 @@
 <link rel="stylesheet" type="text/css" media="all" href="{{url_for(endpoint,filename=filename)}}" />
 {%- endmacro %}
 
-{%macro render_project_narrow(cats,div_narrow,cat_narrow,endpoint='.projects')%}
-    <button id='divText' onclick="javascript:toggle('division','divText')" >Show Division Filters :</button>
+{%macro render_project_narrow(cats,districts,div_narrow,cat_narrow,
+dist_narrow,endpoint='.projects')%}
+    <button id='districtText' 
+    onclick="javascript:toggle('district','districtText')">
+    Show District Filters :</button>
+    <div id='district' style="display:none" class="filter">
+    <ul class="sideways">
+    {% if dist_narrow %}
+    <li><a href="{{url_for(endpoint,category=cat_narrow,division=div_narrow,
+        district='')}}">
+            Clear</a></li>
+    {% endif %}
+    {% for district in districts %}
+        {% if dist_narrow != district.id %}
+        <li><a href="{{url_for(endpoint,category=cat_narrow,division=div_narrow,
+            district=district.id)}}">
+            {{district.name}}</a></li>
+        {% else %}
+        <li>{{district.name}}</li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+    </div>
+    <div class="clear"></div>
+    <button id='divText' onclick="javascript:toggle('division','divText')">
+    Show Division Filters :</button>
     <div id='division' style="display:none" class="filter">
     <ul class="sidewaysSmall">
     {% for div in ['senior','junior'] %}
         {% if div_narrow != div %}
-        <li><a href="{{url_for(endpoint,category=cat_narrow,division=div)}}">
+        <li><a href="{{url_for(endpoint,category=cat_narrow,
+            district=dist_narrow,division=div)}}">
             {{div|title}}</a></li>
         {% else %}
         <li>{{div|title}}</li>
         {% endif %}
     {% endfor %}
     {% if div_narrow %}
-        <li><a href="{{url_for(endpoint,category=cat_narrow,division='')}}">
+        <li><a href="{{url_for(endpoint,category=cat_narrow,
+            district=dist_narrow,division='')}}">
             Clear</a></li>
     {% endif %}
     </ul>
     </div>
     <div class="clear"></div>
-    <button id='catText' onclick="javascript:toggle('category','catText')" >Show Category Filters:</button>
+    <button id='catText' onclick="javascript:toggle('category','catText')">
+    Show Category Filters:</button>
     <div id='category' style="display:none" class="filter">
     <ul class="sideways">
     {% if cat_narrow %}
-        <li><a href="{{url_for(endpoint,category='',division=div_narrow)}}">
+        <li><a href="{{url_for(endpoint,category='',
+            district=dist_narrow,division=div_narrow)}}">
             Clear</a></li>
     {%endif%}
     {% for cat in cats %}
         {% if cat_narrow != cat.id %}
-        <li><a href="{{url_for(endpoint,category=cat.id,division=div_narrow)}}">
+            <li><a href="{{url_for(endpoint,category=cat.id,
+                district=dist_narrow,division=div_narrow)}}">
             {{cat.name|title}}</a></li>
         {% else %}
         <li>{{cat.name|title}}</li>
@@ -58,7 +87,7 @@
             Clear</a></li>
     {% endif %}
     {% for district in districts %}
-        {% if district_narrow != district %}
+        {% if district_narrow != district.id %}
         <li><a href="{{url_for(endpoint,district=district.id)}}">
             {{district.name}}</a></li>
         {% else %}
