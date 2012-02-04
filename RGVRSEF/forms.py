@@ -30,7 +30,7 @@ class StudentBaseForm(InfoForm):
 class StudentForm(StudentBaseForm):
     address = TextField('Mailing Address', validators=[Required(),Length(3)])
     city = TextField('City', validators=[Required(),Length(3)])
-    zipcode = TextField('Zip Code', validators=[Required(),Length(5,10)])
+    zip = TextField('Zip Code', validators=[Required(),Length(5,10)])
 
 class SponsorForm(InfoForm):
     school_id = SelectField('School', coerce=int)

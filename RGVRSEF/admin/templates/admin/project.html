@@ -44,7 +44,8 @@
     </table>
 </div><!-- forminfo -->
 </form> 
-<div id="projectbuttons" class='clear'>
+<div class='clearpad'></div>
+<div id="projectbuttons" class='left'>
     <table class='compact'>
         <tr><td class="plainlink"> <a href='{{url_for('.projectconf',id=id)}}'> 
                     <button>Resend Confirmation Email</button></a></td>
@@ -54,6 +55,18 @@
                 <input type="submit" value="Delete Project">
             </form></td></tr>
 
+    </table>
+</div><!-- forminfo -->
+<div id="students" class='right'>
+    <table>
+        <tr><th colspan=2>Students</th></tr>
+        {% for student in project.student %}
+        <tr><td><a href='{{url_for('.studentedit',id=student.id)}}'>
+                {{student.lastname}},{{student.firstname}}</a></td>
+            <td>{{student.email}}</td></tr>
+        {% else %}
+        <tr><td colspan=2>No Students</td></tr>
+        {% endfor %}
     </table>
 </div><!-- forminfo -->
 {% endblock %}

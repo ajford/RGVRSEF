@@ -130,6 +130,19 @@ def formedit(id):
     return render_template('admin/forms.html',form=form, id=id,
                             forms=forms)
 
+@admin.route('/student/<int:id>',methods=['GET','POST'])
+@login_required
+def studentedit(id):
+    student = Student.query.get_or_404(id)
+    form = mainforms.StudentForm(obj=student)
+    if form.validate_on_submit():
+        form.populate_obj(student)
+        db.session.commit()
+        return redirect(url_for('.project',id=student.project_id))
+    return render_template('admin/student.html',form=form, id=id,
+                            student=student)
+    
+
 @admin.route('/sponsors')
 @login_required
 def sponsors():

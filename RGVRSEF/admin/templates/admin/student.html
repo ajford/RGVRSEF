@@ -1,0 +1,24 @@
+{% extends "admin/layout.html" %}
+{% from "macros.html" import fieldtable,submitify %}
+{% block title %} Student Registration {% endblock %}
+
+{% block content %} 
+
+<div id="studentpersonal">	
+	<form method="POST" action="{{url_for('.studentedit',id=id)}}">
+	<table>
+		{{ fieldtable(form,'firstname') }}
+		{{ fieldtable(form,'lastname') }}
+		{{ fieldtable(form,'email') }}
+		{{ fieldtable(form,'address') }}
+		{{ fieldtable(form,'city') }}
+		{{ fieldtable(form,'zip') }}
+		{{ fieldtable(form,'grade') }}
+		{{ fieldtable(form,'age') }}
+		{{ fieldtable(form,'gender') }}
+		{{ submitify() }}
+	</table>
+	</form>
+</div>
+
+{% endblock %}
