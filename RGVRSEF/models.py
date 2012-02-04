@@ -47,7 +47,7 @@ class Project(db.Model):
     complete = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
-        return "<Project %s - Div:%s - CID:%d>"%(self.id,self.division,
+        return "<Project %s - Div:%s - CID:%s>"%(self.id,self.division,
                                                  self.category_id)
 
     def serialize(self):
