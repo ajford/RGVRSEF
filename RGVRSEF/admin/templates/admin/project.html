@@ -10,8 +10,8 @@
 
 {% block content %} 
 
-<p><a href="{{url_for('.sponsor',id=leader.sponsor_id)}}">
-    Sponsor: {{leader.sponsor.lastname}},{{leader.sponsor.firstname}}</a></p>
+<p>Sponsor: <a href="{{url_for('.sponsor',id=leader.sponsor_id)}}">
+    {{leader.sponsor.lastname}},{{leader.sponsor.firstname}}</a></p>
 <form method="POST" action="{{url_for('.project',id=id)}}">
 <div id="projectinfo" class='left'>
 		{{ form.hidden_tag() }}
@@ -46,7 +46,7 @@
 </form> 
 <div id="projectbuttons" class='clear'>
     <table class='compact'>
-        <tr><td> <a href='{{url_for('.projectconf',id=id)}}'> 
+        <tr><td class="plainlink"> <a href='{{url_for('.projectconf',id=id)}}'> 
                     <button>Resend Confirmation Email</button></a></td>
         <td>
             <form action="{{url_for('.deleteproject',id=id)}}" method="GET"

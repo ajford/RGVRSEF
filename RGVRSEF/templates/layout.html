@@ -22,8 +22,10 @@
         <div class='wrapper'>
         <div class='header'>
         {% block header -%}
-        <a href="{{url_for('index',_external=True)}}">
+        <div class='plainlink'>
+        <a href="{{url_for('index',_external=True)}}" >
         <img  src="{{url_for('static',filename='header.png')}}"></a>
+        </div>
         {%- endblock header %}
         </div>
         {% block body %}

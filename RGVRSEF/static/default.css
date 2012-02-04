@@ -250,3 +250,30 @@ p {padding-top: 1em;padding-bottom: 1em;}
     height:6em;
     font-weight: bold;
 }
+.plainlink a:link,
+.plainlink a:visited 
+{
+   text-decoration: none;
+}
+.plainlink a:hover
+{
+    text-decoration: none; 
+}
+.links a:link,
+.links a:visited 
+{
+   text-decoration: none;
+   background-color: #FF8000;
+   padding: 0.5em;
+   color: #FFFFFF;
+}
+.links a:hover
+{
+    text-decoration: none; 
+    background-color: #769ADD; 
+    color: #FFFFFF;
+    padding: 0.5em;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}

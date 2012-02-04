@@ -25,15 +25,11 @@
 </table>
 </form>
 </div><!-- sponsor_reg -->
-<div id='spons_buttons'class="right">
+<div id='spons_buttons' class="clear">
     <table class='compact'>
-        <tr><td> <a href='{{url_for('.sponsorconf',id=id)}}'> 
-                    <button>Resend Confirmation Email</button></a></td></tr>
-        <tr><td></td></tr>
-        <tr><td></td></tr>
-        <tr><td></td></tr>
-        <tr><td></td></tr>
-        <tr><td>
+        <tr><td> <a href='{{url_for('.sponsorconf',id=id)}}' class='plainlink'> 
+                    <button>Resend Confirmation Email</button></a></td>
+        <td>
             <form action="{{url_for('.deletesponsor',id=id)}}" method="GET"
                 onSubmit="return deleteConfirm('{{sponsor.lastname}}',
                 '{{sponsor.firstname}}')">
