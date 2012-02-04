@@ -78,7 +78,7 @@ def projects():
     div = request.args.get('division',None)
     cat = request.args.get('category',None,type=int)
     categories = Category.query.order_by('name').all()
-    projects = Project.query
+    projects = Project.query.order_by('title')
     if request.args.get('category',None): 
         projects = projects.filter_by(category_id = request.args['category']) 
     if request.args.get('division',None):
