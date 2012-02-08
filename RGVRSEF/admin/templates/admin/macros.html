@@ -8,9 +8,27 @@
 
 {%macro render_project_narrow(cats,districts,div_narrow,cat_narrow,
 dist_narrow,endpoint='.projects')%}
-    <button id='districtText' 
-    onclick="javascript:toggle('district','districtText')">
-    Show District Filters :</button>
+    <div class='plainlink'>
+        <table><tr>
+        <td>
+            <a href="{{url_for('.projects')}}">
+                <button type='button' id='projects'>Clear All</button></a>
+        </td><td>
+            <button type='button' id='districtText' 
+            onclick="javascript:toggle('district','districtText')">
+            Show District Filters :</button>
+        </td><td>
+            <button type='button' id='divText' 
+            onclick="javascript:toggle('division','divText')">
+            Show Division Filters :</button>
+        </td><td>
+            <button type='button' id='catText' 
+            onclick="javascript:toggle('category','catText')">
+            Show Category Filters:</button>
+        </td></tr>
+    </table>
+    </div>
+    
     <div id='district' style="display:none" class="filter">
     <ul class="sideways">
     {% if dist_narrow %}
@@ -30,8 +48,6 @@ dist_narrow,endpoint='.projects')%}
     </ul>
     </div>
     <div class="clear"></div>
-    <button id='divText' onclick="javascript:toggle('division','divText')">
-    Show Division Filters :</button>
     <div id='division' style="display:none" class="filter">
     <ul class="sidewaysSmall">
     {% for div in ['senior','junior'] %}
@@ -51,8 +67,6 @@ dist_narrow,endpoint='.projects')%}
     </ul>
     </div>
     <div class="clear"></div>
-    <button id='catText' onclick="javascript:toggle('category','catText')">
-    Show Category Filters:</button>
     <div id='category' style="display:none" class="filter">
     <ul class="sideways">
     {% if cat_narrow %}
@@ -77,7 +91,7 @@ dist_narrow,endpoint='.projects')%}
 {% endmacro %}
 
 {%macro render_district_narrow(districts,district_narrow,endpoint='.schools')%}
-    <button id='districtText' 
+    <button type='button' id='districtText' 
     onclick="javascript:toggle('district','districtText')">
     Show District Filters :</button>
     <div id='district' style="display:none" class="filter">
