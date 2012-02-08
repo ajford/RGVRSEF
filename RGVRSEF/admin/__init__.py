@@ -4,6 +4,7 @@ from datetime import date
 from flask import Blueprint, render_template, abort, request, url_for,\
                   flash, redirect
 from flaskext.login import current_user, login_required, fresh_login_required
+from flaskext.wtf import Optional
 
 from RGVRSEF import app, mail, Message
 from RGVRSEF.models import *
@@ -143,13 +144,48 @@ def formedit(id):
 def studentedit(id):
     student = Student.query.get_or_404(id)
     form = mainforms.StudentForm(obj=student)
+    form.address.validators=[]
+    form.city.validators=[]
+    form.zip.validators=[]
     if form.validate_on_submit():
         form.populate_obj(student)
         db.session.commit()
+        flash('Student successfully updated.','info')
         return redirect(url_for('.project',id=student.project_id))
     return render_template('admin/student.html',form=form, id=id,
-                            student=student)
+                        student=student,proj_id=student.project_id,
+                        endpoint=url_for('.studentedit',id=id))
+
+@admin.route('/project/<int:id>/newstudent',methods=['GET','POST'])
+@login_required
+def newstudent(id):
+    form = mainforms.StudentForm()
+    form.address.validators=[]
+    form.city.validators=[]
+    form.zip.validators=[]
+    if form.validate_on_submit():
+        student = Student()
+        student.project_id=id
+        proj = Project.query.get_or_404(id)
+        student.sponsor_id = proj.student.first().sponsor_id
+        form.populate_obj(student)
+        db.session.add(student)
+        db.session.commit()
+        flash('Student successfully created.','info')
+        return redirect(url_for('.project',id=id))
+    return render_template('admin/student.html',form=form, id=id,
+                        endpoint=url_for('.newstudent',id=id))
+
     
+@admin.route('/project/<int:proj_id>/deletestudent/<int:id>', 
+                methods=["GET","POST"])
+@login_required
+def deletestudent(proj_id,id):
+    student = Student.query.get_or_404(id)
+    db.session.delete(student)
+    db.session.commit()
+    flash('Student successfully deleted.','info')
+    return redirect(url_for('.project',id=proj_id))
 
 @admin.route('/sponsors')
 @login_required

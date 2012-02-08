@@ -1,18 +1,26 @@
 {% extends "admin/layout.html" %}
 {% from "macros.html" import fieldtable,submitify %}
+{% from "admin/macros.html" import script %}
 {% block title %} Student Registration {% endblock %}
 
-{% block content %} 
+{% block scripts %}
+{{ super() }}
+{{ script('default.js','.static') }}
+{% endblock scripts %}
 
+{% block content %} 
+<h4>{{get_flashed_messages()[0]}}</h4>
 <div id="studentpersonal">	
-	<form method="POST" action="{{url_for('.studentedit',id=id)}}">
+    <form method="POST" action="{{ endpoint }}">
 	<table>
 		{{ fieldtable(form,'firstname') }}
 		{{ fieldtable(form,'lastname') }}
 		{{ fieldtable(form,'email') }}
+        {% if form.address %}
 		{{ fieldtable(form,'address') }}
 		{{ fieldtable(form,'city') }}
-		{{ fieldtable(form,'zip') }}
+        {{ fieldtable(form,'zip') }}
+        {% endif %}
 		{{ fieldtable(form,'grade') }}
 		{{ fieldtable(form,'age') }}
 		{{ fieldtable(form,'gender') }}
@@ -20,5 +28,26 @@
 	</table>
 	</form>
 </div>
+{% if student %}
+<div class='clearpad'></div>
+<div id='student_info'>
+    <table class='compact'>
+        <tr><td>Sponsor: 
+            <a href="{{url_for('.sponsor',id=student.sponsor_id)}}">
+            {{student.sponsor.lastname}},{{student.sponsor.firstname}}</a>
+            </td></tr>
+    </table> 
+</div><!-- student_info -->
+<div id='student_buttons'>
+    <table class='compact'>
+        <tr><td>
+            <form action="{{url_for('.deletestudent',proj_id=proj_id, id=id)}}"
+            method="GET" onSubmit="return deleteConfirm('{{student.lastname}}',
+            '{{student.firstname}}')">
+                <input type="submit" value="Delete Student">
+            </form></td></tr>
 
+    </table>
+</div><!-- student_button -->
+{% endif %}
 {% endblock %}
