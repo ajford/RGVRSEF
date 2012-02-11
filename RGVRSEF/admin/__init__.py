@@ -1,8 +1,9 @@
 from hashlib import sha256
 from datetime import date
+from StringIO import StringIO
 
 from flask import Blueprint, render_template, abort, request, url_for,\
-                  flash, redirect
+                  flash, redirect, make_response
 from flaskext.login import current_user, login_required, fresh_login_required
 from flaskext.wtf import Optional
 
@@ -275,7 +276,12 @@ def newdistrict():
 @admin.route('/download/csv')
 @login_required
 def downloadcsv():
-    return NYI()
+    resp = make_response()
+    resp.mimetype = 'text/csv'
+    resp.data = utils.tocsv()
+    resp.headers.add('Content-Disposition', 'attachment', 
+                    filename='registrants.csv')
+    return resp
 
 @admin.route('/news')
 @login_required
