@@ -3,6 +3,7 @@ from datetime import date
 from smtplib import SMTPException
 from StringIO import StringIO
 from csv import DictWriter
+from unicodedata import normalize
 
 #import xlwt
 
@@ -12,9 +13,12 @@ from flask import (Flask, make_response,redirect, url_for,
 from RGVRSEF import app, mail, Message
 import RGVRSEF.models as models
 
-CSV_FIELDS = ['Student 1','Student 2', 'Student 3', 'Project Title',
-                  'School','District','Sponsor Name']
 
+fx = lambda x: normalize('NFKD',x).encode('ascii','ignore')
+
+CSV_FIELDS = ['Project ID','Student 1','Student 2', 'Student 3', 
+                'Project Title', 'Category', 'Division', 'School',
+                'District','Sponsor Name']
 def toexcel():
    pass 
 
@@ -29,23 +33,36 @@ def tocsv():
             students = school.students.join(models.Project).order_by('title')
             students = students.filter(models.Student.team_leader==True).all()
             for student in students:
-                record = {CSV_FIELDS[0]: "%s %s"%(student.firstname,
-                                                student.lastname),
-                          CSV_FIELDS[3]: student.project.title,
-                          CSV_FIELDS[4]: student.school.name,
-                          CSV_FIELDS[5]: student.school.district.name,
-                          CSV_FIELDS[6]: "%s %s"%(student.sponsor.firstname,
-                                                student.sponsor.lastname)}
-                team = student.project.student
-                team = team.filter(models.Student.team_leader==False).limit(2)
-                team = team.all()
-                i = 1
-                for student in team:
-                    record[CSV_FIELDS[i]]= "%s %s"%(student.firstname,
-                                                    student.lastname)
-                    i += 1 
+                try:
+                    record = {CSV_FIELDS[0]: student.project.id,
+                              CSV_FIELDS[1]: fx("%s %s"%(student.firstname,
+                                                    student.lastname)),
+                              CSV_FIELDS[4]: fx(student.project.title),
+                              CSV_FIELDS[5]: fx(student.project.category.name),
+                              CSV_FIELDS[6]: fx(student.project.division),
+                              CSV_FIELDS[7]: student.school.name,
+                              CSV_FIELDS[8]: student.school.district.name,
+                              CSV_FIELDS[9]: fx("%s %s"%(student.sponsor.firstname,
+                                                    student.sponsor.lastname))}
+                    team = student.project.student
+                    team = team.filter(models.Student.team_leader==False).limit(2)
+                    team = team.all()
+                    i = 2
+                    for student in team:
+                        record[CSV_FIELDS[i]]= fx("%s %s"%(student.firstname,
+                                                        student.lastname))
+                        i += 1
+                except AttributeError as error:
+                    app.logger.error('ProjID:%s - ID:%s - %s %s\n%s\n%s' % 
+                            (student.id, student.project.id, student.firstname,
+                             student.lastname,pformat(vars(student.project)),
+                             error))
 
-                writer.writerow(record)
+
+                try:
+                    writer.writerow(record)
+                except UnicodeEncodeError:
+                    app.logger.error("Unicode Error:\n%s"%record)
 
     return f.getvalue()
 
@@ -88,4 +105,3 @@ def project_reg_mail(project):
             app.logger.debug("Sponsor confirmation sent")
         except SMTPException as error:
             app.logger.warning("SMTP ERROR\n%s"%error)
-
