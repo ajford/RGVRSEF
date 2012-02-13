@@ -6,7 +6,8 @@ from RGVRSEF import app
 db = SQLAlchemy(app)
 
 class Student(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, db.Sequence('student_id_seq',start=1000),
+            primary_key=True)
     firstname = db.Column(db.String(30))
     lastname = db.Column(db.String(50))
     email = db.Column(db.String(150))
@@ -35,7 +36,8 @@ class Student(db.Model):
                 'sponsor': self.sponsor_id}
 
 class Project(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, db.Sequence('project_id_seq',start=1000),
+            primary_key=True)
     title = db.Column(db.String(250))
     individual = db.Column(db.Boolean, default=True)
     student = db.relationship("Student",backref='project',lazy='dynamic')
