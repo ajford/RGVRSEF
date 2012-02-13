@@ -6,7 +6,7 @@
 <p> Please enter the ID of your Sponsor. </p>
 
 <p class="warning"> {{ message }} </p> 
-<form method="POST" action="{{ url_for('studentreg1') }}" > 
+<form method="POST" action="{{ endpoint }}" > 
 	{{ form.hidden_tag() }}	
 	<table>
 		{{ fieldtable(form,'sponsor_id') }}

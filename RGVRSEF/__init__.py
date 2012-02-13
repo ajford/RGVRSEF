@@ -184,7 +184,26 @@ def studentreg1():
                     Please verify and reneter."
             return render_template("studentreg1.html",form=form,
                         message=message)
-    return render_template("studentreg1.html",form=form)
+    return render_template("studentreg1.html",form=form, 
+                    endpoint=url_for('studentreg1'))
+
+@app.route('/reg/student/code',methods=['GET','POST'])
+def studentbackdoor():
+    form=StudentSponsorForm()
+    if form.validate_on_submit():
+        sponsor_id = decode(form.sponsor_id.data)
+        sponsor = Sponsor.query.get(sponsor_id)
+        if sponsor:
+            finished = retrieve('finished')
+            store(sponsor_id=sponsor.id)
+            return redirect(url_for('studentreg2'))            
+        else:
+            message = "This Sponsor ID is invalid. \
+                    Please verify and reneter."
+            return render_template("studentreg1.html",form=form,
+                        message=message)
+    return render_template("studentreg1.html",form=form, 
+                    endpoint=url_for('studentbackdoor'))
 
 @app.route('/reg/student/personalinfo',methods=['GET','POST'])
 def studentreg2():
