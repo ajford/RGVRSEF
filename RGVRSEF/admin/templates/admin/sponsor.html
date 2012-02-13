@@ -25,6 +25,22 @@
 </table>
 </form>
 </div><!-- sponsor_reg -->
+{% if students %}
+<div id='spons_students' class='right'>
+    <table class='compact'>
+        {% for student in students %}
+        <tr>
+            {% if student.project %}
+            <td><a href='{{url_for('.project',id=student.project.id)}}'>
+                    {{ student.project.title }}</a></td>
+            {% else %}
+            <td>No Project</td>
+            {% endif %}
+            <td>{{ student.lastname }}, {{student.firstname }}</td></tr>
+        {% endfor %}
+    </table>
+</div><!-- spons_students -->
+{% endif %}
 <div id='spons_buttons' class="clear">
     <table class='compact'>
         <tr><td> <a href='{{url_for('.sponsorconf',id=id)}}' class='plainlink'> 
@@ -38,4 +54,5 @@
 
     </table>
 </div><!-- spons_button -->
+<div class='clearpad'></div>
 {% endblock content %}

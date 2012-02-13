@@ -217,7 +217,9 @@ def sponsor(id):
         flash("Sponsor Updated")
         return redirect(url_for('.sponsors'))
 
-    return render_template('admin/sponsor.html',form=form,id=id,sponsor=sponsor)
+    students = sponsor.students.filter(Student.team_leader==True).all()
+    return render_template('admin/sponsor.html',form=form,id=id,
+                            sponsor=sponsor, students=students)
 
 @admin.route('/deletesponsor/<int:id>', methods=["GET","POST"])
 @login_required
