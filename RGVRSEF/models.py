@@ -46,7 +46,7 @@ class Project(db.Model):
     floor = db.Column(db.Boolean, default=False)
     electricity = db.Column(db.Boolean, default=False)
     forms = db.relationship("Forms",backref='project',lazy='dynamic')
-    complete = db.Column(db.Boolean, default=False)
+    school_id = db.Column(db.Integer,db.ForeignKey('school.id'))
 
     def __repr__(self):
         return "<Project %s - Div:%s - CID:%s>"%(self.id,self.division,
@@ -100,6 +100,7 @@ class School(db.Model):
     fax = db.Column(db.String(15))
     district_id = db.Column(db.Integer, db.ForeignKey('district.id'))
     students = db.relationship('Student', backref='school',lazy='dynamic')
+    projects = db.relationship('Project', backref='school',lazy='dynamic')
     sponsors = db.relationship('Sponsor', backref='school',lazy='dynamic')
 
     def __init__(self,name,phone,fax,district_id):

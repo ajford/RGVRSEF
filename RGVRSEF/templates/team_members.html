@@ -32,7 +32,7 @@
     <div class="right">
     <table>
         <tr><th>Entered Team Members</th></tr>
-        {% for student in leader.project.student if not student.team_leader %}
+        {% for student in team %}
         <tr><td>{{student.lastname}}, {{student.firstname}}</td></tr>
         {% else %}
         <tr><td>No team members entered yet</td></tr>

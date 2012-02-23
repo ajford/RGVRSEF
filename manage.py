@@ -5,19 +5,35 @@ from datetime import date,timedelta
 from hashlib import sha256
 
 from flaskext.script import Manager,Server,prompt_pass,prompt,prompt_bool
+from sqlalchemy.exc import ProgrammingError
+
 from RGVRSEF import app
 import RGVRSEF.models as models
 import RGVRSEF.admin.models as admin_models
+
 
 manager = Manager(app)
 manager.add_command("runserver", Server())
 
 def password_valid():
     passwd = sha256(prompt_pass("Please enter admin password")).hexdigest()
-    admin = admin_models.Admin.query.filter_by(username='root').first()
-    if admin is None:
-        return True
+    try:
+        admin = admin_models.Admin.query
+        if admin.count() < 1:
+            print "No Admins exist. Dropping DB."
+            return True
+
+        admin = admin.filter_by(username='root').first()
+    except ProgrammingError as progerror:
+        if progerror.args[0].find('relation "admin" does not exist'):
+            print "DB does not exist. Dropping just in case"
+            admin_models.db.session.close_all()
+            return True
+        else:
+            return False
+
     if passwd == admin.password:
+        admin_models.db.session.close_all()
         return True
     else:
         print "Invalid Password"

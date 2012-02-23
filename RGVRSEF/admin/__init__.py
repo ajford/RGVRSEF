@@ -7,14 +7,11 @@ from flask import Blueprint, render_template, abort, request, url_for,\
 from flaskext.login import current_user, login_required, fresh_login_required
 from flaskext.wtf import Optional
 
-from RGVRSEF import app, mail, Message
-from RGVRSEF.models import *
-from RGVRSEF import forms as mainforms
-from RGVRSEF import utils as utils
-from RGVRSEF.admin.forms import DeadlineForm, NewsForm, DistrictForm, SchoolForm, MailForm
-
-def NYI():
-    return render_template('admin/message.html', message="Not Yet Implemented")
+from .. import app, mail, Message
+from ..models import *
+from .. import forms as mainforms
+from .. import utils as utils
+from .forms import DeadlineForm, NewsForm, DistrictForm, SchoolForm, MailForm
 
 admin = Blueprint('admin', __name__, template_folder='templates',
                                    static_folder='static')

@@ -2,7 +2,7 @@ from hashlib import sha256
 
 from flaskext.sqlalchemy import SQLAlchemy
 
-from RGVRSEF import db
+from ..models import db
 
 class Admin(db.Model):
     id = db.Column(db.Integer, primary_key=True)
