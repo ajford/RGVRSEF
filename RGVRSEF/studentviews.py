@@ -12,11 +12,13 @@ def studentreg1():
                             message="Student Registration is currently closed")
     form=forms.StudentSponsorForm()
     if form.validate_on_submit():
-        sponsor_id = decode(form.sponsor_id.data)
+        sponsor_id = utils.decode(form.sponsor_id.data)
         sponsor = models.Sponsor.query.get(sponsor_id)
         if sponsor:
-            finished = utils.retrieve('finished')
+            utils.clear()
             utils.store(sponsor_id=sponsor.id)
+            utils.store(complete=utils.NOT_COMPLETE)
+            utils.store(viewed=utils.NOT_VIEWED)
             return redirect(url_for('studentreg2'))            
         else:
             message = "This Sponsor ID is invalid. \
@@ -30,10 +32,9 @@ def studentreg1():
 def studentbackdoor():
     form=forms.StudentSponsorForm()
     if form.validate_on_submit():
-        sponsor_id = decode(form.sponsor_id.data)
+        sponsor_id = utils.decode(form.sponsor_id.data)
         sponsor = models.Sponsor.query.get(sponsor_id)
         if sponsor:
-            finished = utils.retrieve('finished')
             utils.store(sponsor_id=sponsor.id)
             return redirect(url_for('studentreg2'))            
         else:
@@ -50,14 +51,6 @@ def studentreg2():
     form=forms.StudentForm()
     if form.validate_on_submit():
         sponsor_id = utils.retrieve('sponsor_id')
-        if sponsor_id is None:
-            message = "Your session has expired. \
-                    Please restart your registration"
-            return render_template('message.html', message=message)
-        if sponsor_id == SIG_EXPIRED:
-            message = "Your session has expired. \
-                    Please restart your registration"
-            return render_template('message.html', message=message)
         student = models.Student()
         sponsor = models.Sponsor.query.get(sponsor_id)
         student.sponsor_id = sponsor.id
@@ -66,14 +59,14 @@ def studentreg2():
         form.populate_obj(student)
         utils.store(leader=student.serialize())
         utils.store(sponsor_id=sponsor.id)
+        utils.refresh('complete')
+        utils.refresh('viewed')
         return redirect(url_for('studentreg3'))
     return render_template("studentreg2.html",form=form)
 
 @app.route('/reg/student/projectinfo',methods=['GET','POST'])
 def studentreg3():
     form=forms.ProjectForm()
-    query=models.Category.query.order_by('id')
-    form.category_id.choices=[(x.id,x.name) for x in query.all()]
     if form.validate_on_submit():
         project = models.Project()
         form.populate_obj(project)
@@ -81,6 +74,8 @@ def studentreg3():
         utils.store(project=project.serialize())
         utils.refresh('sponsor_id')
         utils.refresh('leader')
+        utils.refresh('complete')
+        utils.refresh('viewed')
         if form.individual.data != 'True':
             return redirect(url_for('teammembers'))
         return redirect(url_for('studentreg4'))
@@ -105,6 +100,8 @@ def teammembers():
         utils.store(team=team)
         utils.refresh('sponsor_id')
         utils.refresh('leader')
+        utils.refresh('complete')
+        utils.refresh('viewed')
         utils.refresh('project')
         
         return redirect(url_for('teammembers'))
@@ -114,12 +111,14 @@ def teammembers():
 def studentreg4():
     form=forms.FormsForm()
     if form.validate_on_submit():
-        forms = forms.Forms()
-        form.populate_obj(forms)
-        utils.store(forms=forms.serialize())
+        frms = models.Forms()
+        form.populate_obj(frms)
+        utils.store(forms=frms.serialize())
         utils.store(complete=True)
         utils.refresh('sponsor_id')
         utils.refresh('leader')
+        utils.refresh('complete')
+        utils.refresh('viewed')
         utils.refresh('project')
         utils.refresh('team')
         return redirect(url_for('complete'))
@@ -128,25 +127,20 @@ def studentreg4():
 @app.route('/reg/student/review',methods=['GET','POST'])
 def complete():
     viewed = utils.retrieve('viewed')
-    if viewed:
+    if viewed == utils.VIEWED:
         message = ["Your confirmation page has been viewed already.",
             "If you do not recieve your confirmation email, please contact us"]
-        utils.store(viewed=True)
+        utils.store(viewed=utils.VIEWED)
         return render_template('message.html', message=message)
     
     complete = utils.retrieve('complete')
-    if complete is None:
+    if complete == utils.NOT_COMPLETE:
         message = ["Your registration is not marked as complete.",
                 "If you think you've recieved this mesage in error,\
                 please return to the previous page and try again."]
         return render_template('message.html', message=message)
-    if complete == SIG_EXPIRED:
-        message = "Your session has expired. \
-                Please restart your registration"
-        return render_template('message.html', message=message)
 
-
-    sponosor_id = utils.retrieve('sponsor_id')
+    sponsor_id = utils.retrieve('sponsor_id')
     sponsor = models.Sponsor.query.get(sponsor_id)
 
     project = models.Project()
@@ -181,7 +175,5 @@ def complete():
 
     if app.config['TESTING']:
         utils.store(student_id=leader_id)
-    else:
-        utils.store(finished=True)
     return render_template('complete.html', leader=leader)
 

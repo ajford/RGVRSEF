@@ -1,5 +1,5 @@
 
-from flask import render_template,url_for,redirect
+from flask import render_template,url_for,redirect,request
 
 from . import app, models, forms 
 from . import tasks
@@ -24,8 +24,8 @@ def sponsorreg():
         form.encrypt()
         sponsor=models.Sponsor()
         form.populate_obj(sponsor)
-        db.session.add(sponsor)
-        db.session.commit()
+        models.db.session.add(sponsor)
+        models.db.session.commit()
         tasks.sponsor_mail(sponsor)
         utils.store(sponsor_id=sponsor.id)
         return redirect(url_for('sponsorcomplete'))
@@ -34,15 +34,12 @@ def sponsorreg():
 @app.route('/reg/sponsor/complete')
 def sponsorcomplete():
     sponsor_id = utils.retrieve('sponsor_id')
-    if sponsor_id is SIG_EXPIRED:
-        message = "Your session has expired. \
-            If you do not recieve your confirmation email, please contact us" 
-        return render_template('message.html', message=message)
-    if sponsor_id is None:
+    if sponsor_id == utils.VIEWED:
         message = ["Your confirmation page has already been viewed.",
            "If you do not recieve your confirmation email, please contact us"]
         return render_template('message.html', message=message)
     sponsor = models.Sponsor.query.get_or_404(sponsor_id)
+    utils.store(sponsor_id=utils.VIEWED)
     return render_template("sponsor_complete.html",sponsor=sponsor)
 
 
