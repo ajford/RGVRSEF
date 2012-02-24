@@ -19,12 +19,31 @@ SIG_EXPIRED = 'SIG_EXPIRED'
 from . import models
 from .admin import admin as admin_blueprint
 from . import forms
-from .testing import DummySponsor
 from . import utils
 from . import sponsorviews
 from . import studentviews
 from . import jinjaconfig
 from . import log
+from . import exceptions
+if app.config['TESTING']:
+    from .testing import views
+
+@app.errorhandler(500)
+def internal_error(e):
+    return render_template('internal_error.html'), 500
+
+@app.errorhandler(BadSignature)
+def sig_expired(e):
+    message = "Your session has expired. Please restart your registration."
+    return render_template('message.html', message=message)
+
+@app.errorhandler(exceptions.NoKeyError)
+def sig_expired(e):
+    message = ["Your session has expired. Please restart your registration.",
+            "This site requires browser cookies to function properly, so verify\
+            that your cookies are enabled."]
+    return render_template('message.html', message=message)
+
 
 @app.route('/')
 def index():
