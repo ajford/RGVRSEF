@@ -4,18 +4,20 @@ import subprocess
 from datetime import date,timedelta
 from hashlib import sha256
 
-from flaskext.script import Manager,Server,prompt_pass,prompt,prompt_bool
+from flaskext.script import Manager,Server,Shell,prompt_pass,prompt,prompt_bool
 from sqlalchemy.exc import ProgrammingError
 
 from RGVRSEF import app
 import RGVRSEF.models as models
 import RGVRSEF.admin.models as admin_models
-
+import RGVRSEF.utils as utils
+import RGVRSEF.tasks as tasks
 
 manager = Manager(app)
 manager.add_command("runserver", Server())
 
 def password_valid():
+    """ Prompts for root admin password and checks against db """
     passwd = sha256(prompt_pass("Please enter admin password")).hexdigest()
     try:
         admin = admin_models.Admin.query
@@ -39,8 +41,17 @@ def password_valid():
         print "Invalid Password"
         return False
 
+def _make_context():
+    return dict(app=app, models=models, admin_models=admin_models,
+                ctx=app.test_request_context(),utils=utils,tasks=tasks)
 
-# Fill test values
+try:
+    manager.add_command("shell", Shell(use_bpython=True,
+                        make_context=_make_context))
+except TypeError:
+    manager.add_command("shell", Shell(make_context=_make_context))
+
+
 @manager.command
 def testvals():
     """ Management function to create test DB. Requires root admin access. """
@@ -52,12 +63,12 @@ def testvals():
                 print "Unable to load module 'testing' from RGVRSEF\
                       required to build test db"
                 return 1
+            models.db.drop_all()
             testing.populate_test_db() 
             print "Test values populated"
         else:
             print 'Database operation aborted.'
 
-# Drop DB
 @manager.command
 def dropdb():
     """ Management function to drob DB. Requires root admin access. """
@@ -68,7 +79,6 @@ def dropdb():
         else:
             print 'Database operation aborted.'
 
-# Build DB
 @manager.command
 def builddb():
     """ Management function to create the required DB. """ 
@@ -84,40 +94,12 @@ def builddb():
     models.db.session.add(admin_models.Admin('root',passwd,True))
     models.db.session.commit()
 
-# Add newly added models
 @manager.command
 def addnewtables():
-    """ Management function to create the required DB. """ 
+    """ Management function. Runs create_all to add any newly added models"""
     if password_valid():
         models.db.create_all()
 
-# padding 
-@manager.command
-def padding():
-    if password_valid():
-        sponspad = models.Sponsor()
-        sponspad.id = 1000
-        sponspad.firstname = 'PAD'
-        sponspad.lastname = 'PAD'
-        models.db.session.add(sponspad)
-        models.db.session.commit()
-        print "Sponsors padded"
-        studentpad = models.Student()
-        studentpad.id = 1000
-        studentpad.firstname = 'PAD'
-        studentpad.lastname = 'PAD'
-        models.db.session.add(studentpad)
-        models.db.session.commit()
-        print "Students padded"
-        projectpad = models.Project()
-        projectpad.id = 1000
-        projectpad.title = 'PAD'
-        models.db.session.add(projectpad)
-        models.db.session.commit()
-        print "Project padded"
-
-# Add Admin
-@manager.command
 def admin():
     """ Management function to add admins. """
     if password_valid(): 
@@ -136,7 +118,6 @@ def admin():
     else:
         print "Admin creation aborted"
 
-# Delete Admin
 @manager.command
 def deladmin():
     """ Management function to delete admins. """
@@ -149,10 +130,10 @@ def deladmin():
             if prompt_bool("Are you sure you want to delete user %s"%user.name):
                 models.db.session.delete(user)
                 models.db.session.commit()
+                print "User %s successfully deleted"%username
         else:
             print "User does not exist"
 
-# Add Categories
 @manager.command
 def categories():
     """ Management function to import categories. 
@@ -161,7 +142,6 @@ def categories():
     where the second value is True if the category is a team category, false
     otherwise.
     """ 
-
     if password_valid():
         for category in app.config['CATEGORIES']:
             cat = models.Category(category[0],category[1])
@@ -170,6 +150,7 @@ def categories():
         print "Categories successully added."
     else:
         print "Category import aborted."
+
 
 
 if __name__ == '__main__':
