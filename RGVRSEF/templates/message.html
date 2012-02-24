@@ -3,7 +3,11 @@
 {% block content %}
     {% if message is not string %}
         {% for msg in message %}
+        {% if loop.first %}
         <h3>{{ msg }}</h3>
+        {% else %}
+        <h4>{{ msg }}</h4>
+        {% endif %}
         {% endfor %}
     {% else %}
     <h3>{{ message }}</h3>
