@@ -175,7 +175,7 @@ p {padding-top: 1em;padding-bottom: 1em;}
 }
 #formbox,#explination
 {
-    padding: 1em;
+    padding: 1em 0em;
     width:400px;
 }
 
@@ -212,26 +212,30 @@ p {padding-top: 1em;padding-bottom: 1em;}
     height: 2em;
 }
 
-.compact th, .compact td
+/* Fonts */
+.smallfont { font-size:0.8em; }
+.mediumfont { font-size:0.9em; }
+.italic {font-style:italic;}
+.bold {font-weight:bold;}
+.bi {font-style:italic; font-weight:bold;}
+.ui {font-style:italic; text-decoration:underline;}
+.smcapB {font-variant:small-caps; font-weight:bold; font-size:1.2em;}
+.smcapBI 
 {
-    padding: 0.5em;
-} 
-.midsized th, .midsized td
-{
-    padding: 1em;
+    font-style:italic; 
+    font-variant:small-caps; 
+    font-weight:bold; 
+    font-size:1.2em;
 }
-.bigtable th, .bigtable td
-{
-    padding: 2em;
-}
-.smallfont
-{
-    font-size:0.8em;
-}
-.mediumfont
-{
-    font-size:0.9em;
-}
+
+
+/* Tables */
+.compact th { padding: 1em 0em 0.25em 0em; } 
+.compact td { padding: 0.125em; }
+.midsized th { padding: 1em; }
+.midsized td { padding: 0.5em; }
+.bigtable th { padding: 2em; }
+.bigtable td { padding: 1.5em; }
 
 /* Navigation */
 .nav
