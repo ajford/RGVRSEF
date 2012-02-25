@@ -44,7 +44,6 @@ class Project(db.Model):
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     division = db.Column(db.String(10), default='')
     floor = db.Column(db.Boolean, default=False)
-    electricity = db.Column(db.Boolean, default=False)
     forms = db.relationship("Forms",backref='project',lazy='dynamic')
     school_id = db.Column(db.Integer,db.ForeignKey('school.id'))
 
@@ -54,10 +53,11 @@ class Project(db.Model):
 
     def serialize(self):
         return {'id': self.id, 'title':self.title, 
-                'individual':self.individual, 'student':self.student.id,
-                'team': [ x.id for x in self.team.all() ],
-                'category': self.category.name, 'division': self.division,
-                'table': self.table, 'electricity': self.electricity}
+                'individual':self.individual, 
+                'student': [ x.id for x in self.student.all() ],
+                'category': str(self.category), 
+                'division': str(self.division),
+                'floor': self.floor}
 
 class Sponsor(db.Model):
     id = db.Column(db.Integer, db.Sequence('sponsor_id_seq',start=1000),
@@ -93,6 +93,9 @@ class Category(db.Model):
     def __repr__(self):
         return "<Category %s >"%self.name
 
+    def __str__(self):
+        return str(self.id)
+
 class School(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
@@ -127,8 +130,8 @@ class District(db.Model):
     def __repr__(self):
         return "<District %s >"%self.name
 
-    def serialize(self):
-        return self.name
+    def __str__(self):
+        return str(self.id)
 
 class Deadline(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -192,3 +195,6 @@ class Forms(db.Model):
                'phbaf':'Potentially Hazardous Biological Agents Form',
                'hvatf':'Human and Vertebrate Animal Tissue Form',
                'cpf':'Continuations Projects Form'}
+
+    def serialize(self):
+        return dict([(x,self.__getattribute__(x)) for x in self.formnames])
