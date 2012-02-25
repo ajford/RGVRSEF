@@ -3,12 +3,17 @@ from hashlib import sha256
 from flaskext.wtf import (Form, TextField, TextAreaField, BooleanField,
                          SelectField, RadioField, PasswordField, Required,
                          Length, Optional, Email, NumberRange, EqualTo,
-                         SubmitField)
+                         SubmitField,QuerySelectField)
+
+from . import models
+
+def category_query():
+    return models.Category.query
 
 class InfoForm(Form):
     firstname = TextField('First Name', validators=[Required(),Length(3)])
     lastname = TextField('Last Name', validators=[Required(),Length(3)])
-    email = TextField('Email', validators=[Required(),Email()])
+    email = TextField('Email', validators=[Email(),Optional()])
 
     def __init__(self, *args, **kwargs):
         kwargs['csrf_enabled'] = False
@@ -28,9 +33,9 @@ class StudentBaseForm(InfoForm):
     done= SubmitField('Done') 
 
 class StudentForm(StudentBaseForm):
-    address = TextField('Mailing Address', validators=[Required(),Length(3)])
-    city = TextField('City', validators=[Required(),Length(3)])
-    zip = TextField('Zip Code', validators=[Required(),Length(5,10)])
+    address = TextField('Mailing Address', validators=[Length(3),Optional()])
+    city = TextField('City', validators=[Length(3),Optional()])
+    zip = TextField('Zip Code', validators=[Length(5,10),Optional()])
 
 class SponsorForm(InfoForm):
     school_id = SelectField('School', coerce=int)
@@ -58,15 +63,15 @@ class StudentSponsorForm(Form):
 
 class ProjectForm(Form):
     title=TextField('Project Title', validators=[Required(),Length(5)])
-    # Logic values are reversed from answers.
-    # Just keep an eye out.
-    individual=RadioField('Is it a Team Project',
+    # Logic values for indv. are reversed from answers. Just keep an eye out.
+    individual=RadioField('Is it a Team Project',default=True,
             choices=[('False','Yes'),('True','No')],validators=[Required()])
-    category_id=SelectField('Category',coerce=int)
+    category=QuerySelectField('Category',get_label='name',
+            query_factory=category_query, validators=[Required()])
     division=RadioField('Division',
             choices=[('junior','Junior'),('senior','Senior')],
             validators=[Required()])
-    floor=RadioField('Will you need floor space',
+    floor=RadioField('Will you need floor space',default=False,
             choices=[('True','Yes'),('False','No')],validators=[Required()])
 
 class FormsForm(Form):
