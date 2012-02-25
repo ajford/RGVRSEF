@@ -12,6 +12,15 @@ html{height:100%;}
 .push{height: 4em;}
 /* End Sticky footer main */
 
+/* Defaults */
+h1, h2, h3, h4 
+{
+    padding-top: 1em;
+    padding-bottom: 1em;
+    text-align:center;
+}
+/* End Defaults */
+
 /* Main Sections */
 body
 {
@@ -164,6 +173,12 @@ p {padding-top: 1em;padding-bottom: 1em;}
     background: #FF8000;
     text-align: left;
 }
+#formbox,#explination
+{
+    padding: 1em;
+    width:400px;
+}
+
 
 
 
@@ -208,7 +223,15 @@ p {padding-top: 1em;padding-bottom: 1em;}
 .bigtable th, .bigtable td
 {
     padding: 2em;
-} 
+}
+.smallfont
+{
+    font-size:0.8em;
+}
+.mediumfont
+{
+    font-size:0.9em;
+}
 
 /* Navigation */
 .nav
