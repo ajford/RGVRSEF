@@ -12,8 +12,13 @@
 {{render_district_narrow(districts,district_narrow)}}
 <table class='compact'>
     {% for school in schools %}
-    <tr><td><a href='{{url_for('.school',id=school.id)}}'>{{school.name}}</a>
-        ({{school.sponsors.count()}} sponsors)</td>
+    <tr><td><a href='{{url_for('.school',id=school.id)}}'>
+            {%- if school.name -%}
+                {{school.name}}
+            {%- else -%}
+                BLANK
+            {%- endif -%}
+        </a>({{school.sponsors.count()}} sponsors)</td>
         <td><a href="{{url_for('.district',id=school.district.id)}}">
             {{school.district.name}}</a></td>
     </tr>

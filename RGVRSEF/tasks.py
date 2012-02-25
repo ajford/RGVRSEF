@@ -16,13 +16,18 @@ import RGVRSEF.models as models
 
 fx = lambda x: normalize('NFKD',x).encode('ascii','ignore')
 
-CSV_FIELDS = ['Project ID','Student 1','Student 2', 'Student 3', 
+PROJECT_CSV_FIELDS = ['Project ID','Student 1','Student 2', 'Student 3', 
                 'Project Title', 'Category', 'Division', 'School',
                 'District','Sponsor Name']
+PARTICIPANT_CSV_FIELDS = ['Student','Project ID',
+                'Project Title', 'Category', 'Division', 'School',
+                'District','Sponsor Name']
+
 def toexcel():
    pass 
 
-def tocsv():
+def projectcsv():
+    CSV_FIELDS = PROJECT_CSV_FIELDS
     f = StringIO()
     writer = DictWriter(f,CSV_FIELDS)
     writer.writerow( dict( (x,x) for x in CSV_FIELDS) )
@@ -59,6 +64,40 @@ def tocsv():
                              error))
 
 
+                try:
+                    writer.writerow(record)
+                except UnicodeEncodeError:
+                    app.logger.error("Unicode Error:\n%s"%record)
+
+    return f.getvalue()
+
+def participantcsv():
+    CSV_FIELDS = PARTICIPANT_CSV_FIELDS
+    f = StringIO()
+    writer = DictWriter(f,CSV_FIELDS)
+    writer.writerow( dict( (x,x) for x in CSV_FIELDS) )
+    districts = models.District.query.order_by('name').all()
+    for district in districts:
+        schools = district.schools.order_by('name').all()
+        for school in schools:
+            students = school.students.join(models.Project).order_by('title')
+            for student in students:
+                try:
+                    record = {CSV_FIELDS[0]: fx("%s %s"%(student.firstname,
+                                               student.lastname)),
+                        CSV_FIELDS[1]: student.project.id,
+                        CSV_FIELDS[2]: fx(student.project.title),
+                        CSV_FIELDS[3]: fx(student.project.category.name),
+                        CSV_FIELDS[4]: fx(student.project.division),
+                        CSV_FIELDS[5]: student.school.name,
+                        CSV_FIELDS[6]: student.school.district.name,
+                        CSV_FIELDS[7]: fx("%s %s"%(student.sponsor.firstname,
+                                           student.sponsor.lastname))}
+                except AttributeError as error:
+                    app.logger.error('ProjID:%s - ID:%s - %s %s\n%s\n%s' % 
+                            (student.id, student.project.id, student.firstname,
+                             student.lastname,pformat(vars(student.project)),
+                             error))
                 try:
                     writer.writerow(record)
                 except UnicodeEncodeError:
@@ -105,3 +144,25 @@ def project_reg_mail(project):
             app.logger.debug("Sponsor confirmation sent")
         except SMTPException as error:
             app.logger.warning("SMTP ERROR\n%s"%error)
+
+def mail(to,message,subject):
+    if to == 1:
+        queries = (Sponsor.query,)
+    if to == 2:
+        queries = (Student.query,)
+    if to == 3:
+        queries = (Sponsor.query,Student.query)
+    if to == 4:
+        msg = Message(recipients=[app.config['CONTACT'].get('email')],
+                      body=message,
+                      subject=subject)
+        mail.send(msg)
+        return None
+    with mail.connect() as conn:
+        for query in queries:
+            for user in query.all():
+                msg = Message(recipients=[user.email],
+                              body=message,
+                              subject=subject)
+                conn.send(msg)
+    return None

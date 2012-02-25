@@ -6,7 +6,7 @@ from flaskext.login import LoginManager, current_user, login_required,\
                            login_user, logout_user, AnonymousUser,\
                            confirm_login, fresh_login_required, UserMixin
 
-from RGVRSEF import app
+from .. import app
 from .models import Admin
 from . import admin
 

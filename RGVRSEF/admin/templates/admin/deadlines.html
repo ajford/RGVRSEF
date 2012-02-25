@@ -4,7 +4,12 @@
 <table class='compact'>
     {% for deadline in deadlines -%}
     <tr><td><a href="{{url_for('.deadline',id=deadline.id)}}">
-                {{deadline.text}}</a></td>
+        {%- if deadline.text -%}
+            {{deadline.text}}
+        {%- else -%}
+            BLANK
+        {%- endif -%}
+        </a></td>
         <td>{{deadline.date.strftime("%Y-%m-%d")}}</td></tr>
     {% else %}
     <tr><td>No Deadlines</td></tr>

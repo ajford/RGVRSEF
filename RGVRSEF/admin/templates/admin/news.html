@@ -4,7 +4,12 @@
 <table class='compact'>
     {% for newsitem in news -%}
     <tr><td><a href="{{url_for('.editnews',id=newsitem.id)}}">
-                {{newsitem.title}}</a></td>
+            {%- if newsitem.title -%}
+                {{newsitem.title}}
+            {%- else -%}
+                BLANK
+            {%- endif -%}
+            </a></td>
         <td>{{newsitem.date.strftime("%Y-%m-%d")}}</td></tr>
     {% else %}
     <tr><td>No News</td></tr>

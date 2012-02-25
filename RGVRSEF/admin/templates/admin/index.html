@@ -20,7 +20,12 @@
     </table>
 </div> <!-- Stats -->
 <div class="downloads">
+    <h3>Downloads</h3>
     <ul class='nobullet'>
-        <li><a href="{{url_for('.downloadcsv')}}">Download as CSV</a></li>
+        <li><a href="{{url_for('.projectcsv')}}">
+            Download Projects as CSV</a></li>
+        <li><a href="{{url_for('.participantcsv')}}">
+            Download Participants as CSV</a></li>
+    </ul>
 </div> <!-- downloads -->
 {% endblock content %}

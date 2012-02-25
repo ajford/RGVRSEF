@@ -4,7 +4,12 @@
 <table class='compact'>
     {% for district in districts -%}
     <tr><td><a href="{{url_for('.district',id=district.id)}}">
-            {{district.name}}</a></td>
+            {%- if district.name -%}
+                {{district.name}}
+            {%- else -%}
+                BLANK
+            {%- endif -%}
+            </a></td>
         <td>{{district.schools.count()}} schools</td></tr>
     {% else %}
     <tr><td>No Districts</td></tr>
