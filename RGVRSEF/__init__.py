@@ -47,9 +47,12 @@ def sig_expired(e):
 
 @app.route('/')
 def index():
-    deadlines = models.Deadline.query.order_by(models.Deadline.date).all()
+    today = date.today()
+    deadlines = models.Deadline.query.order_by(models.Deadline.date)
+    deadlines = deadlines.filter(models.Deadline.date>=today).all()
     news = models.News.query.order_by(models.News.date.desc()).first()
-    return render_template("index.html", deadlines=deadlines, news=news)
+    return render_template("index.html", deadlines=deadlines, news=news,
+                        today=today)
 
 @app.route('/news')
 def news():

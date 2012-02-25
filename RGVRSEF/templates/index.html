@@ -16,7 +16,11 @@
 		<h3>DEADLINES</h3> <br />
         <ul class='nobullet'>
         {% for deadline in deadlines -%}
+        {% if deadline.date == today %}
+        <li class="warning">{{deadline.date.strftime("%b. %d")}} - {{deadline.text}}</li>
+        {% else %}
         <li>{{deadline.date.strftime("%b. %d")}} - {{deadline.text}}</li>
+        {% endif %}
         {%- endfor %}	
         </ul>
 		</div>
