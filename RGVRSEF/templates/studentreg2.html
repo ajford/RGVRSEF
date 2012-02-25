@@ -3,8 +3,8 @@
 {% block title %} Student Registration {% endblock %}
 
 {% block content %} 
-
-<div id="studentpersonal">	
+<div class='clear'></div>
+<div id="formbox" class='left'>	
 	<form method="POST" action="{{url_for('studentreg2')}}">
 	<table>
 		{{ fieldtable(form,'firstname') }}
@@ -20,5 +20,12 @@
 	</table>
 	</form>
 </div>
+<div id='explination' class='right'>
+    <p>Please enter your information on the right.</p>
+    <p>If you do not have an email, leave the email field blank. It is
+    recommended that you enter an email if you have one, as it will be used to
+    notify you of deadlines and any important information regarding your
+    project.</p>
+</div> <!-- explination -->
 
 {% endblock %}

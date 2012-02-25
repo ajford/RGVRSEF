@@ -4,8 +4,7 @@
 
 {% block content %} 
 
-<p> This to submit project info </p>
-<div id="projectinfo">
+<div id="formbox" class='left'>
 	<form method="POST" action="{{url_for('studentreg3')}}">
 		{{ form.hidden_tag() }}
 		<table>
