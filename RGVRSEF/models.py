@@ -32,8 +32,8 @@ class Student(db.Model):
                 'lastname': self.lastname, 'email': self.email,
                 'address': self.address, 'city': self.city,
                 'zip': self.zip, 'grade': self.grade, 'age':self.age,
-                'project': self.project_id,'team_leader': self.team_leader,
-                'sponsor': self.sponsor_id}
+                'project_id': self.project_id,'team_leader': self.team_leader,
+                'sponsor_id': self.sponsor_id}
 
 class Project(db.Model):
     id = db.Column(db.Integer, db.Sequence('project_id_seq',start=1000),
@@ -55,7 +55,7 @@ class Project(db.Model):
         return {'id': self.id, 'title':self.title, 
                 'individual':self.individual, 
                 'student': [ x.id for x in self.student.all() ],
-                'category': str(self.category), 
+                'category_id': str(self.category), 
                 'division': str(self.division),
                 'floor': self.floor}
 
