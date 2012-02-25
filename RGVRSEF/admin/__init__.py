@@ -101,8 +101,8 @@ def project(id):
     project = Project.query.get_or_404(id)
     leader =project.student.filter(Student.team_leader==True).first()
     form = mainforms.ProjectForm(obj=project)
-    query=Category.query.order_by('id')
-    form.category_id.choices=[(x.id,x.name) for x in query.all()]
+    #query=Category.query.order_by('id')
+    #form.category_id.choices=[(x.id,x.name) for x in query.all()]
     if form.validate_on_submit():
         form.populate_obj(project)
         db.session.commit()

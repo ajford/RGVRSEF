@@ -10,9 +10,6 @@
         <tr><td></td>
             <td>Table</td>
             <td>{{seniors.filter_by(floor=False).count()}}</td></tr>
-        <tr><td></td>
-            <td>Elect.</td>
-            <td>{{seniors.filter_by(electricity=True).count()}}</td></tr>
         <tr><th>Junior</th><td>Total: {{ juniors.count() }}</td></tr>
         <tr><td></td>
             <td>Floor</td>
@@ -20,9 +17,6 @@
         <tr><td></td>
             <td>Table</td>
             <td>{{juniors.filter_by(floor=False).count()}}</td></tr>
-        <tr><td></td>
-            <td>Elect.</td>
-            <td>{{juniors.filter_by(electricity=True).count()}}</td></tr>
     </table>
 </div> <!-- Stats -->
 <div class="downloads">
