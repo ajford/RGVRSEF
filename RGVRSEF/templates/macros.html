@@ -3,19 +3,36 @@
 {% endmacro %}
 
 {% macro fieldtable(form,fieldname,flip=false) %}
+{% set req='' %}
+{% if form.__getattribute__(fieldname).flags.required %}
+    {% set req='*'%}
+{% endif %}
 {% if not flip %}
-    <tr><td> {{ form.__getattribute__(fieldname).label }}:<br>
-            <span class='warning'>
-                {{form.errors.get(fieldname,None)|nonone|first}}</span></td>
+    <tr><td> {{ form.__getattribute__(fieldname).label }}
+        {%- if form.__getattribute__(fieldname).flags.required -%}
+        <span class='warning'> * </span>
+        {%- endif -%}
+        :<br> 
+        <span class='warning'> 
+                {{-form.errors.get(fieldname,None)|nonone|first-}}</span></td>
         <td>{{ form.__getattribute__(fieldname)(**kwargs) }}</td></tr>
 {% else %}
     <tr><td>{{ form.__getattribute__(fieldname)(**kwargs) }}</td>
         <td> {{ form.__getattribute__(fieldname).label }}
+        {%- if form.__getattribute__(fieldname).flags.required -%}
+        <span class='warning'>*</span>
+        {%- endif -%}
+            :<br> 
             <span class='warning'>
-                {{form.errors.get(fieldname,None)|nonone|first}}</span></td>
+                {{-form.errors.get(fieldname,None)|nonone|first-}}</span></td>
     </tr>
 {% endif %}    
 {% endmacro %} 
+
 {% macro submitify(value="submit") %}
+<tr><td><div class='padding'></div></td></tr>
 <tr><td></td><td><input type='submit' value='{{value}}'></td></tr>
+<tr><td><div class='padding'></div></td></tr>
+<tr><td colspan='2'><span class='smallfont'>Required fields are marked with a 
+        <span class='warning'>*</span></span></td></tr>
 {% endmacro %}
