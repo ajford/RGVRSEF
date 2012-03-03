@@ -4,7 +4,8 @@ import subprocess
 from datetime import date,timedelta
 from hashlib import sha256
 
-from flaskext.script import Manager,Server,Shell,prompt_pass,prompt,prompt_bool
+from flask.ext.script import Manager,Server,Shell,prompt_pass,prompt,prompt_bool
+from flask.ext.celery import install_commands as install_celery_commands
 from sqlalchemy.exc import ProgrammingError
 
 from RGVRSEF import app
@@ -15,6 +16,7 @@ import RGVRSEF.tasks as tasks
 
 manager = Manager(app)
 manager.add_command("runserver", Server())
+install_celery_commands(manager)
 
 def password_valid():
     """ Prompts for root admin password and checks against db """

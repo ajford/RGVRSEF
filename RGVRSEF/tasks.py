@@ -9,10 +9,12 @@ from unicodedata import normalize
 
 from flask import (Flask, make_response,redirect, url_for,
                     render_template,json,request,flash,session)
+from flask.ext.celery import Celery
 
 from RGVRSEF import app, mail, Message
 import RGVRSEF.models as models
 
+celery = Celery(app)
 
 fx = lambda x: normalize('NFKD',x).encode('ascii','ignore')
 
@@ -26,6 +28,7 @@ PARTICIPANT_CSV_FIELDS = ['Student','Project ID',
 def toexcel():
    pass 
 
+@celery.task(name="tasks.projectcsv")
 def projectcsv():
     CSV_FIELDS = PROJECT_CSV_FIELDS
     f = StringIO()
@@ -71,6 +74,7 @@ def projectcsv():
 
     return f.getvalue()
 
+@celery.task(name="tasks.participantcsv")
 def participantcsv():
     CSV_FIELDS = PARTICIPANT_CSV_FIELDS
     f = StringIO()
@@ -108,6 +112,7 @@ def participantcsv():
 def mailtest():
    pass
 
+@celery.task(name="tasks.sponsor_mail")
 def sponsor_mail(sponsor):
     if not app.config['DEVELOPMENT']:
         conf_email = Message("RGV RSEF - Sponsor Registration")
@@ -120,6 +125,7 @@ def sponsor_mail(sponsor):
         except SMTPException as error:
             app.logger.warning("SMTP ERROR\n%s"%error)
 
+@celery.task(name="tasks.project_reg_mail")
 def project_reg_mail(project):
     if not app.config['DEVELOPMENT']:
         leader =project.student.filter(models.Student.team_leader==True).first()
@@ -145,6 +151,7 @@ def project_reg_mail(project):
         except SMTPException as error:
             app.logger.warning("SMTP ERROR\n%s"%error)
 
+@celery.task(name="tasks.mail")
 def mail(to,message,subject):
     if to == 1:
         queries = (Sponsor.query,)
