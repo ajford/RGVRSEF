@@ -26,6 +26,7 @@ class MailForm(Form):
                      (4,'Test - Sent to CONTACT')],coerce=int,
                      validators=[Required(), AnyOf((1,2,3),
                      message="You have selected an invalid choice")])
+    sender = SelectField('From',coerce=int)
     subject = TextField('Subject', validators=[Required(),Length(3)])
     message = TextAreaField('Message', validators=[Required(),Length(3)])
 

@@ -5,7 +5,7 @@ from StringIO import StringIO
 from flask import Blueprint, render_template, abort, request, url_for,\
                   flash, redirect, make_response
 from flaskext.login import current_user, login_required, fresh_login_required
-from flaskext.wtf import Optional
+from flask.ext.wtf import Optional
 
 from RGVRSEF import app, mail, Message
 from RGVRSEF.models import *
@@ -392,6 +392,9 @@ def newschool():
 @login_required
 def mailer():
     form = MailForm()
+    contacts = app.config['CONTACTS']
+    senders = [(x,contacts[x]['name']) for x in range(len(contacts))]
+    form.sender.choices = senders
     if form.validate_on_submit():
         if form.to.data == 1:
             queries = (Sponsor.query,)
@@ -400,17 +403,19 @@ def mailer():
         if form.to.data == 3:
             queries = (Sponsor.query,Student.query)
         if form.to.data == 4:
-            msg = Message(recipients=[app.config['CONTACT'].get('email')],
+            msg = Message(recipients=[contacts[form.sender.data].get('email')],
                           body=form.message.data,
-                          subject=form.subject.data)
+                          subject=form.subject.data,
+                          sender = contacts[form.sender.data].get('email'))
             mail.send(msg)
             return render_template('admin/message.html',message="Mail Sent.")
         with mail.connect() as conn:
             for query in queries:
                 for user in query.all():
                     msg = Message(recipients=[user.email],
-                                  body=form.message.data,
-                                  subject=form.subject.data)
+                              body=form.message.data,
+                              subject=form.subject.data,
+                              sender = contacts[form.sender.data].get('email'))
                     conn.send(msg)
         return render_template('admin/message.html',message="Mail Sent.")
     return render_template('admin/mail.html',form=form)

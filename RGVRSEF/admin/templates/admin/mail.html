@@ -9,6 +9,7 @@
     {{ form.hidden_tag() }}
     <table>
         {{ fieldtable(form,'to') }}
+        {{ fieldtable(form,'sender') }}
         {{ fieldtable(form,'subject') }}
         {{ fieldtable(form,'message',cols='30',rows='10') }}
         {{ submitify() }}

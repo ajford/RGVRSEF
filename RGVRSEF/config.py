@@ -15,13 +15,15 @@ SECRET_KEY = 'developmentKey'
 SIGNING_KEY = 'signingKey'
 SIGNING_MAX_AGE = 18000 
 DEVELOPMENT = True
-TESTING = False
+TESTING = True
 DEBUG = True
 
 TITLE = "RGV Regional Science and Engineering Fair"
 YEAR = "2012"
-CONTACT = {'email':'contact@example.com','phone':'1235436789',
-            'name':'Contact Person'}
+CONTACTS = ({'email':'contact@example.com','phone':'1235436789',
+        'name':'Contact Person','title':'Example Title'},
+        {'email':'contact@example.com','phone':'1235436789',
+        'name':'Contact 2','title':'Example Title'})
 WEBMASTER = {'email':'Webmaster@example.com','phone':'1235436789',
         'name':'Webmaster'}
 
