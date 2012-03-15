@@ -44,15 +44,15 @@ the time of this writing they too are open source projects.
 
 
 
-[Flask][http://flask.pocoo.org]
-[WTForms][http://wtforms.simplecodes.com/]
-[Flask-WTF][http://packages.python.org/Flask-WTF/]
-[SQLAlchemy][http://www.sqlalchemy.org/]
-[Flask-SQLAlchemy][http://packages.python.org/Flask-SQLAlchemy/]
-[Flask-Script][http://packages.python.org/Flask-Script/]
-[Flask-Login][http://packages.python.org/Flask-Login/]
-[It's Dangerous][http://packages.python.org/itsdangerous/]
-[Flask-Mail][http://packages.python.org/flask-mail/]
-[epio][https://www.ep.io/]
-[Gunicorn][http://gunicorn.org/]
-[Deployment Options][http://flask.pocoo.org/docs/deploying/]
+[Flask]:http://flask.pocoo.org
+[WTForms]:http://wtforms.simplecodes.com/
+[Flask-WTF]:http://packages.python.org/Flask-WTF/
+[SQLAlchemy]:http://www.sqlalchemy.org/
+[Flask-SQLAlchemy]:http://packages.python.org/Flask-SQLAlchemy/
+[Flask-Script]:http://packages.python.org/Flask-Script/
+[Flask-Login]:http://packages.python.org/Flask-Login/
+[It's Dangerous]:http://packages.python.org/itsdangerous/
+[Flask-Mail]:http://packages.python.org/flask-mail/
+[epio]:https://www.ep.io/
+[Gunicorn]:http://gunicorn.org/
+[Deployment Options]:http://flask.pocoo.org/docs/deploying/
