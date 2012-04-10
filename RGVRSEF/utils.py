@@ -89,7 +89,7 @@ def studentcsv():
                           STUDENT_FIELDS[4]: student.school.name,
                           STUDENT_FIELDS[5]: str(project.individual),
                           STUDENT_FIELDS[6]: str(project.forms.first().vafa or
-                                            projects.forms.first().vafb),
+                                            project.forms.first().vafb),
                           STUDENT_FIELDS[7]: str(project.forms.first().hsf),
                           STUDENT_FIELDS[8]: str(project.forms.first().phbaf)}
             except AttributeError as error:
