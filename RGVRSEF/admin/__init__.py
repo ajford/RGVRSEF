@@ -285,6 +285,16 @@ def downloadcsv():
                     filename='registrants.csv')
     return resp
 
+@admin.route('/download/participantcsv')
+@login_required
+def studentcsv():
+    resp = make_response()
+    resp.mimetype = 'text/csv'
+    resp.data = utils.studentcsv()
+    resp.headers.add('Content-Disposition', 'attachment', 
+                    filename='participants.csv')
+    return resp
+
 @admin.route('/news')
 @login_required
 def news():

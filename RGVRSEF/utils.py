@@ -19,6 +19,9 @@ fx = lambda x: normalize('NFKD',x).encode('ascii','ignore')
 CSV_FIELDS = ['Project ID','Student 1','Student 2', 'Student 3', 
                 'Project Title', 'Category', 'Division', 'School',
                 'District','Sponsor Name']
+STUDENT_FIELDS = ['First Name','Last Name', 'Grade', 'Gender', 'School',
+                'Individual', 'Vertabrate', 'Human Participant', 'H.B.A.']
+
 def toexcel():
    pass 
 
@@ -55,10 +58,41 @@ def tocsv():
                 except AttributeError as error:
                     app.logger.error('ProjID:%s - ID:%s - %s %s\n%s\n%s' % 
                             (student.id, student.project.id, student.firstname,
-                             student.lastname,pformat(vars(student.project)),
+                             student.lastname,vars(student.project),
                              error))
 
 
+                try:
+                    writer.writerow(record)
+                except UnicodeEncodeError:
+                    app.logger.error("Unicode Error:\n%s"%record)
+
+    return f.getvalue()
+
+def studentcsv():
+    f = StringIO()
+    writer = DictWriter(f,STUDENT_FIELDS)
+    writer.writerow( dict( (x,x) for x in STUDENT_FIELDS) )
+    for student in models.Student.query.all():
+        if student.project_id:
+            try:
+                project = student.project
+                record = {STUDENT_FIELDS[0]: fx(student.firstname),
+                          STUDENT_FIELDS[1]: fx(student.lastname),
+                          STUDENT_FIELDS[2]: student.grade,
+                          STUDENT_FIELDS[3]: student.gender,
+                          STUDENT_FIELDS[4]: student.school.name,
+                          STUDENT_FIELDS[5]: str(project.individual),
+                          STUDENT_FIELDS[6]: str(project.forms.first().vafa or
+                                            projects.forms.first().vafb),
+                          STUDENT_FIELDS[7]: str(project.forms.first().hsf),
+                          STUDENT_FIELDS[8]: str(project.forms.first().phbaf)}
+            except AttributeError as error:
+                app.logger.error('ProjID:%s - ID:%s - %s %s\n%s\n%s' % 
+                        (student.id, student.project.id, student.firstname,
+                         student.lastname,vars(student.project),
+                         error))
+            if record:
                 try:
                     writer.writerow(record)
                 except UnicodeEncodeError:
