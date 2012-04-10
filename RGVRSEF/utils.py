@@ -2,13 +2,18 @@ from hashlib import sha256
 from datetime import date
 from smtplib import SMTPException
 from StringIO import StringIO
-from csv import DictWriter
 from unicodedata import normalize
 
 #import xlwt
 
 from flask import (Flask, make_response,redirect, url_for,
                     render_template,json,request,flash,session)
+
+try:
+    from unicodecsv import DictWriter
+except ImportError:
+    from csv import DictWriter
+
 
 from RGVRSEF import app, mail, Message
 import RGVRSEF.models as models
