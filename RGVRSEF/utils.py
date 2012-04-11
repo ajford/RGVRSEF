@@ -24,8 +24,9 @@ fx = lambda x: normalize('NFKD',x).encode('ascii','ignore')
 CSV_FIELDS = ['Project ID','Student 1','Student 2', 'Student 3', 
                 'Project Title', 'Category', 'Division', 'School',
                 'District','Sponsor Name']
-STUDENT_FIELDS = ['First Name','Last Name', 'Grade', 'Gender', 'School',
-                'Individual', 'Vertabrate', 'Human Participant', 'H.B.A.']
+STUDENT_FIELDS = ['Project ID', 'Category', 'First Name','Last Name', 'Grade',
+                'Gender', 'School', 'Individual', 'Vertabrate', 
+                'Human Participant', 'H.B.A.']
 
 def toexcel():
    pass 
@@ -82,16 +83,18 @@ def studentcsv():
         if student.project_id:
             try:
                 project = student.project
-                record = {STUDENT_FIELDS[0]: fx(student.firstname),
-                          STUDENT_FIELDS[1]: fx(student.lastname),
-                          STUDENT_FIELDS[2]: student.grade,
-                          STUDENT_FIELDS[3]: student.gender,
-                          STUDENT_FIELDS[4]: student.school.name,
-                          STUDENT_FIELDS[5]: str(project.individual),
-                          STUDENT_FIELDS[6]: str(project.forms.first().vafa or
+                record = {STUDENT_FIELDS[0]: student.project_id,
+                          STUDENT_FIELDS[1]: student.project.category.name,
+                          STUDENT_FIELDS[2]: fx(student.firstname),
+                          STUDENT_FIELDS[3]: fx(student.lastname),
+                          STUDENT_FIELDS[4]: student.grade,
+                          STUDENT_FIELDS[5]: student.gender,
+                          STUDENT_FIELDS[6]: student.school.name,
+                          STUDENT_FIELDS[7]: str(project.individual),
+                          STUDENT_FIELDS[8]: str(project.forms.first().vafa or
                                             project.forms.first().vafb),
-                          STUDENT_FIELDS[7]: str(project.forms.first().hsf),
-                          STUDENT_FIELDS[8]: str(project.forms.first().phbaf)}
+                          STUDENT_FIELDS[9]: str(project.forms.first().hsf),
+                          STUDENT_FIELDS[10]: str(project.forms.first().phbaf)}
             except AttributeError as error:
                 app.logger.error('ProjID:%s - ID:%s - %s %s\n%s\n%s' % 
                         (student.id, student.project.id, student.firstname,
