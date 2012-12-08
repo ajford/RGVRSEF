@@ -10,4 +10,6 @@ SQLAlchemy==0.7.3
 WTForms>=1.0
 Werkzeug>=0.8
 unicodecsv
+psycopg2
 gunicorn
+gevent
