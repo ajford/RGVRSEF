@@ -1,6 +1,6 @@
 from hashlib import sha256
 
-from flaskext.wtf import (Form, TextField, TextAreaField, BooleanField,
+from flask.ext.wtf import (Form, TextField, TextAreaField, BooleanField,
                          SelectField, RadioField, PasswordField, Required,
                          Length, Optional, Email, NumberRange, EqualTo,
                          SubmitField)

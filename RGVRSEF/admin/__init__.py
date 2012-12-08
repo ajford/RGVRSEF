@@ -4,7 +4,7 @@ from StringIO import StringIO
 
 from flask import Blueprint, render_template, abort, request, url_for,\
                   flash, redirect, make_response
-from flaskext.login import current_user, login_required, fresh_login_required
+from flask.ext.login import current_user, login_required, fresh_login_required
 from flask.ext.wtf import Optional
 
 from RGVRSEF import app, mail, Message

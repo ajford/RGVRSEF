@@ -1,5 +1,5 @@
 
-from flaskext.wtf import (Form, TextField, TextAreaField, DateField,
+from flask.ext.wtf import (Form, TextField, TextAreaField, DateField,
         SelectField, Required, Length, NumberRange, AnyOf )
 
 class DeadlineForm(Form):

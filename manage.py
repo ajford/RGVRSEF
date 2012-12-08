@@ -4,7 +4,7 @@ import subprocess
 from datetime import date,timedelta
 from hashlib import sha256
 
-from flaskext.script import Manager,Server,prompt_pass,prompt,prompt_bool
+from flask.ext.script import Manager,Server,prompt_pass,prompt,prompt_bool
 from RGVRSEF import app
 import RGVRSEF.models as models
 import RGVRSEF.admin.models as admin_models

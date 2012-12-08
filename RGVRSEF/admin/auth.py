@@ -2,7 +2,7 @@ from hashlib import sha256
 
 from flask import Blueprint, render_template, abort, request, url_for,\
                   flash, redirect
-from flaskext.login import LoginManager, current_user, login_required,\
+from flask.ext.login import LoginManager, current_user, login_required,\
                            login_user, logout_user, AnonymousUser,\
                            confirm_login, fresh_login_required, UserMixin
 
