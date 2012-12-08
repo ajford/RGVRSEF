@@ -1,25 +1,16 @@
 from os import environ
 
-try: 
-    from bundle_config import config
-    SQLALCHEMY_DATABASE_URI = 'postgresql://%s:%s@%s/%s'%(
-                config['postgres']['username'],
-                config['postgres']['password'],
-                config['postgres']['host'],
-                config['postgres']['database'])
-except ImportError:
-    SQLALCHEMY_DATABASE_URI = environ.get('SQLALCHEMY_URI',
-                                    'sqlite:///rgvrsef.db')
+SQLALCHEMY_DATABASE_URI = environ.get('DATABASE_URL',None)
 
-SECRET_KEY = 'developmentKey'
-SIGNING_KEY = 'signingKey'
-SIGNING_MAX_AGE = 18000 
-DEVELOPMENT = True
-TESTING = True
-DEBUG = True
+SECRET_KEY = environ.get('SECRET_KEY',None)
+SIGNING_KEY = environ.get('SIGNING_KEY',None)
+SIGNING_MAX_AGE = environ.get('SIGNING_MAX_AGE',1800)
+DEVELOPMENT = bool(environ.get('DEVELOPMENT',False))
+TESTING = bool(environ.get('TESTING',False))
+DEBUG = bool(environ.get('DEBUG',False))
 
 TITLE = "RGV Regional Science and Engineering Fair"
-YEAR = "2012"
+YEAR = environ.get('YEAR',None)
 CONTACTS = ({'email':'contact@example.com','phone':'1235436789',
         'name':'Contact Person','title':'Example Title'},
         {'email':'contact@example.com','phone':'1235436789',
@@ -27,15 +18,15 @@ CONTACTS = ({'email':'contact@example.com','phone':'1235436789',
 WEBMASTER = {'email':'Webmaster@example.com','phone':'1235436789',
         'name':'Webmaster'}
 
-STUDENT_ACTIVE = True
+STUDENT_ACTIVE = bool(environ.get('STUDENT_ACTIVE',False))
 
 # Mail settings
-MAIL_SERVER = "mail.example.com"
-MAIL_PORT = 25
-MAIL_USERNAME = "TEST"
-MAIL_PASSWORD = "Wouldn't You Like To Know"
-MAIL_FAIL_SILENTLY = False
-DEFAULT_MAIL_SENDER = "test@example.com"
+MAIL_SERVER = environ.get('MAIL_SERVER',None)
+MAIL_PORT = environ.get('MAIL_PORT',None)
+MAIL_USERNAME = environ.get('MAIL_USERNAME',None)
+MAIL_PASSWORD = environ.get('MAIL_PASSWORD',None)
+MAIL_FAIL_SILENTLY = bool(environ.get('MAIL_FAIL_SILENTLY',True))
+DEFAULT_MAIL_SENDER = environ.get('DEFAULT_MAIL_SENDER',None)
 
 # Category settings
 CATEGORIES = (  ("Animal Science",False),
