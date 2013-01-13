@@ -15,6 +15,7 @@
     </table>
 </form>
 <table>
+    <tr><th>Schools</th></tr>
     {% for school in schools %}
     <tr><td><a href="{{url_for('.school',id=school.id)}}">
             {{ school.name }}</a></td>
