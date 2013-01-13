@@ -434,6 +434,8 @@ def mailer():
 @login_required
 def sponsorconf(id):
     sponsor = Sponsor.query.get_or_404(id)
+    print "Sending: %s(%s) - %s"%(sponsor.firstname+' '+sponsor.lastname,
+                         sponsor.id, sponsor.email)
     utils.sponsor_mail(sponsor)
     message = "Confirmation resent to %s, %s <%s>"%(sponsor.lastname,
                             sponsor.firstname,sponsor.email)

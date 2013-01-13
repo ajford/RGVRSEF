@@ -113,23 +113,32 @@ def mailtest():
 
 def sponsor_mail(sponsor):
     if not app.config['DEVELOPMENT']:
-        conf_email = Message("RGV RSEF - Sponsor Registration")
+        print "Not in Dev mode"
+        sender = app.config['CONTACTS'][0]
+        conf_email = Message("RGV RSEF - Sponsor Registration",
+                             sender=(sender['name'],sender['email']))
         conf_email.html = render_template('email_sponsor_confirmation.html',
-                                    contact=app.config['CONTACT'],
-                                    sponsor=sponsor)
+                                    contact=sender, sponsor=sponsor)
         conf_email.add_recipient(sponsor.email)
+        mail.fail_silently = False
         try:
             mail.send(conf_email)
         except SMTPException as error:
+            print "SMTP ERROR!!!"
             app.logger.warning("SMTP ERROR\n%s"%error)
+    else:
+        print "In Dev Mode"
+
 
 def project_reg_mail(project):
-    if not app.config['DEVELOPMENT']:
+    if 'DEVELOPMENT' not in app.config:
+        sender = app.config['CONTACTS'][0]
         leader =project.student.filter(models.Student.team_leader==True).first()
-        conf_email = Message("RGV RSEF - Registration")
+        conf_email = Message("RGV RSEF - Registration",
+                            sender=(sender['name'],sender['email']))
         conf_email.html = render_template('email_confirmation.html',
-                                    contact=app.config['CONTACT'],
-                                    leader=leader, project=project)
+                                    contact=sender, leader=leader,
+                                    project=project)
         conf_email.recipients = [x.email for x in leader.project.student]
         try:
             mail.send(conf_email)

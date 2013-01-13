@@ -27,7 +27,7 @@ STUDENT_ACTIVE = bool(environ.get('STUDENT_ACTIVE',False))
 
 # Mail settings
 MAIL_SERVER = environ.get('MAIL_SERVER',None)
-MAIL_PORT = environ.get('MAIL_PORT',None)
+MAIL_PORT = int(environ.get('MAIL_PORT',None))
 MAIL_USERNAME = environ.get('MAIL_USERNAME',None)
 MAIL_PASSWORD = environ.get('MAIL_PASSWORD',None)
 MAIL_FAIL_SILENTLY = bool(environ.get('MAIL_FAIL_SILENTLY',True))
