@@ -350,7 +350,7 @@ def sponsordistrict():
 
 @app.route('/contact')
 def contact():
-    return render_template("contact.html", contact=app.config['CONTACT'],
+    return render_template("contact.html", contacts=app.config['CONTACTS'],
                             webmaster=app.config['WEBMASTER'])
 
 if app.config['TESTING']:

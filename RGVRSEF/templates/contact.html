@@ -8,14 +8,17 @@
     <h3>Contact Us</h3>
     <p>You can contact us regarding registration via the following methods:</p>
     <blockquote>
-        <p><b>Email:</b>
-        <a href="mailto:{{ contact.email }}">{{ contact.email }}</a></p>
-        <p><b>Phone:</b> {{ contact.phone|phone }}</p>
+        {% for contact in contacts %}
+        <p><b>{{ contact.name }}, {{ contact.title }}</b><br>
+        Email: <a href="mailto:{{ contact.email }}">{{ contact.email }}</a><br>
+        Phone: {{ contact.phone|phone }}</p>
+        {% endfor %}
     </blockquote>
     <p>For issues with the website, please contact us via the following methods:</p>
     <blockquote>
         <p><b>Email:</b>
             <a href="mailto:{{ webmaster.email }}">{{ webmaster.email }}</a></p>
     </blockquote>
+</div>
 {% endblock content %}
 
