@@ -1,19 +1,48 @@
 {% extends "admin/layout.html" %}
 {% from "macros.html" import fieldtable, submitify %}
+{% from "admin/macros.html" import script %}
 
 {% block title %}Mailing{% endblock title%}
 
+{% block scripts %}
+{{ super() }}
+{{ script('default.js','.static') }}
+{% endblock scripts %}
+
 {% block content %}
 <h3>Mailing System</h3>
-<form method="POST" action="{{url_for('.mailer')}}">
-    {{ form.hidden_tag() }}
-    <table>
-        {{ fieldtable(form,'to') }}
-        {{ fieldtable(form,'sender') }}
-        {{ fieldtable(form,'subject') }}
-        {{ fieldtable(form,'message',cols='30',rows='10') }}
-        {{ submitify() }}
-    </table>
-</form>
+<div name="container">
+    <div style="float:left;width:50%;">
+        <form method="POST" action="{{url_for('.mailer')}}">
+            {{ form.hidden_tag() }}
+            <table>
+                {{ fieldtable(form,'to') }}
+                {{ fieldtable(form,'sender') }}
+                {{ fieldtable(form,'subject') }}
+                {{ fieldtable(form,'message',cols='30',rows='10') }}
+                {{ submitify() }}
+            </table>
+        </form>
+    </div>
+    <div style="float:left;background-color:red;width:50%;" class=boxify>
+        <h4 style="color:white;">Mass Resend</h4><br><br>
+            <form action="{{url_for('.sponsor_resend')}}" method="GET"
+                onSubmit="return resendConfirm('Sponsor')">
+                <input type="submit" value="Resend All Sponsor Confirmations">
+            </form><br><br>
+            <form action="{{url_for('.project_resend')}}" method="GET"
+                onSubmit="return resendConfirm('Project')">
+                <input type="submit" value="Resend All Project Confirmations">
+            </form><br><br>
+            <p style="color:white;">Warning, will resend confirmation to ALL
+            Sponsors/Projects. Please verify that there are no duplicates if
+            you do not wish resend confirmations to Sponsors/Projects with
+            multiple registrations.</p>
+    </div>
+</div>
+<div style="float:clear"></div>
+
+
+
 {% endblock content %}
 

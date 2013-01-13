@@ -449,3 +449,17 @@ def projectconf(id):
     message = "Confirmation resent about project #%s, %s"%(project.id,
                                     project.title)
     return render_template('admin/message.html',message=message)
+
+@admin.route('/mailer/resend/sponsor/')
+@login_required
+def sponsor_resend():
+    utils.sponsor_resend_all()
+    message = "All sponsor confirmation emails resent."
+    return render_template('admin/message.html',message=message)
+
+@admin.route('/mailer/resend/project/')
+@login_required
+def project_resend():
+    utils.project_resend_all()
+    message = "All project confirmation emails resent."
+    return render_template('admin/message.html',message=message)

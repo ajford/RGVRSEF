@@ -4,6 +4,10 @@ function deleteConfirm(var1,var2,var3)
     return confirm("Are you sure you want to "+var3+": "+var1+", "+var2+"?")
 }
 
+function resendComfirm(var1)
+{
+    return confirm("Are you sure you want to resend all "+var1+" confirmations?")
+}
 
 function toggle(showHideDiv,switchTextDiv)
 {

@@ -111,9 +111,19 @@ def studentcsv():
 def mailtest():
    pass
 
+def sponsor_resend_all():
+    if not app.config['DEVELOPMENT']:
+        for sponsor in models.Sponsor.query.all():
+            sponsor_mail(sponsor)
+
+def project_resend_all():
+    if not app.config['DEVELOPMENT']:
+        for project in models.Project.query.all():
+            project_reg_mail(project)
+          
+
 def sponsor_mail(sponsor):
     if not app.config['DEVELOPMENT']:
-        print "Not in Dev mode"
         sender = app.config['CONTACTS'][0]
         conf_email = Message("RGV RSEF - Sponsor Registration",
                              sender=(sender['name'],sender['email']))
@@ -124,10 +134,7 @@ def sponsor_mail(sponsor):
         try:
             mail.send(conf_email)
         except SMTPException as error:
-            print "SMTP ERROR!!!"
             app.logger.warning("SMTP ERROR\n%s"%error)
-    else:
-        print "In Dev Mode"
 
 
 def project_reg_mail(project):
