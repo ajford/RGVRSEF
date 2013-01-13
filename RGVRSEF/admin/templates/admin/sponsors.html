@@ -19,6 +19,8 @@
             {{sponsor.school.name}}</a></td>
         <td><a href="{{url_for('.district',id=sponsor.school.district.id)}}">
             {{ sponsor.school.district.name}}</a></td>
+        <td>{{ sponsor.students.filter_by(team_leader=True).count() }}
+            Projects</td>
         {% endif %}
     </tr>
     {% else %}
