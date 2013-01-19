@@ -25,7 +25,10 @@
 			{{ submitify('Update') }}
 		</table>
 </div><!-- projectinfo -->
+</form> 
+<form method="POST" action="{{url_for('.forms_submitted',id=id)}}">
 <div id="forminfo" class='right'>
+    {{ form.hidden_tag() }}
     <table>
         <tr><th colspan=2>Forms</th></tr>
         {% set forms = project.forms.first() %}
@@ -42,9 +45,14 @@
         {% else %}
         <tr><td>No Forms!</td></tr>
         {% endif %}
+        <tr><td></td></tr>
+        <tr><td></td></tr>
+        <tr><td></td></tr>
+        {{ fieldtable(forms_sub,'forms_submitted') }}
+        {{ submitify('Update forms status') }}
     </table>
 </div><!-- forminfo -->
-</form> 
+</form>
 <div class='clearpad'></div>
 <div id="projectbuttons" class='left'>
     <table class='compact'>

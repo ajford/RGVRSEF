@@ -11,7 +11,8 @@ from RGVRSEF import app, mail, Message
 from RGVRSEF.models import *
 from RGVRSEF import forms as mainforms
 from RGVRSEF import utils as utils
-from RGVRSEF.admin.forms import DeadlineForm, NewsForm, DistrictForm, SchoolForm, MailForm
+from RGVRSEF.admin.forms import (DeadlineForm, NewsForm, DistrictForm,
+            SchoolForm, MailForm,FormsSubmittedForm)
 
 def NYI():
     return render_template('admin/message.html', message="Not Yet Implemented")
@@ -104,6 +105,7 @@ def project(id):
     project = Project.query.get_or_404(id)
     leader =project.student.filter(Student.team_leader==True).first()
     form = mainforms.ProjectForm(obj=project)
+    forms_sub = FormsSubmittedForm(obj=project)
     query=Category.query.order_by('id')
     form.category_id.choices=[(x.id,x.name) for x in query.all()]
     if form.validate_on_submit():
@@ -111,7 +113,7 @@ def project(id):
         db.session.commit()
         return redirect(url_for('.projects'))
     return render_template('admin/project.html',form=form, id=id,
-                            project=project, leader=leader)
+                            forms_sub=forms_sub, project=project, leader=leader)
 
 @admin.route('/deleteproject/<int:id>', methods=["GET","POST"])
 @login_required
@@ -139,6 +141,16 @@ def formedit(id):
         return redirect(url_for('.project',id=forms.project_id))
     return render_template('admin/forms.html',form=form, id=id,
                             forms=forms)
+
+@admin.route('/forms/submitted/<int:id>', methods=['POST'])
+@login_required
+def forms_submitted(id):
+    project = Project.query.get_or_404(id)
+    form = FormsSubmittedForm()
+    if form.validate_on_submit():
+        form.populate_obj(project)
+        db.session.commit()
+    return redirect(url_for('.project',id=id))
 
 @admin.route('/student/<int:id>',methods=['GET','POST'])
 @login_required

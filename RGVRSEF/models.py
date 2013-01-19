@@ -46,6 +46,7 @@ class Project(db.Model):
     floor = db.Column(db.Boolean, default=False)
     electricity = db.Column(db.Boolean, default=False)
     forms = db.relationship("Forms",backref='project',lazy='dynamic')
+    forms_submitted = db.Column(db.Boolean, default=False)
     complete = db.Column(db.Boolean, default=False)
 
     def __repr__(self):

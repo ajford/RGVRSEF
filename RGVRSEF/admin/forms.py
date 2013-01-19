@@ -1,6 +1,6 @@
 
 from flask.ext.wtf import (Form, TextField, TextAreaField, DateField,
-        SelectField, Required, Length, NumberRange, AnyOf )
+        SelectField, BooleanField, Required, Length, NumberRange, AnyOf )
 
 class DeadlineForm(Form):
     text = TextField('Deadline Text', validators=[Required(),Length(3)])
@@ -30,4 +30,5 @@ class MailForm(Form):
     subject = TextField('Subject', validators=[Required(),Length(3)])
     message = TextAreaField('Message', validators=[Required(),Length(3)])
 
-
+class FormsSubmittedForm(Form):
+    forms_submitted = BooleanField('Forms Submitted')
