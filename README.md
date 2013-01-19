@@ -9,8 +9,10 @@ Based on [Flask][], [WTForms][] and [Flask-WTF][], [SQLAlchemy][] and
 [Flask-SQLAlchemy][], [Flask-Script][], [Flask-Login][], [It's Dangerous][],
 [Flask-Mail][] and a few other nuts and bolts.
 
-We run this registration site on [epio][], and have included an epio.ini sample,
-for those interested in running this there as well.
+We run this registration site on [Heroku][], and have included an example of a
+.env file used to define the environment variables required to configure the
+application. These can also be used with [Foreman][] to manage 
+sample, for those interested in running this there as well.
 
 ## Deployment ##
 
@@ -21,11 +23,15 @@ but for example, you can run the app in a near production ready mode via
 [Gunicorn][] using `gunicorn -w 4 RGVRSEF:app` (assuming you have gunicorn
 installed).
 
+If you use the included Procfile in conjunction with [Foreman][], you can also
+run `foreman start` to start a production rated server. The included Procfile
+uses [Gunicorn][], so that must be installed to use Foreman.
+
 For some examples on flask deployment, see the flask documentation section
 [Deployment Options][].
 
-Again, we use epio for deployment, and for more on epio deployment of this app,
-see `DEPLOYMENT.md`.
+Again, we use [Heroku][] for deployment, and for more on Heroku deployment of
+this app, see `DEPLOYMENT.md`.
 
 ## Authors ##
 This software is written by Anthony J. Ford and Alejandro Garcia.
@@ -53,6 +59,7 @@ the time of this writing they too are open source projects.
 [Flask-Login]:http://packages.python.org/Flask-Login/
 [It's Dangerous]:http://packages.python.org/itsdangerous/
 [Flask-Mail]:http://packages.python.org/flask-mail/
-[epio]:https://www.ep.io/
+[Heroku]:http://heroku.com/
+[Foreman]:http://ddollar.github.com/foreman/
 [Gunicorn]:http://gunicorn.org/
 [Deployment Options]:http://flask.pocoo.org/docs/deploying/
