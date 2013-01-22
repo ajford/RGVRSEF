@@ -48,6 +48,7 @@ class Project(db.Model):
     forms = db.relationship("Forms",backref='project',lazy='dynamic')
     forms_submitted = db.Column(db.Boolean, default=False)
     complete = db.Column(db.Boolean, default=False)
+    notes = db.Column(db.Text)
 
     def __repr__(self):
         return "<Project %s - Div:%s - CID:%s>"%(self.id,self.division,

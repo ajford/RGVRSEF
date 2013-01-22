@@ -68,6 +68,7 @@ class ProjectForm(Form):
             validators=[Required()])
     floor=RadioField('Will you need floor space',
             choices=[('True','Yes'),('False','No')],validators=[Required()])
+    notes=TextAreaField('Notes')
 
 class FormsForm(Form):
     cas = BooleanField('Checklist for Adult Sponsor',id="cas",

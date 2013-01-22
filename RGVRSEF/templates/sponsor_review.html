@@ -5,14 +5,30 @@
         <h3>{{sponsor.lastname}},{{sponsor.firstname}}</h3>
         <h4>{{sponsor.school.name}} - {{sponsor.school.district.name}}</h4>
     </div>
-    <div id='sponsor_body'>
-        <ul class='nobullet'>
+    <div id='sponsor_body' style="padding-top:30px">
+        <!--<ul class='nobullet'>-->
+        <table>
             {% for student in sponsor.students.all() if student.team_leader %}
-            <li>{{student.lastname}},{{student.firstname}}<br />
-                {{student.project.title}}</li>
+            <tr><td style="font-weight:bold">{{student.project.title}}</td></tr>
+                
+            <tr><td>{{student.lastname}},{{student.firstname}}</td></tr>
+                {% for member in student.project.student.all() if not
+                student.team_leader %}
+                <tr><td>{{member.lastname}},{{member.firstname}}</td></tr>
+                {% endfor %}
+            <tr><td>Forms: 
+                    {% if student.project.forms_submitted -%}
+                    Submitted
+                    {% else -%}
+                    Not Submitted
+                    {%- endif %}</td></tr>
+            <tr><td>Notes:{{student.project.notes|nonone}}</td></tr>
+            <tr><td><br></td></tr>
+            <tr><td><br></td></tr>
             {% else %}
-            <li>No students registered yet</li>
+            <tr><td>No students registered yet</td></tr>
             {% endfor %}
+        </table>
     </div>
 {% endblock content %}
 

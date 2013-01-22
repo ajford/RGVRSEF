@@ -22,6 +22,7 @@
 			{{ fieldtable(form,'category_id') }}
 			{{ fieldtable(form,'division',class='nobullet') }}
 			{{ fieldtable(form,'floor',class='nobullet') }}
+			{{ fieldtable(form,'notes',cols=30,rows=7) }}
 			{{ submitify('Update') }}
 		</table>
 </div><!-- projectinfo -->
@@ -56,6 +57,7 @@
 <div class='clearpad'></div>
 <div id="projectbuttons" class='left'>
     <table class='compact'>
+        <tr><td><br></td></tr>
         <tr><td class="plainlink"> <a href='{{url_for('.projectconf',id=id)}}'> 
                     <button>Resend Confirmation Email</button></a></td>
         <td>
