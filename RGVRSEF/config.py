@@ -9,6 +9,7 @@ SIGNING_MAX_AGE = environ.get('SIGNING_MAX_AGE',1800)
 DEVELOPMENT = bool(environ.get('DEVELOPMENT',False))
 TESTING = bool(environ.get('TESTING',False))
 DEBUG = bool(environ.get('DEBUG',False))
+GOOGLE_ANALYTICS = environ.get('GOOGLE_ANALYTICS',None)
 
 TITLE = "RGV Regional Science and Engineering Fair"
 YEAR = environ.get('YEAR',None)
