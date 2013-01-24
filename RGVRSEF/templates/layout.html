@@ -60,7 +60,7 @@
         {% if config.get('GOOGLE_ANALYTICS',None) != None %}
         <script type="text/javascript">
           var _gaq = _gaq || [];
-          _gaq.push(['_setAccount', {{config['GOOGLE_ANALYTICS']}}]);
+          _gaq.push(['_setAccount', '{{config['GOOGLE_ANALYTICS']}}']);
           _gaq.push(['_trackPageview']);
 
           (function() {
