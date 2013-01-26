@@ -7,7 +7,6 @@
 {% endblock scripts %}
 
 {% block content %}
-<h4>{{get_flashed_messages()[0]}}</h4>
 {{ render_project_narrow(categories,districts,
 div_narrow,cat_narrow,dist_narrow,endpoint) }}
 <table class='compact'>

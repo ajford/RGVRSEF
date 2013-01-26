@@ -33,6 +33,10 @@
         </tr></table>
 
         <div class='padding'></div>
+        {% set flash_msg = get_flashed_messages()[0] %}
+        {% if flash_msg %}
+            <h4 class='boxify'>{{flash_msg}}</h4>
+        {% endif %}
         {% block content %}
         {% endblock content %}
         <div class='push'></div>
