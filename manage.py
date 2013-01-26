@@ -4,9 +4,12 @@ import subprocess
 from datetime import date,timedelta
 from hashlib import sha256
 
-from flask.ext.script import Manager,Server,prompt_pass,prompt,prompt_bool
+from flask.ext.script import Manager,Server,prompt_pass,prompt,prompt_bool,Shell
 from RGVRSEF import app
 import RGVRSEF.models as models
+import RGVRSEF.forms as forms
+import RGVRSEF.utils as utils
+import RGVRSEF.admin.forms as admin_forms
 import RGVRSEF.admin.models as admin_models
 
 manager = Manager(app)
@@ -23,6 +26,17 @@ def password_valid():
         print "Invalid Password"
         return False
 
+
+def _make_context():
+    return dict(app=app, models=models, forms=forms, utils=utils,
+            ctx=app.test_request_context(), admin_forms=admin_forms,
+            admin_models=admin_models)
+
+try:
+    manager.add_command("shell", Shell(use_bpython=True,
+                        make_context=_make_context))
+except TypeError:
+    manager.add_command("shell", Shell(make_context=_make_context))
 
 # Fill test values
 @manager.command
