@@ -21,9 +21,9 @@ import RGVRSEF.models as models
 
 fx = lambda x: normalize('NFKD',x).encode('ascii','ignore')
 
-CSV_FIELDS = ['Project ID','Student 1','Student 2', 'Student 3', 
+CSV_FIELDS = ['Project ID', 'Student 1', 'Student 2', 'Student 3', 
                 'Project Title', 'Category', 'Division', 'School',
-                'District','Sponsor Name']
+                'District', 'Sponsor Name', 'Forms Submitted', 'Notes']
 STUDENT_FIELDS = ['Project ID', 'Category', 'First Name','Last Name', 'Grade',
                 'Gender', 'School', 'Individual', 'Vertabrate', 
                 'Human Participant', 'H.B.A.']
@@ -52,7 +52,10 @@ def tocsv():
                               CSV_FIELDS[7]: student.school.name,
                               CSV_FIELDS[8]: student.school.district.name,
                               CSV_FIELDS[9]: fx("%s %s"%(student.sponsor.firstname,
-                                                    student.sponsor.lastname))}
+                                                    student.sponsor.lastname)),
+                              CSV_FIELDS[10]:fx(student.project.forms_submitted),
+                              CSV_FIELDS[11]: fx(student.project.notes),
+                              }
                     team = student.project.student
                     team = team.filter(models.Student.team_leader==False).limit(2)
                     team = team.all()
