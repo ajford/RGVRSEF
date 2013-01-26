@@ -141,7 +141,7 @@ def sponsor_mail(sponsor):
 
 
 def project_reg_mail(project):
-    if 'DEVELOPMENT' not in app.config:
+    if not app.config['DEVELOPMENT']:
         sender = app.config['CONTACTS'][0]
         leader =project.student.filter(models.Student.team_leader==True).first()
         conf_email = Message("RGV RSEF - Registration",
@@ -158,8 +158,8 @@ def project_reg_mail(project):
 
         spons_email = Message("RGV RSEF - Your student has registered")
         spons_email.html = render_template('email_student_confirmation.html',
-                                    contact=app.config['CONTACT'],
-                                    leader=leader, project=project)
+                                    contact=sender, leader=leader,
+                                    project=project)
         spons_email.add_recipient(leader.sponsor.email)
         try:
             mail.send(spons_email)
