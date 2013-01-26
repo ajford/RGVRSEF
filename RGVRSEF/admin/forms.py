@@ -20,15 +20,17 @@ class SchoolForm(Form):
     fax = TextField('Fax', validators=[Required(),Length(10)])
     district_id = SelectField('District', coerce=int)
 
-class MailForm(Form):
+class MailBase(Form):
+    sender = SelectField('From',coerce=int)
+    subject = TextField('Subject', validators=[Required(),Length(3)])
+    message = TextAreaField('Message', validators=[Required(),Length(3)])
+
+class MailForm(MailBase):
     to = SelectField('To', choices = [(1,'Sponsors'),(2,'Students'),
                      (3,'Students and Sponsors'),
                      (4,'Test - Sent to CONTACT')],coerce=int,
                      validators=[Required(), AnyOf((1,2,3),
                      message="You have selected an invalid choice")])
-    sender = SelectField('From',coerce=int)
-    subject = TextField('Subject', validators=[Required(),Length(3)])
-    message = TextAreaField('Message', validators=[Required(),Length(3)])
 
 class FormsSubmittedForm(Form):
     forms_submitted = BooleanField('Forms Submitted')
