@@ -36,7 +36,8 @@
             {% else %}
             <td>No Project</td>
             {% endif %}
-            <td>{{ student.lastname }}, {{student.firstname }}</td></tr>
+            <td><a href='{{url_for('.studentedit',id=student.id)}}'>
+                {{ student.lastname }}, {{student.firstname }}</a></td></tr>
         {% endfor %}
     </table>
 </div><!-- spons_students -->

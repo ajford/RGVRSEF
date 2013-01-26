@@ -190,15 +190,21 @@ def newstudent(id):
                         endpoint=url_for('.newstudent',id=id))
 
     
-@admin.route('/project/<int:proj_id>/deletestudent/<int:id>', 
+@admin.route('/project/<int:proj_id>/student/<int:id>/delete/', 
+                methods=["GET","POST"])
+@admin.route('/student/<int:id>/delete/', 
                 methods=["GET","POST"])
 @login_required
-def deletestudent(proj_id,id):
+def deletestudent(id,proj_id=None):
     student = Student.query.get_or_404(id)
+    sponsor_id = student.sponsor.id
     db.session.delete(student)
     db.session.commit()
     flash('Student successfully deleted.','info')
-    return redirect(url_for('.project',id=proj_id))
+    if proj_id:
+        return redirect(url_for('.project',id=proj_id))
+    else:
+        return redirect(url_for('.sponsor',id=sponsor_id))
 
 @admin.route('/sponsors')
 @login_required
