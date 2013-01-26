@@ -198,7 +198,7 @@ def newstudent(id):
 def deletestudent(id,proj_id=None):
     student = Student.query.get_or_404(id)
     sponsor_id = student.sponsor.id
-    if student.project.student.count() < 2:
+    if student.project and student.project.student.count() < 2:
         flash(
             'A project cannot have 0 students. Please add a new student first.',
             'info')
