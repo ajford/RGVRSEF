@@ -198,9 +198,14 @@ def newstudent(id):
 def deletestudent(id,proj_id=None):
     student = Student.query.get_or_404(id)
     sponsor_id = student.sponsor.id
-    db.session.delete(student)
-    db.session.commit()
-    flash('Student successfully deleted.','info')
+    if student.project.student.count() < 2:
+        flash(
+            'A project cannot have 0 students. Please add a new student first.',
+            'info')
+    else:
+        db.session.delete(student)
+        db.session.commit()
+        flash('Student successfully deleted.','info')
     if proj_id:
         return redirect(url_for('.project',id=proj_id))
     else:
