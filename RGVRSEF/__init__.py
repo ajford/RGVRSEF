@@ -104,7 +104,9 @@ def NYI():
 def index():
     deadlines = Deadline.query.order_by(Deadline.date).all()
     news = News.query.order_by(News.date.desc()).first()
-    return render_template("index.html", deadlines=deadlines, news=news)
+    active = app.config.get('STUDENT_ACTIVE',False)
+    return render_template("index.html", deadlines=deadlines, news=news,
+                            active=active)
 
 @app.route('/news')
 def news():

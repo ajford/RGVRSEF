@@ -1,51 +1,58 @@
 {% extends "layout.html" %}
 {% block content %}
 		<div class="news">
-            <h3>Recent News:</h3>
-            {% if news %}
-            <h4>{{ news.title }} -- {{ news.date.strftime("%b. %d") }}</h4>
-            <p>{{ news.text }}</p>
-            <a href="{{url_for('news')}}">
-                <span class="right">Past News Items</span></a>
-            {% else %}
-            <p>There seems to be no news at this time.</p>
-            {% endif %}
+      <h3>Recent News:</h3>
+      {% if news %}
+      <h4>{{ news.title }} -- {{ news.date.strftime("%b. %d") }}</h4>
+      <p>{{ news.text }}</p>
+      <a href="{{url_for('news')}}">
+          <span class="right">Past News Items</span></a>
+      {% else %}
+      <p>There seems to be no news at this time.</p>
+      {% endif %}
 		</div>
 
 		<div class="deadlines">
-		<h3>DEADLINES</h3> <br />
-        <ul class='nobullet'>
+      <h3>DEADLINES</h3> <br />
+      <ul class='nobullet'>
         {% for deadline in deadlines -%}
         <li>{{deadline.date.strftime("%b. %d")}} - {{deadline.text}}</li>
         {%- endfor %}	
-        </ul>
+      </ul>
 		</div>
 
 		<div class="locations">
-		<table class="locations" cellspacing="40">
-		<tr>
-		<th>		
-			High School Science Fair
-		</th>
-		<th>
-			Middle School Science Fair
-		</th>
-		</tr>	
-		<tr>
-		<td>Location: REK Center <br />
-		Address :  80 Fort Brown, Brownsville TX<br />
-		</td>
-		<td>Location: ITECC <br />
-		Address :  301 Mexico Blvd, Brownsville TX<br />
-		</td>
-		</tr>
-		</table>
+      <table class="locations" cellspacing="40">
+        <tr>
+          <th>		
+            High School Science Fair
+          </th>
+          <th>
+            Middle School Science Fair
+          </th>
+        </tr>	
+          <tr>
+          <td>Location: REK Center <br />
+          Address :  80 Fort Brown, Brownsville TX<br />
+          </td>
+          <td>Location: ITECC <br />
+          Address :  301 Mexico Blvd, Brownsville TX<br />
+          </td>
+        </tr>
+      </table>
 		</div>
+        
+    {% if active %}
+    {% set disabled='' %}
+    {% else %}
+    {% set disabled='disabled="disabled"' %}
+    {% endif %}
 
 		<div class="start">
-            If you are ready to begin registration, please click the button
-            below <div class='plainlink'><a href="{{url_for('studentreg1')}}">
-                 <button>Start Registration</button></a> </div>
-        </div>
+      If you are ready to begin registration, please click the button below 
+      <div class='plainlink'><a href="{{url_for('studentreg1')}}">
+        <input type='submit' {{disabled}} value='Start Registration'></a>
+      </div>
+    </div>
 
 {% endblock content %}
