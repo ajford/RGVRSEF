@@ -53,8 +53,8 @@ def tocsv():
                               CSV_FIELDS[8]: student.school.district.name,
                               CSV_FIELDS[9]: fx("%s %s"%(student.sponsor.firstname,
                                                     student.sponsor.lastname)),
-                              CSV_FIELDS[10]:fx(student.project.forms_submitted),
-                              CSV_FIELDS[11]: fx(student.project.notes),
+                              CSV_FIELDS[10]: student.project.forms_submitted,
+                              CSV_FIELDS[11]: student.project.notes,
                               }
                     team = student.project.student
                     team = team.filter(models.Student.team_leader==False).limit(2)
